@@ -101,15 +101,22 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const PRODUCT_IDS: Record<number, string> = {
+    1: import.meta.env.VITE_PRODUCT_ID_T1 || "7347dcf8-4b92-499c-ba68-6533c1ea70eb",
+    2: import.meta.env.VITE_PRODUCT_ID_T2 || "358f7435-921b-4367-abce-ccb7f951b437",
+    3: import.meta.env.VITE_PRODUCT_ID_T3 || "fdc7821a-7575-4c0f-93bf-f98eb921d841",
+  };
+  const API_BASE = import.meta.env.VITE_API_BASE || "https://moneyverse.network";
+
   async function handleCheckout() {
     if (!email) { setError("Please enter your email."); return; }
     setError(""); setLoading(true);
     try {
-      const res = await fetch("/api/checkout", {
+      const res = await fetch(`${API_BASE}/api/checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          productId: `tier_${tier.id}`,
+          productId: PRODUCT_IDS[tier.id],
           customerEmail: email,
           paymentMethod: method === "card" ? undefined : method === "ngn" ? "paystack" : "bitcoin",
           tier: tier.id,

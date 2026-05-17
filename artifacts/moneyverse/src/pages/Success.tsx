@@ -14,20 +14,15 @@ export default function Success() {
           You're in.
         </h1>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 18, color: "var(--mv-n400)", maxWidth: 480, lineHeight: 1.8, marginBottom: 16 }}>
-          Payment confirmed. Your next step is to create your student account — this gives you access to The Blueprint dashboard and your affiliate link.
+          Payment confirmed. Sign in with Google to access your Blueprint dashboard and affiliate link.
         </p>
         <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)", letterSpacing: "0.15em", marginBottom: 48 }}>
           RECEIPT SENT TO YOUR EMAIL · support@moneyverse.network
         </p>
         <div style={{ display: "flex", flexDirection: "column" as const, gap: 16, alignItems: "center" }}>
-          <Link href="/register">
-            <span className="btn orange" style={{ fontSize: 12, padding: "16px 36px" }}>
-              Create Your Account →
-            </span>
-          </Link>
           <Link href="/login">
-            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-n600)", letterSpacing: "0.1em", cursor: "pointer", textDecoration: "underline" }}>
-              Already have an account? Sign in
+            <span className="btn orange" style={{ fontSize: 12, padding: "16px 36px" }}>
+              Access Your Dashboard →
             </span>
           </Link>
         </div>
