@@ -8,73 +8,73 @@ type = "unspecified"
 title = "Moneyverse Ad Pack — 12 exports (all sizes)"
 
 [[outputs]]
-id = "tfsObK0bnGNJbspZLDyEz"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1080x1080.jpg"
+id = "ohtJjbx1VTifmYuKqXoNL"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1080x1080.png"
 type = "image"
-title = "Angle 1: Pain — 1080×1080 (Meta/Instagram)"
+title = "Angle 1 – Pain (1080×1080 Meta/Instagram)"
 
 [[outputs]]
-id = "TZeMIGTQkeK6PRWciadot"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1080x1080.jpg"
+id = "CVIYKyyAq-oMSfqM1RGwR"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1200x675.png"
 type = "image"
-title = "Angle 2: Outcome — 1080×1080 (Meta/Instagram)"
+title = "Angle 1 – Pain (1200×675 X/Twitter)"
 
 [[outputs]]
-id = "q1oXH2KGZ0qmroRdE7MYx"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1080x1080.jpg"
+id = "LpMdovS6VABnNvBFbE8E1"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1200x627.png"
 type = "image"
-title = "Angle 3: Identity — 1080×1080 (Meta/Instagram)"
+title = "Angle 1 – Pain (1200×627 LinkedIn)"
 
 [[outputs]]
-id = "s3TuYAIddRJJaQA1wVkab"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1080x1080.jpg"
+id = "HVS60vv0sW_gqImgIyUTz"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1080x1080.png"
 type = "image"
-title = "Angle 4: Curiosity — 1080×1080 (Meta/Instagram)"
+title = "Angle 2 – Outcome (1080×1080 Meta/Instagram)"
 
 [[outputs]]
-id = "3i7uMz4vAoYrOGowqblId"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1200x675.jpg"
+id = "kKzV89cq2bWWHWVK-A5PK"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x675.png"
 type = "image"
-title = "Angle 1: Pain — 1200×675 (X/Twitter)"
+title = "Angle 2 – Outcome (1200×675 X/Twitter)"
 
 [[outputs]]
-id = "V5Y9NvxUXZ8oPFb-B3bCv"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x675.jpg"
+id = "7xOPdY7N0d4FI3Y6Dm3aF"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x627.png"
 type = "image"
-title = "Angle 2: Outcome — 1200×675 (X/Twitter)"
+title = "Angle 2 – Outcome (1200×627 LinkedIn)"
 
 [[outputs]]
-id = "WcZhjgfgY2Unbxl9Dpghn"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1200x675.jpg"
+id = "aV7dZPLWdPTjZcdVyjj7X"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1080x1080.png"
 type = "image"
-title = "Angle 3: Identity — 1200×675 (X/Twitter)"
+title = "Angle 3 – Identity (1080×1080 Meta/Instagram)"
 
 [[outputs]]
-id = "ipNiQZJdrHLOxiV_ynYxx"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1200x675.jpg"
+id = "5yi9CQvyksdC6ChoAvxFl"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1200x675.png"
 type = "image"
-title = "Angle 4: Curiosity — 1200×675 (X/Twitter)"
+title = "Angle 3 – Identity (1200×675 X/Twitter)"
 
 [[outputs]]
-id = "gpekcsB1tuRzLklMPpfOd"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1200x627.jpg"
+id = "rWS2ZrWW7SrdTMCQfl-1-"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1200x627.png"
 type = "image"
-title = "Angle 1: Pain — 1200×627 (LinkedIn)"
+title = "Angle 3 – Identity (1200×627 LinkedIn)"
 
 [[outputs]]
-id = "b7OBBQob6k6XyXeg2hTM5"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x627.jpg"
+id = "BPDb9QoY2WVG6Rs13khgg"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1080x1080.png"
 type = "image"
-title = "Angle 2: Outcome — 1200×627 (LinkedIn)"
+title = "Angle 4 – Curiosity (1080×1080 Meta/Instagram)"
 
 [[outputs]]
-id = "WGNJWcu0PiNRTqmROkwh-"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1200x627.jpg"
+id = "6KVwZJwPhXt-PxiPz-Yyu"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1200x675.png"
 type = "image"
-title = "Angle 3: Identity — 1200×627 (LinkedIn)"
+title = "Angle 4 – Curiosity (1200×675 X/Twitter)"
 
 [[outputs]]
-id = "PekItx72AJnvFuQugMV5v"
-uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1200x627.jpg"
+id = "Zl7smePCh42AZaPI5O0bq"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1200x627.png"
 type = "image"
-title = "Angle 4: Curiosity — 1200×627 (LinkedIn)"
+title = "Angle 4 – Curiosity (1200×627 LinkedIn)"
