@@ -91,9 +91,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 17, letterSpacing: "0.05em", color: "var(--mv-black)" }}>
                 MONEYVERSE
               </span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, letterSpacing: "0.15em", color: "var(--mv-n400)", textTransform: "uppercase" as const, marginTop: 2 }}>
-                v1.0
-              </span>
             </div>
           </Link>
 
@@ -186,7 +183,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
                 <div style={{ width: 14, height: 14, background: "var(--mv-accent)", flexShrink: 0 }} />
                 <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 16, letterSpacing: "0.05em" }}>MONEYVERSE</span>
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, color: "var(--mv-n600)", letterSpacing: "0.15em" }}>v1.0</span>
               </div>
               <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 15, lineHeight: 1.5, color: "var(--mv-n400)", maxWidth: 320, marginBottom: 16 }}>
                 A masterclass for operators who move before the cycle peaks.
