@@ -3,7 +3,7 @@ import { Link, useLocation } from "wouter";
 
 const NAV_LINKS = [
   { href: "/about", label: "The Thesis" },
-  { href: "/blog", label: "Research" },
+  { href: "/blog", label: "The Satoshi Way" },
   { href: "/calculator", label: "Free Tools" },
   { href: "/partner", label: "Partner" },
   { href: "/pricing", label: "Masterclass" },
