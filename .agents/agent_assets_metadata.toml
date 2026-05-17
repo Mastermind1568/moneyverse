@@ -11,70 +11,76 @@ title = "Moneyverse Ad Pack — 12 exports (all sizes)"
 id = "ohtJjbx1VTifmYuKqXoNL"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1080x1080.png"
 type = "image"
-title = "Angle 1 – Pain (1080×1080 Meta/Instagram)"
+title = "Angle 1 · Pain — 1080×1080 (Instagram square)"
 
 [[outputs]]
 id = "CVIYKyyAq-oMSfqM1RGwR"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1200x675.png"
 type = "image"
-title = "Angle 1 – Pain (1200×675 X/Twitter)"
+title = "Angle 1 · Pain — 1200×675 (Facebook / YouTube)"
 
 [[outputs]]
 id = "LpMdovS6VABnNvBFbE8E1"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1200x627.png"
 type = "image"
-title = "Angle 1 – Pain (1200×627 LinkedIn)"
+title = "Angle 1 · Pain — 1200×627 (LinkedIn / Twitter)"
 
 [[outputs]]
 id = "HVS60vv0sW_gqImgIyUTz"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1080x1080.png"
 type = "image"
-title = "Angle 2 — Outcome · 1080×1080 (Instagram square)"
+title = "Angle 2 · Outcome — 1080×1080 (Instagram square)"
 
 [[outputs]]
 id = "kKzV89cq2bWWHWVK-A5PK"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x675.png"
 type = "image"
-title = "Angle 2 — Outcome · 1200×675 (Facebook / YouTube)"
+title = "Angle 2 · Outcome — 1200×675 (Facebook / YouTube)"
 
 [[outputs]]
 id = "7xOPdY7N0d4FI3Y6Dm3aF"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x627.png"
 type = "image"
-title = "Angle 2 — Outcome · 1200×627 (LinkedIn / Twitter card)"
+title = "Angle 2 · Outcome — 1200×627 (LinkedIn / Twitter)"
 
 [[outputs]]
 id = "aV7dZPLWdPTjZcdVyjj7X"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1080x1080.png"
 type = "image"
-title = "Angle 3 – Identity (1080×1080 Meta/Instagram)"
+title = "Angle 3 · Identity — 1080×1080 (Instagram square)"
 
 [[outputs]]
 id = "5yi9CQvyksdC6ChoAvxFl"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1200x675.png"
 type = "image"
-title = "Angle 3 – Identity (1200×675 X/Twitter)"
+title = "Angle 3 · Identity — 1200×675 (Facebook / YouTube)"
 
 [[outputs]]
 id = "rWS2ZrWW7SrdTMCQfl-1-"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1200x627.png"
 type = "image"
-title = "Angle 3 – Identity (1200×627 LinkedIn)"
+title = "Angle 3 · Identity — 1200×627 (LinkedIn / Twitter)"
 
 [[outputs]]
 id = "BPDb9QoY2WVG6Rs13khgg"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1080x1080.png"
 type = "image"
-title = "Angle 4 – Curiosity (1080×1080 Meta/Instagram)"
+title = "Angle 4 · Curiosity — 1080×1080 (Instagram square)"
 
 [[outputs]]
 id = "6KVwZJwPhXt-PxiPz-Yyu"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1200x675.png"
 type = "image"
-title = "Angle 4 – Curiosity (1200×675 X/Twitter)"
+title = "Angle 4 · Curiosity — 1200×675 (Facebook / YouTube)"
 
 [[outputs]]
 id = "Zl7smePCh42AZaPI5O0bq"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1200x627.png"
 type = "image"
-title = "Angle 4 – Curiosity (1200×627 LinkedIn)"
+title = "Angle 4 · Curiosity — 1200×627 (LinkedIn / Twitter)"
+
+[[outputs]]
+id = "wyaSy6haxRQWx-oWE3D7q"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/moneyverse-ads.zip"
+type = "unspecified"
+title = "All 12 Ad Creatives — Full ZIP Bundle"
