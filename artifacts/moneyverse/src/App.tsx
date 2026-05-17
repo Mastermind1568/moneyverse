@@ -1,14 +1,16 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
-import Thesis from "@/pages/Thesis";
-import Curriculum from "@/pages/Curriculum";
-import Research from "@/pages/Research";
-import Masterclass from "@/pages/Masterclass";
-import Tools from "@/pages/Tools";
+import Pricing from "@/pages/Pricing";
+import Calculator from "@/pages/Calculator";
+import Partner from "@/pages/Partner";
+import FAQ from "@/pages/FAQ";
+import About from "@/pages/About";
+import Blog from "@/pages/Blog";
+import Preview from "@/pages/Preview";
+import Success from "@/pages/Success";
+import Cancel from "@/pages/Cancel";
 import GlossaryTerm from "@/pages/GlossaryTerm";
 import Guide from "@/pages/Guide";
 import Compare from "@/pages/Compare";
@@ -19,14 +21,28 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/thesis" component={Thesis} />
-      <Route path="/curriculum" component={Curriculum} />
-      <Route path="/research" component={Research} />
-      <Route path="/masterclass" component={Masterclass} />
-      <Route path="/tools" component={Tools} />
+      <Route path="/pricing" component={Pricing} />
+      <Route path="/calculator" component={Calculator} />
+      <Route path="/partner" component={Partner} />
+      <Route path="/faq" component={FAQ} />
+      <Route path="/about" component={About} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/preview/:slug" component={Preview} />
+      <Route path="/success" component={Success} />
+      <Route path="/cancel" component={Cancel} />
+
+      {/* Legacy redirects */}
+      <Route path="/thesis"><Redirect to="/about" /></Route>
+      <Route path="/masterclass"><Redirect to="/pricing" /></Route>
+      <Route path="/tools"><Redirect to="/calculator" /></Route>
+      <Route path="/research"><Redirect to="/blog" /></Route>
+      <Route path="/curriculum"><Redirect to="/pricing" /></Route>
+
+      {/* SEO pages kept */}
       <Route path="/learn/:term" component={GlossaryTerm} />
       <Route path="/guides/:slug" component={Guide} />
       <Route path="/compare/:slug" component={Compare} />
+
       <Route component={NotFound} />
     </Switch>
   );
@@ -35,12 +51,9 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
-      </TooltipProvider>
+      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <Router />
+      </WouterRouter>
     </QueryClientProvider>
   );
 }

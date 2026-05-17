@@ -2,23 +2,63 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 
 const NAV_LINKS = [
-  { href: "/thesis", label: "THE THESIS" },
-  { href: "/curriculum", label: "CURRICULUM" },
-  { href: "/research", label: "INTEL" },
-  { href: "/tools", label: "TOOLS" },
-  { href: "/masterclass", label: "MASTERCLASS" },
+  { href: "/about", label: "The Thesis" },
+  { href: "/blog", label: "Research" },
+  { href: "/calculator", label: "Free Tools" },
+  { href: "/partner", label: "Partner" },
+  { href: "/pricing", label: "Masterclass" },
 ];
+
+const TICKER_ITEMS = [
+  "BTC CYCLE PHASE: ACCUMULATION",
+  "NEXT HALVING: EST. 2028",
+  "30% AFFILIATE COMMISSION",
+  "LIFETIME ACCESS · NO SUBSCRIPTION",
+  "85 LESSONS · 11H 43M RUNTIME",
+  "NIGERIAN NAIRA −74% SINCE 2021",
+];
+
+function FooterEmailForm() {
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (email) setSent(true);
+  }
+
+  if (sent) {
+    return (
+      <p className="mono" style={{ fontSize: 11, color: "var(--mv-accent)" }}>
+        You're in. Check your inbox.
+      </p>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="your@email.com"
+        required
+        style={{
+          fontFamily: "'Space Mono', monospace", fontSize: 11, padding: "10px 12px",
+          background: "#111", border: "1px solid #333", color: "#fff",
+          outline: "none", width: "100%",
+        }}
+      />
+      <button type="submit" className="btn orange sm" style={{ width: "100%", justifyContent: "center" }}>
+        Get the guide →
+      </button>
+    </form>
+  );
+}
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -29,167 +69,194 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      {/* Header */}
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${scrolled ? "border-b border-border bg-background" : "bg-background"}`}
-        data-testid="header"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <Link href="/" data-testid="link-logo">
-              <div className="flex items-baseline gap-2 cursor-pointer">
-                <span className="font-serif font-black text-xl tracking-widest uppercase">MONEYVERSE</span>
-                <span className="text-xs font-mono text-muted-foreground border border-border px-1 py-0.5">V1.0</span>
-              </div>
-            </Link>
+  const tickerContent = [...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+    <span key={i} style={{ padding: "0 48px", whiteSpace: "nowrap", fontSize: 10, fontFamily: "'Space Mono', monospace", fontWeight: 700, letterSpacing: "0.18em" }}>
+      {item} <span style={{ color: "var(--mv-accent)", margin: "0 4px" }}>·</span>
+    </span>
+  ));
 
-            {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-8" data-testid="nav-desktop">
-              {NAV_LINKS.map((link) => (
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#fff", color: "var(--mv-black)" }}>
+
+      {/* ── Header ── */}
+      <header data-testid="header" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, background: "#fff", borderBottom: "2px solid var(--mv-black)" }}>
+        {/* Orange masthead stripe */}
+        <div style={{ height: 3, background: "var(--mv-accent)" }} />
+
+        <div style={{ height: 52, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px" }}>
+          {/* Logo */}
+          <Link href="/" data-testid="link-logo">
+            <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
+              <div style={{ width: 14, height: 14, background: "var(--mv-accent)", flexShrink: 0 }} />
+              <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 17, letterSpacing: "0.05em", color: "var(--mv-black)" }}>
+                MONEYVERSE
+              </span>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, letterSpacing: "0.15em", color: "var(--mv-n400)", textTransform: "uppercase" as const, marginTop: 2 }}>
+                v1.0
+              </span>
+            </div>
+          </Link>
+
+          {/* Desktop nav */}
+          <nav data-testid="nav-desktop" style={{ display: "flex", alignItems: "center", gap: 32 }} className="desktop-nav">
+            {NAV_LINKS.map((link) => {
+              const active = location === link.href || location.startsWith(link.href + "/");
+              return (
                 <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}>
-                  <span className={`text-xs font-medium tracking-widest transition-colors cursor-pointer hover:text-accent ${location === link.href ? "text-accent" : "text-foreground"}`}>
+                  <span style={{
+                    fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600,
+                    letterSpacing: "0.12em", textTransform: "uppercase" as const,
+                    color: "var(--mv-black)", cursor: "pointer", paddingBottom: 2,
+                    borderBottom: active ? "2px solid var(--mv-accent)" : "2px solid transparent",
+                    transition: "border-color 0.15s",
+                  }}>
                     {link.label}
                   </span>
                 </Link>
-              ))}
-            </nav>
+              );
+            })}
+          </nav>
 
-            {/* CTA + hamburger */}
-            <div className="flex items-center gap-4">
-              <Link href="/masterclass" data-testid="link-header-cta">
-                <span className="hidden sm:block cursor-pointer bg-foreground text-background text-xs font-bold tracking-widest px-4 py-2 hover:bg-accent hover:text-black transition-colors">
-                  ACCESS BLUEPRINT →
-                </span>
-              </Link>
-              <button
-                className="lg:hidden p-2"
-                onClick={() => setMenuOpen(!menuOpen)}
-                data-testid="button-menu-toggle"
-                aria-label="Toggle menu"
-              >
-                <div className={`w-6 h-0.5 bg-foreground mb-1.5 transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-                <div className={`w-6 h-0.5 bg-foreground mb-1.5 transition-all ${menuOpen ? "opacity-0" : ""}`} />
-                <div className={`w-6 h-0.5 bg-foreground transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-              </button>
-            </div>
+          {/* CTA + Hamburger */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <Link href="/pricing" data-testid="link-header-cta" className="desktop-nav">
+              <span className="btn orange sm">Access Blueprint</span>
+            </Link>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              data-testid="button-menu-toggle"
+              aria-label="Toggle menu"
+              style={{
+                width: 40, height: 40, border: "2px solid var(--mv-black)",
+                background: "transparent", display: "flex", flexDirection: "column" as const,
+                alignItems: "center", justifyContent: "center", gap: 5, cursor: "pointer", padding: 8,
+              }}
+              className="hamburger-btn"
+            >
+              <div style={{ width: 20, height: 2, background: "var(--mv-black)", transition: "all 0.2s", transform: menuOpen ? "rotate(45deg) translateY(7px)" : "none" }} />
+              <div style={{ width: 20, height: 2, background: "var(--mv-black)", transition: "all 0.2s", opacity: menuOpen ? 0 : 1 }} />
+              <div style={{ width: 20, height: 2, background: "var(--mv-black)", transition: "all 0.2s", transform: menuOpen ? "rotate(-45deg) translateY(-7px)" : "none" }} />
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile menu overlay */}
+      {/* ── Mobile menu overlay ── */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-background flex flex-col pt-20" data-testid="mobile-menu">
-          <nav className="flex flex-col px-8 gap-8 mt-8">
+        <div data-testid="mobile-menu" style={{ position: "fixed", inset: 0, zIndex: 40, background: "#fff", display: "flex", flexDirection: "column" as const, paddingTop: 55 }}>
+          <div style={{ height: 3, background: "var(--mv-accent)" }} />
+          <nav style={{ display: "flex", flexDirection: "column" as const, padding: "40px 32px", gap: 0 }}>
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} data-testid={`link-mobile-${link.label.toLowerCase().replace(/\s/g, "-")}`}>
-                <span className="font-serif text-3xl font-bold cursor-pointer hover:text-accent transition-colors block">
+              <Link key={link.href} href={link.href}>
+                <div style={{
+                  fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 32,
+                  color: "var(--mv-black)", cursor: "pointer", padding: "18px 0",
+                  borderBottom: "1px solid var(--mv-n200)",
+                }}>
                   {link.label}
-                </span>
+                </div>
               </Link>
             ))}
-            <Link href="/masterclass" data-testid="link-mobile-cta">
-              <span className="inline-block cursor-pointer bg-foreground text-background text-sm font-bold tracking-widest px-6 py-3 hover:bg-accent hover:text-black transition-colors mt-4">
-                ACCESS BLUEPRINT →
-              </span>
-            </Link>
+            <div style={{ marginTop: 32 }}>
+              <Link href="/pricing">
+                <span className="btn orange" style={{ fontSize: 12, padding: "14px 28px" }}>Access Blueprint →</span>
+              </Link>
+            </div>
           </nav>
         </div>
       )}
 
-      {/* Main */}
-      <main className="flex-1 pt-16">
+      {/* ── Main ── */}
+      <main style={{ flex: 1, paddingTop: 55 }}>
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border bg-background mt-24" data-testid="footer">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-            {/* Brand */}
-            <div className="md:col-span-1">
-              <div className="flex items-baseline gap-2 mb-4">
-                <span className="font-serif font-black text-lg tracking-widest">MONEYVERSE</span>
-                <span className="text-xs font-mono text-muted-foreground border border-border px-1">V1.0</span>
+      {/* ── Footer ── */}
+      <footer data-testid="footer" style={{ background: "var(--mv-black)", color: "#fff" }}>
+        {/* Ticker marquee */}
+        <div style={{ overflow: "hidden", borderBottom: "1px solid #222", padding: "12px 0", color: "var(--mv-n600)" }}>
+          <div className="marquee-track">{tickerContent}</div>
+        </div>
+
+        {/* Grid */}
+        <div style={{ padding: "80px 64px 60px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1.4fr", gap: 48 }} className="footer-grid-responsive">
+            {/* Col 1 */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
+                <div style={{ width: 14, height: 14, background: "var(--mv-accent)", flexShrink: 0 }} />
+                <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 16, letterSpacing: "0.05em" }}>MONEYVERSE</span>
+                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, color: "var(--mv-n600)", letterSpacing: "0.15em" }}>v1.0</span>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                The Bitcoin education protocol for serious operators.
+              <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 15, lineHeight: 1.5, color: "var(--mv-n400)", maxWidth: 320, marginBottom: 16 }}>
+                A masterclass for operators who move before the cycle peaks.
               </p>
-              <div className="mt-6 inline-flex items-center gap-2 text-xs font-mono text-muted-foreground border border-border px-3 py-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                BLOCK 949,841
-              </div>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: "var(--mv-n600)", lineHeight: 1.7, maxWidth: 320 }}>
+                Moneyverse is not investment advice. Bitcoin involves risk. Past cycles do not guarantee future results.
+              </p>
             </div>
 
-            {/* Platform */}
+            {/* Col 2: Product */}
             <div>
-              <h4 className="text-xs font-bold tracking-widest mb-4">PLATFORM</h4>
-              <div className="flex flex-col gap-3">
-                {[
-                  { href: "/", label: "Home" },
-                  { href: "/thesis", label: "The Thesis" },
-                  { href: "/curriculum", label: "Curriculum" },
-                  { href: "/masterclass", label: "Masterclass" },
-                ].map((l) => (
+              <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 20 }}>Product</p>
+              <div style={{ display: "flex", flexDirection: "column" as const, gap: 14 }}>
+                {[{ href: "/pricing", label: "The Blueprint" }, { href: "/about", label: "The Thesis" }, { href: "/blog", label: "Research" }].map((l) => (
                   <Link key={l.href} href={l.href}>
-                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{l.label}</span>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n400)", cursor: "pointer" }}>{l.label}</span>
                   </Link>
                 ))}
               </div>
             </div>
 
-            {/* Learn */}
+            {/* Col 3: Resources */}
             <div>
-              <h4 className="text-xs font-bold tracking-widest mb-4">LEARN</h4>
-              <div className="flex flex-col gap-3">
-                {[
-                  { href: "/learn/bitcoin-halving", label: "Bitcoin Halving" },
-                  { href: "/learn/21-million-hard-cap", label: "21M Hard Cap" },
-                  { href: "/learn/digital-scarcity", label: "Digital Scarcity" },
-                  { href: "/learn/fiat-debasement", label: "Fiat Debasement" },
-                  { href: "/learn/self-custody", label: "Self-Custody" },
-                  { href: "/learn/dollar-cost-averaging", label: "DCA" },
-                  { href: "/learn/proof-of-work", label: "Proof of Work" },
-                ].map((l) => (
+              <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 20 }}>Resources</p>
+              <div style={{ display: "flex", flexDirection: "column" as const, gap: 14 }}>
+                {[{ href: "/calculator", label: "Currency Calculator" }, { href: "/partner", label: "Affiliate Program" }, { href: "/faq", label: "FAQ" }, { href: "/blog", label: "Research" }].map((l) => (
                   <Link key={l.href} href={l.href}>
-                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{l.label}</span>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n400)", cursor: "pointer" }}>{l.label}</span>
                   </Link>
                 ))}
               </div>
             </div>
 
-            {/* Compare */}
+            {/* Col 4: Email capture */}
             <div>
-              <h4 className="text-xs font-bold tracking-widest mb-4">COMPARE</h4>
-              <div className="flex flex-col gap-3">
-                {[
-                  { href: "/compare/ledger-vs-trezor", label: "Ledger vs Trezor" },
-                  { href: "/compare/cold-storage-vs-hot-wallet", label: "Cold vs Hot Wallet" },
-                  { href: "/compare/bitcoin-vs-gold", label: "Bitcoin vs Gold" },
-                  { href: "/guides/how-to-set-up-a-hardware-wallet", label: "Hardware Wallet Guide" },
-                  { href: "/guides/bitcoin-exit-strategy", label: "Exit Strategy Guide" },
-                  { href: "/guides/bitcoin-self-custody-guide", label: "Self-Custody Guide" },
-                ].map((l) => (
-                  <Link key={l.href} href={l.href}>
-                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{l.label}</span>
-                  </Link>
-                ))}
-              </div>
+              <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 12 }}>Get the Free Guide</p>
+              <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, lineHeight: 1.3, marginBottom: 20 }}>
+                One email. The 4-Year Clock, distilled.
+              </p>
+              <FooterEmailForm />
             </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <p className="text-xs text-muted-foreground">
-              © 2025 Moneyverse. Not financial advice. For educational purposes only.
-            </p>
-            <p className="text-xs font-mono text-muted-foreground">
-              EPOCH 05 · 3.125 BTC/BLOCK
-            </p>
+          {/* Bottom bar */}
+          <div style={{ marginTop: 60, paddingTop: 24, borderTop: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 12 }}>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "var(--mv-n600)" }}>
+              © 2026 Moneyverse Capital, Ltd. · Lagos · London · Dubai
+            </span>
+            <div style={{ display: "flex", gap: 24 }}>
+              {["Terms", "Privacy", "Disclosures"].map((t) => (
+                <span key={t} style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "var(--mv-n600)", cursor: "pointer" }}>{t}</span>
+              ))}
+            </div>
           </div>
         </div>
       </footer>
+
+      <style>{`
+        a { text-decoration: none; color: inherit; }
+        @media (min-width: 769px) {
+          .hamburger-btn { display: none !important; }
+        }
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
+          .footer-grid-responsive { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .footer-grid-responsive { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }

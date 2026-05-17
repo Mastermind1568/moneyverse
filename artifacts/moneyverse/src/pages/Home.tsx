@@ -1,284 +1,241 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
-import { usePageMeta } from "@/hooks/usePageMeta";
 
-function HalvingCountdown() {
-  const NEXT_HALVING_BLOCK = 1_050_000;
-  const CURRENT_BLOCK = 949_841;
-  const BLOCKS_REMAINING = NEXT_HALVING_BLOCK - CURRENT_BLOCK;
-  const SECONDS_PER_BLOCK = 600;
-  const TARGET_DATE = new Date(Date.now() + BLOCKS_REMAINING * SECONDS_PER_BLOCK * 1000);
+const MODULES_PREVIEW = [
+  { num: "01", title: "The Fiat Trap", lessons: 6, duration: "38 min", desc: "Every fiat currency in history has failed. Understand the mechanism extracting value from your savings right now." },
+  { num: "02", title: "Bitcoin Fundamentals", lessons: 8, duration: "54 min", desc: "21 million coins. No central bank. No inflation. Learn the protocol that makes Bitcoin categorically different." },
+  { num: "03", title: "The 4-Year Clock", lessons: 7, duration: "48 min", desc: "The halving cycle is the most predictable pattern in financial markets. Learn to read it and position before it moves." },
+  { num: "04", title: "DCA Protocol", lessons: 6, duration: "42 min", desc: "Systematic weekly accumulation removes emotion from the equation. Set up your DCA to run automatically — forever." },
+];
 
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+const TESTIMONIALS = [
+  { quote: "The clearest articulation of cycle theory I've ever paid for.", name: "B. Ofori", role: "Personal Finance", followers: "84K" },
+  { quote: "Eleven modules. Zero hype. Read the curriculum and you understand what's missing everywhere else.", name: "A. Hartmann", role: "Macro Strategy", followers: "38K" },
+  { quote: "Bought it for the affiliate program. Stayed for the Exit Plan module.", name: "K. Patel", role: "Real Estate", followers: "121K" },
+];
 
-  useEffect(() => {
-    function calculate() {
-      const diff = Math.max(0, TARGET_DATE.getTime() - Date.now());
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      setTimeLeft({ days, hours, minutes, seconds });
-    }
-    calculate();
-    const id = setInterval(calculate, 1000);
-    return () => clearInterval(id);
-  }, []);
-
+function AccordionItem({ num, title, lessons, duration, desc }: typeof MODULES_PREVIEW[0]) {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="border border-border p-8" data-testid="halving-countdown">
-      <p className="text-xs font-bold tracking-widest text-muted-foreground mb-6">NEXT HALVING — EPOCH 06 — BLOCK 1,050,000</p>
-      <div className="grid grid-cols-4 gap-4">
-        {[
-          { value: timeLeft.days, label: "DAYS" },
-          { value: timeLeft.hours, label: "HRS" },
-          { value: timeLeft.minutes, label: "MIN" },
-          { value: timeLeft.seconds, label: "SEC" },
-        ].map(({ value, label }) => (
-          <div key={label} className="text-center border border-border p-4">
-            <div className="font-serif font-black text-4xl sm:text-5xl tabular-nums" data-testid={`countdown-${label.toLowerCase()}`}>
-              {String(value).padStart(2, "0")}
+    <div style={{ borderBottom: "1px solid var(--mv-n200)" }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "20px 0", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" as const,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 36, color: "var(--mv-n200)", lineHeight: 1, minWidth: 56 }}>{num}</span>
+          <div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 18, color: "var(--mv-black)" }}>{title}</div>
+            <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-n400)", marginTop: 4 }}>
+              {lessons} lessons · {duration}
             </div>
-            <div className="text-xs font-bold tracking-widest text-muted-foreground mt-2">{label}</div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-4 flex items-center gap-6 text-xs text-muted-foreground">
-        <span>{BLOCKS_REMAINING.toLocaleString()} BLOCKS REMAINING</span>
-        <span>~APR 2028</span>
-      </div>
-    </div>
-  );
-}
-
-function DCACalculator() {
-  const [monthly, setMonthly] = useState(200);
-  const [years, setYears] = useState(4);
-
-  const scenarios = [
-    { label: "Bear", price: 30000, color: "text-muted-foreground" },
-    { label: "Current", price: 78000, color: "text-foreground" },
-    { label: "Bull", price: 150000, color: "text-accent" },
-  ];
-
-  const totalInvested = monthly * 12 * years;
-
-  return (
-    <div className="border border-border p-8" data-testid="dca-calculator">
-      <p className="text-xs font-bold tracking-widest text-muted-foreground mb-6">DCA CALCULATOR</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-        <div>
-          <label className="text-xs font-bold tracking-widest block mb-2">MONTHLY AMOUNT</label>
-          <div className="flex items-center border border-border">
-            <span className="px-3 py-2 text-sm bg-muted border-r border-border">$</span>
-            <input
-              type="number"
-              value={monthly}
-              min={10}
-              max={10000}
-              onChange={(e) => setMonthly(Number(e.target.value))}
-              className="flex-1 px-3 py-2 bg-background text-foreground text-sm outline-none"
-              data-testid="input-dca-monthly"
-            />
           </div>
         </div>
-        <div>
-          <label className="text-xs font-bold tracking-widest block mb-2">YEARS</label>
-          <div className="flex items-center border border-border">
-            <input
-              type="number"
-              value={years}
-              min={1}
-              max={20}
-              onChange={(e) => setYears(Number(e.target.value))}
-              className="flex-1 px-3 py-2 bg-background text-foreground text-sm outline-none"
-              data-testid="input-dca-years"
-            />
-          </div>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 20, color: "var(--mv-accent)", transition: "transform 0.2s", transform: open ? "rotate(45deg)" : "none" }}>+</span>
+      </button>
+      {open && (
+        <div style={{ padding: "0 0 20px 80px" }}>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n600)", lineHeight: 1.7, maxWidth: 600 }}>{desc}</p>
+          <Link href={`/preview/fiat-trap`}>
+            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-accent)", letterSpacing: "0.12em", marginTop: 12, display: "inline-block" }}>
+              ▶ Preview Module
+            </span>
+          </Link>
         </div>
-      </div>
-
-      <div className="mb-4 text-xs text-muted-foreground">
-        TOTAL INVESTED: <span className="text-foreground font-bold">${totalInvested.toLocaleString()}</span>
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        {scenarios.map(({ label, price, color }) => {
-          const btc = totalInvested / price;
-          const sats = Math.round(btc * 1e8);
-          return (
-            <div key={label} className="border border-border p-4" data-testid={`dca-scenario-${label.toLowerCase()}`}>
-              <div className="text-xs font-bold tracking-widest text-muted-foreground mb-3">
-                {label.toUpperCase()} · ${(price / 1000).toFixed(0)}K
-              </div>
-              <div className={`font-serif font-bold text-lg ${color}`}>
-                {btc.toFixed(4)} BTC
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">
-                {sats.toLocaleString()} sats
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      )}
     </div>
   );
 }
 
 export default function Home() {
-  usePageMeta(
-    "Moneyverse — The Bitcoin Education Protocol",
-    "Stop watching Bitcoin from the sidelines. Moneyverse is the complete Bitcoin education protocol for serious operators. One-time $197. Lifetime access. 85 lessons. The 4-year framework."
-  );
-
   return (
     <Layout>
-      {/* Hero */}
-      <section className="min-h-[90vh] grid grid-cols-1 lg:grid-cols-2 border-b border-border" data-testid="hero-section">
-        {/* Left */}
-        <div className="bg-foreground text-background flex flex-col justify-center px-8 sm:px-16 py-20 lg:py-0">
-          <div className="max-w-xl">
-            <p className="text-xs font-bold tracking-widest text-accent mb-8">MONEYVERSE V1.0 · BITCOIN EDUCATION PROTOCOL</p>
-            <h1 className="font-serif font-black text-5xl sm:text-6xl lg:text-7xl leading-[0.95] mb-8" data-testid="hero-headline">
-              Escape<br />
-              the<br />
-              <em className="text-accent not-italic">Fiat</em><br />
-              Leak.
+      {/* ── Hero ── */}
+      <section style={{ background: "var(--mv-black)", minHeight: "100vh", display: "flex", alignItems: "stretch" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "60fr 40fr", width: "100%", borderBottom: "2px solid #222" }} className="hero-grid">
+          {/* Left */}
+          <div style={{ padding: "100px 64px", display: "flex", flexDirection: "column" as const, justifyContent: "center", borderRight: "2px solid #222" }}>
+            <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 32 }}>Bitcoin · Financial Sovereignty · 2026</p>
+            <h1 className="display" style={{ fontSize: "clamp(5rem, 13vw, 16rem)", color: "#fff", marginBottom: 40 }}>
+              Money<br /><em style={{ color: "var(--mv-accent)" }}>verse</em><span style={{ color: "var(--mv-accent)" }}>.</span>
             </h1>
-            <p className="text-lg font-light text-background/80 leading-relaxed mb-10 max-w-sm">
-              The complete Bitcoin protocol for operators who know Bitcoin is real — but haven't built their position yet.
+            <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: "clamp(16px, 2vw, 22px)", color: "var(--mv-n400)", maxWidth: 560, lineHeight: 1.6, marginBottom: 40 }}>
+              The naira fell 74%. The cedi needed an IMF bailout. Your bank charged you 6% to send money home. Most Bitcoin investors have no exit plan, no risk framework, and no idea what the chart is telling them. This is the operating manual.
             </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex flex-col sm:flex-row gap-0"
-              data-testid="hero-email-form"
-            >
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-4 bg-background text-foreground text-sm outline-none border border-background/20 placeholder:text-background/40"
-                data-testid="input-hero-email"
-              />
-              <button
-                type="submit"
-                className="px-6 py-4 bg-accent text-black text-xs font-bold tracking-widest hover:bg-background hover:text-foreground transition-colors whitespace-nowrap"
-                data-testid="button-hero-cta"
-              >
-                GET FREE GUIDE →
-              </button>
-            </form>
-            <p className="text-xs text-background/40 mt-3">Free 16-page PDF. No spam. No altcoin content. Unsubscribe anytime.</p>
-          </div>
-        </div>
-
-        {/* Right */}
-        <div className="flex flex-col justify-center px-8 sm:px-16 py-16 lg:py-0 border-t lg:border-t-0 lg:border-l border-border">
-          <div className="max-w-md">
-            <p className="text-xs font-bold tracking-widest text-muted-foreground mb-10">WHAT YOU GET</p>
-            <div className="space-y-8">
-              {[
-                { value: "$197", label: "One-time investment. Lifetime access." },
-                { value: "85", label: "Lessons across 4 phases of Bitcoin mastery." },
-                { value: "16", label: "Modules from foundation to global context." },
-                { value: "4YR", label: "Framework built around the halving cycle." },
-              ].map(({ value, label }) => (
-                <div key={value} className="flex items-start gap-6 pb-8 border-b border-border last:border-0 last:pb-0">
-                  <div className="font-serif font-black text-4xl text-accent leading-none w-20 flex-shrink-0">{value}</div>
-                  <p className="text-sm text-muted-foreground leading-relaxed pt-1">{label}</p>
-                </div>
-              ))}
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" as const }}>
+              <Link href="/pricing"><span className="btn orange" style={{ fontSize: 12 }}>Get The Blueprint →</span></Link>
+              <Link href="/pricing"><span className="btn" style={{ color: "#fff", borderColor: "#fff", fontSize: 12 }}>See the Curriculum →</span></Link>
             </div>
-            <div className="mt-10">
-              <Link href="/masterclass" data-testid="link-hero-learn-more">
-                <span className="text-xs font-bold tracking-widest underline underline-offset-4 hover:text-accent transition-colors cursor-pointer">
-                  SEE FULL CURRICULUM →
-                </span>
-              </Link>
+          </div>
+
+          {/* Right */}
+          <div style={{ padding: "100px 48px", display: "flex", flexDirection: "column" as const, alignItems: "center", justifyContent: "center", position: "relative" as const, overflow: "hidden" }}>
+            <svg style={{ position: "absolute" as const, inset: 0, width: "100%", height: "100%", opacity: 0.08 }} viewBox="0 0 400 500" fill="none">
+              {[0,1,2,3,4,5,6,7,8].map((i) => <ellipse key={i} cx="200" cy="250" rx={60 + i * 30} ry={40 + i * 25} stroke="#F59300" strokeWidth="1" fill="none" />)}
+            </svg>
+            <div style={{ textAlign: "center" as const, zIndex: 1 }}>
+              <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 12 }}>Starting price</p>
+              <div className="display" style={{ fontSize: "clamp(4rem, 10vw, 7rem)", color: "var(--mv-accent)" }}>$97</div>
+              <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)", marginTop: 8, letterSpacing: "0.15em" }}>ONCE. YOURS FOREVER.</p>
+              <div style={{ marginTop: 48, display: "flex", flexDirection: "column" as const, gap: 16 }}>
+                {["85 Lessons", "11h 43m Runtime", "30-Day Guarantee"].map((item) => (
+                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span style={{ color: "var(--mv-accent)", fontSize: 16 }}>✓</span>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n400)" }}>{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Ticker bar */}
-      <section className="bg-foreground text-background px-8 py-4 flex flex-wrap items-center gap-8 text-xs font-mono" data-testid="ticker-bar">
-        <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          <span>BLOCK 949,841</span>
-        </div>
-        <div className="text-background/60">·</div>
-        <div><span className="text-background/60">BTC/USD</span> <span className="text-accent font-bold">$78,158</span></div>
-        <div className="text-background/60">·</div>
-        <div><span className="text-background/60">EPOCH</span> 05</div>
-        <div className="text-background/60">·</div>
-        <div><span className="text-background/60">REWARD</span> 3.125 BTC/BLOCK</div>
-        <div className="text-background/60">·</div>
-        <div><span className="text-background/60">NEXT HALVING</span> ~APR 2028</div>
-      </section>
-
-      {/* Tools preview */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid grid-cols-1 lg:grid-cols-2 gap-8" data-testid="tools-preview">
-        <HalvingCountdown />
-        <DCACalculator />
-      </section>
-
-      {/* Manifesto pull-quote */}
-      <section className="bg-foreground text-background py-24 px-8" data-testid="manifesto-section">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs font-bold tracking-widest text-accent mb-8">THE THESIS</p>
-          <blockquote className="font-serif font-black text-3xl sm:text-4xl lg:text-5xl leading-tight mb-10">
-            "Every dollar you keep in cash is a loan to a system designed to inflate it away. Bitcoin is the exit."
-          </blockquote>
-          <Link href="/thesis" data-testid="link-manifesto-read">
-            <span className="text-xs font-bold tracking-widest text-background/60 hover:text-accent transition-colors cursor-pointer underline underline-offset-4">
-              READ THE FULL THESIS →
-            </span>
-          </Link>
-        </div>
-      </section>
-
-      {/* Curriculum preview */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20" data-testid="curriculum-preview">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-          <div>
-            <p className="text-xs font-bold tracking-widest text-muted-foreground mb-2">THE BLUEPRINT</p>
-            <h2 className="font-serif font-black text-4xl sm:text-5xl">4 Phases.<br />16 Modules.<br />One Protocol.</h2>
-          </div>
-          <Link href="/curriculum" data-testid="link-curriculum-preview">
-            <span className="text-xs font-bold tracking-widest underline underline-offset-4 hover:text-accent transition-colors cursor-pointer whitespace-nowrap">
-              VIEW FULL CURRICULUM →
-            </span>
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+      {/* ── Stats Bar ── */}
+      <section style={{ borderBottom: "2px solid var(--mv-black)", background: "#fff" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }} className="stats-grid">
           {[
-            { number: "01", title: "The Foundation", desc: "What money is. How fiat fails. Why Bitcoin solves it." },
-            { number: "02", title: "The Protocol", desc: "Buy securely. Master self-custody. Own your keys." },
-            { number: "03", title: "The Strategy", desc: "DCA. 4-Year cycle. Exit architecture." },
-            { number: "04", title: "The Global Context", desc: "Bitcoin as macro asset. Monetary sovereignty." },
-          ].map(({ number, title, desc }) => (
-            <div key={number} className="bg-background p-8" data-testid={`phase-preview-${number}`}>
-              <div className="font-serif font-black text-6xl text-muted-foreground/20 mb-4">{number}</div>
-              <h3 className="font-serif font-bold text-xl mb-3">{title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+            { num: "11", label: "Modules" },
+            { num: "85", label: "Lessons" },
+            { num: "11h 43m", label: "Runtime" },
+            { num: "Lifetime", label: "Access" },
+            { num: "30 Days", label: "Guarantee", orange: true },
+          ].map((s, i) => (
+            <div key={i} style={{ padding: "32px 24px", borderRight: i < 4 ? "1px solid var(--mv-n200)" : "none", textAlign: "center" as const }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 28, color: s.orange ? "var(--mv-accent)" : "var(--mv-black)" }}>{s.num}</div>
+              <div className="overline" style={{ marginTop: 6 }}>{s.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-border py-24 px-8" data-testid="cta-section">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs font-bold tracking-widest text-muted-foreground mb-4">READY TO BUILD YOUR POSITION?</p>
-          <h2 className="font-serif font-black text-4xl sm:text-5xl mb-8">The Plan You've<br />Been Missing.</h2>
-          <Link href="/masterclass" data-testid="link-cta-masterclass">
-            <span className="inline-block cursor-pointer bg-foreground text-background text-sm font-bold tracking-widest px-10 py-5 hover:bg-accent hover:text-black transition-colors">
-              ACCESS THE BLUEPRINT — $197 →
-            </span>
-          </Link>
-          <p className="text-xs text-muted-foreground mt-4">One-time payment. Lifetime access. Bitcoin-only.</p>
+      {/* ── Problem Block ── */}
+      <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid var(--mv-black)" }} className="two-col-grid">
+        {/* Left — black */}
+        <div style={{ background: "var(--mv-black)", color: "#fff", padding: "100px 64px", borderRight: "2px solid #222" }}>
+          <span className="accent-rule" style={{ marginBottom: 24 }} />
+          <p className="overline" style={{ color: "var(--mv-accent)", marginBottom: 20 }}>The Problem</p>
+          <h2 className="h-section" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)", color: "#fff", marginBottom: 28 }}>
+            Your savings are being taxed without your consent.
+          </h2>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n400)", lineHeight: 1.8, marginBottom: 36 }}>
+            Every year the naira, cedi, and shilling lose purchasing power. Your bank is not a savings vehicle. It is a slow drain. The Blueprint is the system that stops it.
+          </p>
+          <p className="mono" style={{ fontSize: 11, color: "var(--mv-n600)", borderLeft: "3px solid var(--mv-accent)", paddingLeft: 16 }}>
+            Average African currency depreciation vs USD since 2021: 47%
+          </p>
+        </div>
+
+        {/* Right — white */}
+        <div style={{ background: "#fff", padding: "100px 64px" }}>
+          <div style={{ display: "flex", flexDirection: "column" as const, gap: 0 }}>
+            {[
+              "The naira needs ₦1,580 today to buy what ₦410 bought in 2022.",
+              "Sending $200 home costs $14–28 in fees. That's 7–14%.",
+              "93% of Bitcoin investors have no exit plan for the next cycle peak.",
+            ].map((item, i) => (
+              <div key={i} style={{ padding: "32px 0", borderBottom: i < 2 ? "1px solid var(--mv-n200)" : "none" }}>
+                <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
+                  <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 40, color: "var(--mv-n200)", lineHeight: 1, minWidth: 48 }}>0{i + 1}</span>
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, lineHeight: 1.7, color: "var(--mv-n700)", marginTop: 6 }}>{item}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* ── Thesis Section ── */}
+      <section style={{ background: "#fff", padding: "120px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
+        <span className="accent-rule lg" style={{ marginBottom: 20 }} />
+        <p className="overline" style={{ marginBottom: 16 }}>Why Bitcoin</p>
+        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 4rem)", marginBottom: 64 }}>Not an investment.<br />An exit.</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", border: "2px solid var(--mv-black)" }} className="three-col-grid">
+          {[
+            { title: "Fixed Supply", body: "21 million. No government can print more." },
+            { title: "Self-Custody", body: "Your keys, your coins. No bank can freeze it." },
+            { title: "Global Liquidity", body: "Send value across borders in 10 minutes for $0.50." },
+          ].map((item, i) => (
+            <div key={i} style={{ padding: "48px 40px", borderRight: i < 2 ? "1px solid var(--mv-n200)" : "none" }}>
+              <span className="accent-rule" style={{ marginBottom: 24 }} />
+              <h3 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 24, marginBottom: 16 }}>{item.title}</h3>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n600)", lineHeight: 1.7 }}>{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Curriculum Preview ── */}
+      <section style={{ background: "var(--mv-n50)", padding: "120px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
+        <span className="accent-rule lg" style={{ marginBottom: 20 }} />
+        <h2 className="h-section" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", marginBottom: 64 }}>What's inside.</h2>
+        <div style={{ borderTop: "2px solid var(--mv-black)" }}>
+          {MODULES_PREVIEW.map((m) => <AccordionItem key={m.num} {...m} />)}
+        </div>
+        <div style={{ marginTop: 40 }}>
+          <Link href="/pricing">
+            <span className="btn" style={{ fontSize: 12 }}>See all 11 modules →</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ── Social Proof ── */}
+      <section style={{ background: "var(--mv-n50)", padding: "120px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, border: "2px solid var(--mv-black)" }} className="three-col-grid">
+          {TESTIMONIALS.map((t, i) => (
+            <div key={i} style={{ padding: "48px 40px", borderRight: i < 2 ? "1px solid var(--mv-n200)" : "none", background: "#fff" }}>
+              <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 18, lineHeight: 1.6, color: "var(--mv-black)", marginBottom: 32 }}>
+                "{t.quote}"
+              </p>
+              <div>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: 13, color: "var(--mv-black)" }}>— {t.name}</p>
+                <p className="overline" style={{ marginTop: 6 }}>{t.role} · {t.followers}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Final CTA ── */}
+      <section style={{ background: "var(--mv-black)", padding: "100px 64px" }} className="section-pad-responsive">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }} className="two-col-grid">
+          <div>
+            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 4rem)", color: "#fff", marginBottom: 24 }}>
+              Enroll before the next cycle peak.
+            </h2>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)", lineHeight: 1.7 }}>
+              11 modules. 85 lessons. One payment. Starts at $97.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "flex-start", gap: 20 }}>
+            <div className="display" style={{ fontSize: "clamp(4rem, 8vw, 8rem)", color: "var(--mv-accent)" }}>$97</div>
+            <Link href="/pricing"><span className="btn orange" style={{ fontSize: 13 }}>Access Blueprint →</span></Link>
+            <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)", letterSpacing: "0.12em" }}>30-day conditional guarantee</p>
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        .hero-grid { grid-template-columns: 60fr 40fr; }
+        .stats-grid { grid-template-columns: repeat(5, 1fr); }
+        .three-col-grid { grid-template-columns: repeat(3, 1fr); }
+        .two-col-grid { grid-template-columns: 1fr 1fr; }
+        @media (max-width: 900px) {
+          .hero-grid, .two-col-grid { grid-template-columns: 1fr !important; }
+          .three-col-grid { grid-template-columns: 1fr !important; }
+          .stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (max-width: 600px) {
+          .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        .section-pad-responsive { padding: 120px 64px; }
+        @media (max-width: 768px) {
+          .section-pad-responsive { padding: 60px 20px !important; }
+        }
+      `}</style>
     </Layout>
   );
 }
