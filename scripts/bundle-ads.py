@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Bundle all ad PNG exports into a single ZIP for easy download.
+Bundle all ad PNG and JPG exports into a single ZIP for easy download.
 Files are grouped into per-angle subfolders inside the ZIP.
 Output: artifacts/mockup-sandbox/public/ads/exports/moneyverse-ads.zip
 """
@@ -24,17 +24,21 @@ def angle_folder(filename):
         return name_no_ext[:match.start()]
     return name_no_ext
 
-pngs = sorted(glob.glob(os.path.join(EXPORTS_DIR, "*.png")))
-if not pngs:
-    print("No PNG files found in", EXPORTS_DIR)
+files = sorted(
+    glob.glob(os.path.join(EXPORTS_DIR, "*.png")) +
+    glob.glob(os.path.join(EXPORTS_DIR, "*.jpg")) +
+    glob.glob(os.path.join(EXPORTS_DIR, "*.jpeg"))
+)
+if not files:
+    print("No PNG/JPG files found in", EXPORTS_DIR)
     raise SystemExit(1)
 
 with zipfile.ZipFile(OUTPUT, "w", zipfile.ZIP_DEFLATED) as zf:
-    for f in pngs:
+    for f in files:
         folder = angle_folder(f)
         arcname = os.path.join(folder, os.path.basename(f))
         zf.write(f, arcname)
         print(f"  + {arcname}")
 
 size_kb = os.path.getsize(OUTPUT) // 1024
-print(f"\nCreated {OUTPUT} ({len(pngs)} files, {size_kb} KB)")
+print(f"\nCreated {OUTPUT} ({len(files)} files, {size_kb} KB)")
