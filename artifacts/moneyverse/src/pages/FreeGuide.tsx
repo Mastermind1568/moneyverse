@@ -236,9 +236,11 @@ const PAGES = [
 ];
 
 function DownloadButton() {
+  const base = import.meta.env.BASE_URL?.replace(/\/$/, "") ?? "";
   return (
-    <button
-      onClick={() => window.print()}
+    <a
+      href={`${base}/fiat-trap-guide.pdf`}
+      download="moneyverse-fiat-trap-guide.pdf"
       className="no-print"
       style={{
         position: "fixed" as const,
@@ -254,7 +256,7 @@ function DownloadButton() {
         letterSpacing: "0.12em",
         background: "var(--mv-accent)",
         color: "#000",
-        border: "none",
+        textDecoration: "none",
         padding: "16px 24px",
         cursor: "pointer",
         boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
@@ -264,7 +266,7 @@ function DownloadButton() {
         <path d="M7 1v8M4 6l3 3 3-3M1 11h12" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/>
       </svg>
       DOWNLOAD PDF
-    </button>
+    </a>
   );
 }
 
