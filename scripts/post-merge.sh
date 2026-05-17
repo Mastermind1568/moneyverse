@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
-pnpm install --frozen-lockfile
+PUPPETEER_SKIP_DOWNLOAD=true pnpm install --frozen-lockfile
 pnpm --filter db push
