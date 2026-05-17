@@ -11,8 +11,9 @@
 <!--
 X (Twitter) Copy:
 Headline (25 chars): "Your savings are melting."
-Description (80 chars): "Fiat inflation silently destroys your purchasing power. Bitcoin doesn't dilute."
+Description (74 chars): "Fiat silently destroys your purchasing power. Bitcoin doesn't dilute."
 URL: moneyverse.network
+Word count on image: 4 (headline) + 7 (benefit) + 3 (CTA) = 14 words
 -->
 
 <style>
@@ -31,28 +32,9 @@ URL: moneyverse.network
     justify-content: space-between;
     padding: 6vh 7vw;
   }
-  .logo {
-    display: flex;
-    align-items: baseline;
-    gap: 1.2vw;
-  }
-  .logo-wordmark {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 3.2vw;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    line-height: 1;
-  }
-  .logo-badge {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 1.2vw;
-    color: #666666;
-    border: 1px solid #333333;
-    padding: 0.2vh 0.5vw;
-    letter-spacing: 0.05em;
+  .logo svg {
+    height: 5vh;
+    width: auto;
   }
   .middle {
     display: flex;
@@ -62,7 +44,7 @@ URL: moneyverse.network
   .headline {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
-    font-size: 9.5vw;
+    font-size: 11vw;
     line-height: 1.05;
     color: #F7931A;
     margin: 0;
@@ -70,8 +52,8 @@ URL: moneyverse.network
   .benefit {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    font-size: 2.4vw;
-    color: rgba(255,255,255,0.65);
+    font-size: 2.6vw;
+    color: rgba(255,255,255,0.6);
     line-height: 1.4;
     margin: 0;
   }
@@ -86,30 +68,22 @@ URL: moneyverse.network
     letter-spacing: 0.12em;
     text-transform: uppercase;
     align-self: flex-start;
-    border-radius: 0;
     text-decoration: none;
-  }
-  .footer {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.6vw;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.08em;
-    text-transform: lowercase;
   }
 </style>
 </head>
 <body>
 <div class="ad">
   <div class="logo">
-    <span class="logo-wordmark">Moneyverse</span>
-    <span class="logo-badge">V1.0</span>
+    <svg viewBox="0 0 320 44" xmlns="http://www.w3.org/2000/svg" aria-label="Moneyverse">
+      <text y="36" font-family="'Playfair Display', serif" font-weight="900" font-size="34" letter-spacing="5" fill="#FFFFFF">MONEYVERSE</text>
+    </svg>
   </div>
   <div class="middle">
     <div class="headline">Your savings<br>are melting.</div>
-    <div class="benefit">Fiat inflation destroys your wealth silently.<br>Build a Bitcoin position before it's obvious.</div>
+    <div class="benefit">Fiat silently destroys your purchasing power.<br>Bitcoin doesn't dilute.</div>
     <a class="cta" href="#">Get The Blueprint</a>
   </div>
-  <span class="footer">moneyverse.network</span>
 </div>
 </body>
 </html>

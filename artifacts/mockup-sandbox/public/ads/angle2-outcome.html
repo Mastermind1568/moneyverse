@@ -6,13 +6,14 @@
 <title>Moneyverse — Outcome Ad</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
 <!--
 X (Twitter) Copy:
 Headline (17 chars): "Build a position."
-Description (79 chars): "Most people know Bitcoin. Few have a real position. The Blueprint changes that."
+Description (75 chars): "Most people know Bitcoin. Few have a real position. The Blueprint fixes that."
 URL: moneyverse.network
+Word count on image: 6 (headline) + 7 (benefit) + 3 (CTA) = 16 words
 -->
 
 <style>
@@ -31,28 +32,9 @@ URL: moneyverse.network
     justify-content: space-between;
     padding: 6vh 7vw;
   }
-  .logo {
-    display: flex;
-    align-items: baseline;
-    gap: 1.2vw;
-  }
-  .logo-wordmark {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 3.2vw;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #000000;
-    line-height: 1;
-  }
-  .logo-badge {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 1.2vw;
-    color: #999999;
-    border: 1px solid #CCCCCC;
-    padding: 0.2vh 0.5vw;
-    letter-spacing: 0.05em;
+  .logo svg {
+    height: 5vh;
+    width: auto;
   }
   .middle {
     display: flex;
@@ -62,7 +44,7 @@ URL: moneyverse.network
   .headline {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
-    font-size: 9.5vw;
+    font-size: 11vw;
     line-height: 1.05;
     color: #000000;
     margin: 0;
@@ -74,8 +56,8 @@ URL: moneyverse.network
   .benefit {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    font-size: 2.4vw;
-    color: rgba(0,0,0,0.55);
+    font-size: 2.6vw;
+    color: rgba(0,0,0,0.5);
     line-height: 1.4;
     margin: 0;
   }
@@ -90,30 +72,22 @@ URL: moneyverse.network
     letter-spacing: 0.12em;
     text-transform: uppercase;
     align-self: flex-start;
-    border-radius: 0;
     text-decoration: none;
-  }
-  .footer {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.6vw;
-    color: rgba(0,0,0,0.25);
-    letter-spacing: 0.08em;
-    text-transform: lowercase;
   }
 </style>
 </head>
 <body>
 <div class="ad">
   <div class="logo">
-    <span class="logo-wordmark">Moneyverse</span>
-    <span class="logo-badge">V1.0</span>
+    <svg viewBox="0 0 320 44" xmlns="http://www.w3.org/2000/svg" aria-label="Moneyverse">
+      <text y="36" font-family="'Playfair Display', serif" font-weight="900" font-size="34" letter-spacing="5" fill="#000000">MONEYVERSE</text>
+    </svg>
   </div>
   <div class="middle">
     <div class="headline">Build a position.<br><em>Not a prayer.</em></div>
-    <div class="benefit">16 modules. One complete protocol.<br>From zero to sovereign Bitcoin holder.</div>
+    <div class="benefit">16 modules. Zero to sovereign<br>Bitcoin holder.</div>
     <a class="cta" href="#">Access The Blueprint</a>
   </div>
-  <span class="footer">moneyverse.network</span>
 </div>
 </body>
 </html>

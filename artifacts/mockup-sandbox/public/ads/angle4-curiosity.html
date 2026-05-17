@@ -13,6 +13,7 @@ X (Twitter) Copy:
 Headline (23 chars): "The cycle doesn't care."
 Description (69 chars): "The 4-year cycle runs on math. Position around it or get left behind."
 URL: moneyverse.network
+Word count on image: 7 (headline) + 7 (benefit) + 3 (CTA) = 17 words
 -->
 
 <style>
@@ -31,28 +32,9 @@ URL: moneyverse.network
     justify-content: space-between;
     padding: 6vh 7vw;
   }
-  .logo {
-    display: flex;
-    align-items: baseline;
-    gap: 1.2vw;
-  }
-  .logo-wordmark {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 3.2vw;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    line-height: 1;
-  }
-  .logo-badge {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 1.2vw;
-    color: #555555;
-    border: 1px solid #333333;
-    padding: 0.2vh 0.5vw;
-    letter-spacing: 0.05em;
+  .logo svg {
+    height: 5vh;
+    width: auto;
   }
   .middle {
     display: flex;
@@ -62,7 +44,7 @@ URL: moneyverse.network
   .headline {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
-    font-size: 8.8vw;
+    font-size: 10vw;
     line-height: 1.05;
     color: #FFFFFF;
     margin: 0;
@@ -73,8 +55,8 @@ URL: moneyverse.network
   .benefit {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    font-size: 2.4vw;
-    color: rgba(255,255,255,0.55);
+    font-size: 2.6vw;
+    color: rgba(255,255,255,0.5);
     line-height: 1.4;
     margin: 0;
   }
@@ -89,30 +71,22 @@ URL: moneyverse.network
     letter-spacing: 0.12em;
     text-transform: uppercase;
     align-self: flex-start;
-    border-radius: 0;
     text-decoration: none;
-  }
-  .footer {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.6vw;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 0.08em;
-    text-transform: lowercase;
   }
 </style>
 </head>
 <body>
 <div class="ad">
   <div class="logo">
-    <span class="logo-wordmark">Moneyverse</span>
-    <span class="logo-badge">V1.0</span>
+    <svg viewBox="0 0 320 44" xmlns="http://www.w3.org/2000/svg" aria-label="Moneyverse">
+      <text y="36" font-family="'Playfair Display', serif" font-weight="900" font-size="34" letter-spacing="5" fill="#FFFFFF">MONEYVERSE</text>
+    </svg>
   </div>
   <div class="middle">
-    <div class="headline">The <span class="accent">4-year cycle</span><br>doesn't care<br>about your feelings.</div>
-    <div class="benefit">Math. Not emotions. Learn to position<br>around the cycle before it passes you.</div>
+    <div class="headline">The <span class="accent">4-year cycle</span><br>doesn't care.</div>
+    <div class="benefit">Math, not emotions. Position around<br>the cycle before it closes.</div>
     <a class="cta" href="#">Learn The Cycle</a>
   </div>
-  <span class="footer">moneyverse.network</span>
 </div>
 </body>
 </html>
