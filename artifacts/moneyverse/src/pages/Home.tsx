@@ -191,12 +191,6 @@ export default function Home() {
                   <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
                 </span>
               </Link>
-              <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-                <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 28, color: "#fff" }}>$97</span>
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.15em", lineHeight: 1.8 }}>
-                  ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
-                </span>
-              </div>
             </div>
           </div>
 
