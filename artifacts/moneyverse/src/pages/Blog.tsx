@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 
@@ -15,6 +16,10 @@ const ARTICLES = [
 const TAGS = ["All", "Macro", "Cycle Theory", "Self-Custody", "Strategy", "Africa", "Remittance", "Exit Strategy"];
 
 export default function Blog() {
+  const [activeTag, setActiveTag] = useState("All");
+
+  const filtered = activeTag === "All" ? ARTICLES : ARTICLES.filter((a) => a.tag === activeTag);
+
   return (
     <Layout>
       {/* ── Hero ── */}
@@ -29,65 +34,83 @@ export default function Blog() {
         </p>
       </section>
 
-      {/* ── Tag filter (visual only) ── */}
+      {/* ── Tag filter ── */}
       <section style={{ background: "#fff", padding: "24px 64px", borderBottom: "1px solid var(--mv-n200)", overflowX: "auto" as const }} className="tag-pad-responsive">
         <div style={{ display: "flex", gap: 8, flexWrap: "nowrap" as const }}>
-          {TAGS.map((tag, i) => (
-            <span key={tag} style={{
-              fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.12em", padding: "6px 14px",
-              border: "2px solid var(--mv-black)", cursor: "pointer", whiteSpace: "nowrap" as const,
-              background: i === 0 ? "var(--mv-black)" : "transparent",
-              color: i === 0 ? "#fff" : "var(--mv-black)",
-            }}>
-              {tag.toUpperCase()}
-            </span>
-          ))}
+          {TAGS.map((tag) => {
+            const active = tag === activeTag;
+            return (
+              <button
+                key={tag}
+                onClick={() => setActiveTag(tag)}
+                style={{
+                  fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.12em",
+                  padding: "6px 14px", border: "2px solid var(--mv-black)", cursor: "pointer",
+                  whiteSpace: "nowrap" as const, background: active ? "var(--mv-black)" : "transparent",
+                  color: active ? "#fff" : "var(--mv-black)", transition: "all 0.15s",
+                }}
+              >
+                {tag.toUpperCase()}
+              </button>
+            );
+          })}
         </div>
       </section>
 
       {/* ── Articles grid ── */}
       <section style={{ background: "#fff", padding: "80px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0, border: "2px solid var(--mv-black)" }} className="articles-grid">
-          {ARTICLES.map((article, i) => (
-            <div key={article.slug} style={{
-              padding: "48px 40px",
-              borderRight: i % 2 === 0 ? "1px solid var(--mv-n200)" : "none",
-              borderBottom: i < ARTICLES.length - 2 ? "1px solid var(--mv-n200)" : "none",
-            }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 8, color: "#000", background: "var(--mv-accent)", padding: "3px 10px", letterSpacing: "0.12em" }}>
-                  {article.tag.toUpperCase()}
-                </span>
-                <span className="mono" style={{ fontSize: 10, color: "var(--mv-n400)" }}>{article.date}</span>
-              </div>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(1.2rem, 2vw, 1.6rem)", lineHeight: 1.2, marginBottom: 16, color: "var(--mv-black)" }}>
-                {article.title}
-              </h2>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n600)", lineHeight: 1.7, marginBottom: 24 }}>
-                {article.preview}
-              </p>
-              <Link href={`/blog/${article.slug}`}>
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-accent)", letterSpacing: "0.12em", cursor: "pointer" }}>
-                  READ → 
-                </span>
+        {filtered.length === 0 ? (
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n600)" }}>No articles in this category yet.</p>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0, border: "2px solid var(--mv-black)" }} className="articles-grid">
+            {filtered.map((article, i) => (
+              <Link key={article.slug} href={`/blog/${article.slug}`}>
+                <div style={{
+                  padding: "48px 40px", cursor: "pointer",
+                  borderBottom: i < filtered.length - 2 ? "1px solid var(--mv-n200)" : "none",
+                  borderRight: i % 2 === 0 ? "1px solid var(--mv-n200)" : "none",
+                  transition: "background 0.15s",
+                }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--mv-n50)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#fff")}
+                >
+                  <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 20 }}>
+                    <span style={{
+                      fontFamily: "'Space Mono', monospace", fontSize: 8, letterSpacing: "0.12em",
+                      padding: "3px 10px", border: "1px solid var(--mv-n300)", color: "var(--mv-n600)",
+                    }}>
+                      {article.tag.toUpperCase()}
+                    </span>
+                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n400)", letterSpacing: "0.08em" }}>
+                      {article.date}
+                    </span>
+                  </div>
+                  <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", marginBottom: 16, lineHeight: 1.3 }}>
+                    {article.title}
+                  </h2>
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n600)", lineHeight: 1.7 }}>
+                    {article.preview}
+                  </p>
+                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-accent)", marginTop: 20, letterSpacing: "0.1em" }}>
+                    READ →
+                  </p>
+                </div>
               </Link>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ background: "var(--mv-n50)", padding: "80px 64px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 32, borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
-        <div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(1.5rem, 3vw, 2.5rem)", marginBottom: 8 }}>
-            Ready to go beyond the research?
-          </h2>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n600)" }}>
-            The Blueprint translates this into an executable protocol.
-          </p>
-        </div>
+      <section style={{ background: "var(--mv-black)", padding: "80px 64px", textAlign: "center" as const }} className="section-pad-responsive">
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(1.5rem, 4vw, 3rem)", color: "#fff", marginBottom: 24 }}>
+          The research is just the beginning.
+        </h2>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)", maxWidth: 500, margin: "0 auto 40px", lineHeight: 1.7 }}>
+          The Blueprint takes everything here and turns it into a 21-day protocol.
+        </p>
         <Link href="/pricing">
-          <span className="btn orange" style={{ fontSize: 12, padding: "14px 28px" }}>Get The Blueprint →</span>
+          <span className="btn orange" style={{ fontSize: 12, padding: "16px 32px" }}>Access The Blueprint →</span>
         </Link>
       </section>
 
@@ -95,9 +118,10 @@ export default function Blog() {
         .articles-grid { grid-template-columns: repeat(2, 1fr); }
         @media (max-width: 768px) {
           .articles-grid { grid-template-columns: 1fr !important; }
-          .section-pad-responsive { padding: 60px 20px !important; }
-          .tag-pad-responsive { padding: 24px 20px !important; }
+          .tag-pad-responsive { padding: 16px 20px !important; }
         }
+        .section-pad-responsive { padding: 80px 64px; }
+        @media (max-width: 768px) { .section-pad-responsive { padding: 48px 20px !important; } }
       `}</style>
     </Layout>
   );

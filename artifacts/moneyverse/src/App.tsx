@@ -1,5 +1,6 @@
 import { Switch, Route, Router as WouterRouter, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthProvider } from "@/contexts/AuthContext";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Pricing from "@/pages/Pricing";
@@ -11,6 +12,9 @@ import Blog from "@/pages/Blog";
 import Preview from "@/pages/Preview";
 import Success from "@/pages/Success";
 import Cancel from "@/pages/Cancel";
+import Login from "@/pages/Login";
+import Register from "@/pages/Register";
+import Dashboard from "@/pages/Dashboard";
 import GlossaryTerm from "@/pages/GlossaryTerm";
 import Guide from "@/pages/Guide";
 import Compare from "@/pages/Compare";
@@ -30,6 +34,9 @@ function Router() {
       <Route path="/preview/:slug" component={Preview} />
       <Route path="/success" component={Success} />
       <Route path="/cancel" component={Cancel} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="/dashboard" component={Dashboard} />
 
       {/* Legacy redirects */}
       <Route path="/thesis"><Redirect to="/about" /></Route>
@@ -38,7 +45,7 @@ function Router() {
       <Route path="/research"><Redirect to="/blog" /></Route>
       <Route path="/curriculum"><Redirect to="/pricing" /></Route>
 
-      {/* SEO pages kept */}
+      {/* SEO pages */}
       <Route path="/learn/:term" component={GlossaryTerm} />
       <Route path="/guides/:slug" component={Guide} />
       <Route path="/compare/:slug" component={Compare} />
@@ -51,9 +58,11 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-        <Router />
-      </WouterRouter>
+      <AuthProvider>
+        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+          <Router />
+        </WouterRouter>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
