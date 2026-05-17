@@ -220,7 +220,7 @@ export default function Home() {
             { num: "85", label: "Lessons" },
             { num: "11h 43m", label: "Runtime" },
             { num: "Lifetime", label: "Access" },
-            { num: "30 Days", label: "Guarantee", orange: true },
+            { num: "21 Days", label: "Guarantee", orange: true },
           ].map((s, i) => (
             <div key={i} style={{ padding: "32px 24px", borderRight: i < 4 ? "1px solid var(--mv-n200)" : "none", textAlign: "center" as const }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 28, color: s.orange ? "var(--mv-accent)" : "var(--mv-black)" }}>{s.num}</div>
@@ -260,7 +260,7 @@ export default function Home() {
               The complete operating manual. 11 modules covering the fiat trap, the halving cycle, cold storage, DCA, and your full exit plan.
             </p>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: 12, marginBottom: 40 }}>
-              {["11 Core Modules · 85 Lessons", "Cold Storage Protocol", "DCA Accumulation Engine", "Bitcoin Exit Plan Framework", "30-Day Conditional Guarantee"].map((f) => (
+              {["11 Core Modules · 85 Lessons", "Cold Storage Protocol", "DCA Accumulation Engine", "Bitcoin Exit Plan Framework", "21-Day Conditional Guarantee"].map((f) => (
                 <div key={f} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                   <span style={{ color: "var(--mv-n600)", marginTop: 1, flexShrink: 0 }}>—</span>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n400)", lineHeight: 1.5 }}>{f}</span>
@@ -327,7 +327,7 @@ export default function Home() {
         {/* Footer note */}
         <div style={{ padding: "24px 80px", borderTop: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 16 }} className="hero-pad">
           <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em" }}>
-            ALL TIERS · ONE-TIME PAYMENT · NO SUBSCRIPTION · LIFETIME ACCESS · 30-DAY CONDITIONAL GUARANTEE
+            ALL TIERS · ONE-TIME PAYMENT · NO SUBSCRIPTION · LIFETIME ACCESS · 21-DAY CONDITIONAL GUARANTEE
           </p>
           <Link href="/pricing">
             <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-accent)", letterSpacing: "0.12em", cursor: "pointer" }}>COMPARE ALL TIERS IN FULL →</span>
@@ -463,7 +463,7 @@ export default function Home() {
               </span>
             </Link>
             <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", lineHeight: 2 }}>
-              ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
+              ONE-TIME · LIFETIME ACCESS<br />21-DAY CONDITIONAL GUARANTEE
             </p>
           </div>
         </div>

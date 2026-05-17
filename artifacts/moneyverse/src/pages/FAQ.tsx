@@ -32,7 +32,7 @@ const SECTIONS = [
   {
     label: "The Guarantee",
     qas: [
-      { q: "What exactly is the 30-day conditional guarantee?", a: "Follow the 21-Day Activation Sequence as designed — one protocol per day, executed in order. If you complete the sequence and your financial position hasn't fundamentally shifted, one email gets you every cent back. No forms. No interrogation." },
+      { q: "What exactly is the 21-day conditional guarantee?", a: "Follow the 21-Day Activation Sequence as designed — one protocol per day, executed in order. If you complete the sequence and your financial position hasn't fundamentally shifted, one email gets you every cent back. No forms. No interrogation." },
       { q: 'What does "fundamentally shifted" mean?', a: "Your DCA is running automatically. Your Bitcoin is in self-custody. You have sent or received a cross-border payment without a bank. You know your exact exit targets. These are concrete, verifiable outcomes — not vague feelings." },
     ],
   },
@@ -103,7 +103,7 @@ export default function FAQ() {
               </span>
             </Link>
             <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", lineHeight: 2, textAlign: "center" as const }}>
-              ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
+              ONE-TIME · LIFETIME ACCESS<br />21-DAY CONDITIONAL GUARANTEE
             </p>
           </div>
         </div>

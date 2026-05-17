@@ -18,7 +18,7 @@ const FAQS = [
   },
   {
     question: "Is there a refund policy?",
-    answer: "Yes. If you complete Phase 1 (4 modules) and don't believe the educational content delivered on its promise, request a full refund within 30 days. We are confident enough in the quality of the content to stand behind it. After 30 days, all sales are final.",
+    answer: "Yes. If you complete Phase 1 (4 modules) and don't believe the educational content delivered on its promise, request a full refund within 21 days. We are confident enough in the quality of the content to stand behind it. After 21 days, all sales are final.",
   },
   {
     question: "What about altcoins? Does the Blueprint cover them?",
@@ -106,7 +106,7 @@ export default function Masterclass() {
           >
             ACCESS THE BLUEPRINT →
           </button>
-          <p className="text-xs text-background/40 mt-4">Secure checkout. 30-day satisfaction guarantee.</p>
+          <p className="text-xs text-background/40 mt-4">Secure checkout. 21-day satisfaction guarantee.</p>
         </div>
       </section>
 
@@ -254,7 +254,7 @@ export default function Masterclass() {
           >
             ACCESS THE BLUEPRINT →
           </button>
-          <p className="text-xs text-background/40 mt-6">30-day satisfaction guarantee · Bitcoin-only · No altcoins</p>
+          <p className="text-xs text-background/40 mt-6">21-day satisfaction guarantee · Bitcoin-only · No altcoins</p>
         </div>
       </section>
     </Layout>

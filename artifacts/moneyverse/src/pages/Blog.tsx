@@ -122,7 +122,7 @@ export default function Blog() {
               </span>
             </Link>
             <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", lineHeight: 2, textAlign: "center" as const }}>
-              ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
+              ONE-TIME · LIFETIME ACCESS<br />21-DAY CONDITIONAL GUARANTEE
             </p>
           </div>
         </div>

@@ -241,7 +241,7 @@ export default function Partner() {
           </>
         )}
         <p className="mono" style={{ fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.1em", display: "block", marginTop: 20 }}>
-          30-day conditional guarantee · $59.10 / sale · real-time dashboard
+          21-day conditional guarantee · $59.10 / sale · real-time dashboard
         </p>
       </section>
 

@@ -160,7 +160,7 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
           {loading ? "Redirecting…" : method === "bitcoin" ? `Pay with Bitcoin → ${tier.cta}` : tier.cta}
         </button>
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.1em" }}>30-day conditional refund</span>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.1em" }}>21-day conditional refund</span>
           <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-accent)", letterSpacing: "0.1em" }}>● SECURE</span>
         </div>
       </div>
@@ -205,7 +205,7 @@ export default function Pricing() {
             { num: "85", label: "Lessons" },
             { num: "11h 43m", label: "Runtime" },
             { num: "Lifetime", label: "Access" },
-            { num: "30 Days", label: "Guarantee", orange: true },
+            { num: "21 Days", label: "Guarantee", orange: true },
           ].map((s, i) => (
             <div key={i} style={{ padding: "28px 20px", borderRight: i < 4 ? "1px solid var(--mv-n200)" : "none", textAlign: "center" as const }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 26, color: s.orange ? "var(--mv-accent)" : "var(--mv-black)" }}>{s.num}</div>
@@ -333,7 +333,7 @@ export default function Pricing() {
           </p>
           <CheckoutPanel tier={activeTier} />
           <p className="mono" style={{ fontSize: 9, color: "var(--mv-n400)", maxWidth: 560, lineHeight: 1.8, marginTop: 20, letterSpacing: "0.06em" }}>
-            30-day conditional guarantee — follow the 21-day activation sequence as designed: one protocol per day, executed. If you do the work and your financial position hasn't fundamentally shifted, one email gets you every cent back. No forms. No questions. We are that confident in the protocol.
+            21-day conditional guarantee — follow the 21-day activation sequence as designed: one protocol per day, executed. If you do the work and your financial position hasn't fundamentally shifted, one email gets you every cent back. No forms. No questions. We are that confident in the protocol.
           </p>
         </div>
       </section>
