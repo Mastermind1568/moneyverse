@@ -59,7 +59,7 @@ export default function Home() {
         <div style={{ display: "grid", gridTemplateColumns: "60fr 40fr", width: "100%", borderBottom: "2px solid #222" }} className="hero-grid">
           {/* Left */}
           <div style={{ padding: "100px 64px", display: "flex", flexDirection: "column" as const, justifyContent: "center", borderRight: "2px solid #222" }}>
-            <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 32 }}>Bitcoin · Financial Sovereignty · 2026</p>
+            <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 32 }}>Bitcoin · Financial Sovereignty</p>
             <h1 className="display" style={{ fontSize: "clamp(5rem, 13vw, 16rem)", color: "#fff", marginBottom: 40 }}>
               Money<br /><em style={{ color: "var(--mv-accent)" }}>verse</em><span style={{ color: "var(--mv-accent)" }}>.</span>
             </h1>

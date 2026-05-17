@@ -29,19 +29,19 @@ title = "Angle 1 – Pain (1200×627 LinkedIn)"
 id = "HVS60vv0sW_gqImgIyUTz"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1080x1080.png"
 type = "image"
-title = "Angle 2 – Outcome (1080×1080 Meta/Instagram)"
+title = "Angle 2 — Outcome · 1080×1080 (Instagram square)"
 
 [[outputs]]
 id = "kKzV89cq2bWWHWVK-A5PK"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x675.png"
 type = "image"
-title = "Angle 2 – Outcome (1200×675 X/Twitter)"
+title = "Angle 2 — Outcome · 1200×675 (Facebook / YouTube)"
 
 [[outputs]]
 id = "7xOPdY7N0d4FI3Y6Dm3aF"
 uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x627.png"
 type = "image"
-title = "Angle 2 – Outcome (1200×627 LinkedIn)"
+title = "Angle 2 — Outcome · 1200×627 (LinkedIn / Twitter card)"
 
 [[outputs]]
 id = "aV7dZPLWdPTjZcdVyjj7X"
