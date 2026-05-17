@@ -19,6 +19,7 @@ import GlossaryTerm from "@/pages/GlossaryTerm";
 import Guide from "@/pages/Guide";
 import Compare from "@/pages/Compare";
 import FreeGuide from "@/pages/FreeGuide";
+import AuthCallback from "@/pages/AuthCallback";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/cancel" component={Cancel} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/auth/callback" component={AuthCallback} />
       <Route path="/dashboard" component={Dashboard} />
 
       {/* Legacy redirects */}

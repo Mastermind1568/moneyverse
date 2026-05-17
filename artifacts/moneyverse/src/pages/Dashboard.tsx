@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
 import Layout from "@/components/Layout";
 
 const MODULES = [
@@ -36,12 +37,25 @@ export default function Dashboard() {
   const [, navigate] = useLocation();
   const [progress, setProgress] = useState<Record<string, boolean[]>>(getProgress);
   const [copied, setCopied] = useState(false);
+  const [tier, setTier] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) navigate("/login");
+    if (!loading && !user) { navigate("/login"); return; }
+    if (!user || !supabase) return;
+
+    supabase
+      .from("profiles")
+      .select("tier")
+      .eq("id", user.id)
+      .single()
+      .then(({ data }) => {
+        const t = data?.tier ?? 0;
+        setTier(t);
+        if (t === 0) navigate("/pricing");
+      });
   }, [user, loading, navigate]);
 
-  if (loading || !user) {
+  if (loading || !user || tier === null) {
     return (
       <Layout>
         <section style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
