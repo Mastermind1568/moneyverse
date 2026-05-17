@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 
@@ -11,7 +11,6 @@ const COUNTRIES = [
 ];
 
 const BTC_AVG_ENTRY = 35000;
-const BTC_CURRENT = 100000;
 const MONTHS = 36;
 
 function fmt(n: number, digits = 0) {
@@ -20,14 +19,29 @@ function fmt(n: number, digits = 0) {
 
 export default function Calculator() {
   const [countryCode, setCountryCode] = useState("NG");
+  const [btcPrice, setBtcPrice] = useState<number | null>(null);
+  const [priceError, setPriceError] = useState(false);
+
   const country = COUNTRIES.find((c) => c.code === countryCode) || COUNTRIES[0];
   const [monthly, setMonthly] = useState(country.defaultSavings);
+
+  useEffect(() => {
+    fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.bitcoin?.usd) setBtcPrice(data.bitcoin.usd);
+        else setPriceError(true);
+      })
+      .catch(() => setPriceError(true));
+  }, []);
 
   function handleCountryChange(code: string) {
     const c = COUNTRIES.find((x) => x.code === code) || COUNTRIES[0];
     setCountryCode(code);
     setMonthly(c.defaultSavings);
   }
+
+  const BTC_CURRENT = btcPrice ?? 100000;
 
   const totalLocal = monthly * MONTHS;
   const usdAtStart = totalLocal / country.startRate;
@@ -50,11 +64,22 @@ export default function Calculator() {
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)", maxWidth: 620, lineHeight: 1.7 }}>
           Enter what you save each month. See how much purchasing power your currency took from you — and what the Bitcoin alternative would look like.
         </p>
+
+        {/* Live BTC price badge */}
+        <div style={{ marginTop: 32, display: "inline-flex", alignItems: "center", gap: 10, border: "1px solid #333", padding: "8px 16px" }}>
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: btcPrice ? "var(--mv-accent)" : priceError ? "#888" : "#444", display: "inline-block", flexShrink: 0 }} />
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.12em", color: "var(--mv-n400)" }}>
+            {btcPrice
+              ? `BTC LIVE: $${fmt(btcPrice)} USD`
+              : priceError
+              ? "BTC: $100,000 USD (CACHED)"
+              : "FETCHING LIVE BTC PRICE..."}
+          </span>
+        </div>
       </section>
 
       {/* ── Calculator ── */}
       <section style={{ background: "#fff", padding: "80px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
-        {/* Inputs */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, marginBottom: 48 }} className="two-col-grid">
           <div>
             <label style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase" as const, display: "block", marginBottom: 12 }}>
@@ -63,10 +88,7 @@ export default function Calculator() {
             <select
               value={countryCode}
               onChange={(e) => handleCountryChange(e.target.value)}
-              style={{
-                width: "100%", fontFamily: "'Space Mono', monospace", fontSize: 12, padding: "14px 16px",
-                border: "2px solid var(--mv-black)", background: "#fff", outline: "none", cursor: "pointer", appearance: "none" as const,
-              }}
+              style={{ width: "100%", fontFamily: "'Space Mono', monospace", fontSize: 12, padding: "14px 16px", border: "2px solid var(--mv-black)", background: "#fff", outline: "none", cursor: "pointer", appearance: "none" as const }}
             >
               {COUNTRIES.map((c) => (
                 <option key={c.code} value={c.code}>{c.flag} {c.name} ({c.currency} · {c.symbol})</option>
@@ -86,10 +108,7 @@ export default function Calculator() {
                 type="number"
                 value={monthly}
                 onChange={(e) => setMonthly(Math.max(0, Number(e.target.value)))}
-                style={{
-                  width: "100%", fontFamily: "'Space Mono', monospace", fontSize: 16, padding: "14px 16px 14px 48px",
-                  border: "2px solid var(--mv-black)", background: "#fff", outline: "none",
-                }}
+                style={{ width: "100%", fontFamily: "'Space Mono', monospace", fontSize: 16, padding: "14px 16px 14px 48px", border: "2px solid var(--mv-black)", background: "#fff", outline: "none" }}
               />
             </div>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "var(--mv-n600)", marginTop: 10 }}>
@@ -98,17 +117,14 @@ export default function Calculator() {
           </div>
         </div>
 
-        {/* Results grid */}
+        {/* Results */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", border: "2px solid var(--mv-black)" }} className="three-col-grid">
-          {/* Col 1: You saved */}
           <div style={{ padding: "40px 32px", borderRight: "1px solid var(--mv-n200)" }}>
             <p className="overline" style={{ marginBottom: 20 }}>You saved</p>
-            <div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 32, marginBottom: 8 }}>
-                {country.symbol}{fmt(totalLocal)}
-              </div>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n600)" }}>Total in {country.currency} over 3 years</p>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 32, marginBottom: 8 }}>
+              {country.symbol}{fmt(totalLocal)}
             </div>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n600)" }}>Total in {country.currency} over 3 years</p>
             <div style={{ marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--mv-n200)" }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 24, color: "var(--mv-n700)", marginBottom: 8 }}>
                 ${fmt(usdAtStart, 2)}
@@ -117,15 +133,12 @@ export default function Calculator() {
             </div>
           </div>
 
-          {/* Col 2: It's now worth */}
           <div style={{ padding: "40px 32px", borderRight: "1px solid var(--mv-n200)", background: "#fff5f5" }}>
             <p className="overline" style={{ marginBottom: 20, color: "var(--mv-red)" }}>It's now worth</p>
-            <div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 32, color: "var(--mv-red)", marginBottom: 8 }}>
-                ${fmt(usdToday, 2)}
-              </div>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n600)" }}>Current USD value</p>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 32, color: "var(--mv-red)", marginBottom: 8 }}>
+              ${fmt(usdToday, 2)}
             </div>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n600)" }}>Current USD value</p>
             <div style={{ marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--mv-n200)" }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 24, color: "var(--mv-red)", marginBottom: 8 }}>
                 −${fmt(purchasingPowerLost, 2)}
@@ -136,15 +149,14 @@ export default function Calculator() {
             </div>
           </div>
 
-          {/* Col 3: Bitcoin alternative */}
           <div style={{ padding: "40px 32px", background: "#fff8f0" }}>
             <p className="overline" style={{ marginBottom: 20, color: "var(--mv-accent)" }}>Bitcoin alternative</p>
-            <div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 32, color: "var(--mv-accent)", marginBottom: 8 }}>
-                ${fmt(btcValueToday, 0)}
-              </div>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n600)" }}>BTC value today</p>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 32, color: "var(--mv-accent)", marginBottom: 8 }}>
+              ${fmt(btcValueToday, 0)}
             </div>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n600)" }}>
+              BTC value today {btcPrice ? `· $${fmt(btcPrice)} live` : ""}
+            </p>
             <div style={{ marginTop: 24, paddingTop: 24, borderTop: "1px solid var(--mv-n200)" }}>
               <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 16, color: "var(--mv-n700)", marginBottom: 4 }}>
                 {btcAccumulated.toFixed(4)} BTC
@@ -158,7 +170,7 @@ export default function Calculator() {
           </div>
         </div>
 
-        {/* The Gap callout */}
+        {/* Gap callout */}
         <div style={{ background: "var(--mv-black)", padding: "40px 48px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 24, marginTop: -2 }}>
           <div>
             <div className="display" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "var(--mv-accent)" }}>
@@ -173,9 +185,8 @@ export default function Calculator() {
           </Link>
         </div>
 
-        {/* Disclaimer */}
         <p className="mono" style={{ fontSize: 9, color: "var(--mv-n400)", marginTop: 20, lineHeight: 1.8, letterSpacing: "0.06em" }}>
-          Exchange rates are illustrative and based on publicly available historical data. Bitcoin DCA calculation assumes weekly purchases at an average entry price of $35,000 and a current price of $100,000. Actual returns vary. This is not financial advice.
+          Exchange rates are illustrative and based on publicly available historical data. Bitcoin price pulled live from CoinGecko. DCA assumes weekly purchases at a $35,000 average entry. Actual returns vary. This is not financial advice.
         </p>
       </section>
 
@@ -204,7 +215,7 @@ export default function Calculator() {
           Stop saving in a leaking currency.
         </h2>
         <Link href="/pricing">
-          <span className="btn orange" style={{ fontSize: 13, padding: "16px 32px", marginBottom: 16, display: "inline-flex" }}>Enroll in The Blueprint · $197 →</span>
+          <span className="btn orange" style={{ fontSize: 13, padding: "16px 32px", marginBottom: 16, display: "inline-flex" }}>Enroll in The Blueprint · $97 →</span>
         </Link>
         <p className="mono" style={{ fontSize: 9, color: "var(--mv-n400)", letterSpacing: "0.1em", display: "block", marginTop: 12 }}>
           30-day conditional guarantee · One email refund
@@ -219,9 +230,7 @@ export default function Calculator() {
           .three-col-grid { grid-template-columns: 1fr !important; }
         }
         .section-pad-responsive { padding: 100px 64px; }
-        @media (max-width: 768px) {
-          .section-pad-responsive { padding: 60px 20px !important; }
-        }
+        @media (max-width: 768px) { .section-pad-responsive { padding: 60px 20px !important; } }
       `}</style>
     </Layout>
   );

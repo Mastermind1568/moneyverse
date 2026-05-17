@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
+import { useAuth } from "@/contexts/AuthContext";
 
 const NICHES = [
   { label: "Personal Finance", rate: 0.012 },
@@ -15,14 +16,27 @@ const COMMISSION_PCT = 0.30;
 const COMMISSION_VALUE = 59.10;
 
 export default function Partner() {
+  const { user } = useAuth();
   const [followers, setFollowers] = useState(20000);
   const [nicheIdx, setNicheIdx] = useState(0);
+  const [copied, setCopied] = useState(false);
 
   const niche = NICHES[nicheIdx];
   const projectedSales = Math.round(followers * niche.rate);
   const partnerEarnings = projectedSales * COMMISSION_VALUE;
   const breakEvenSales = Math.ceil(COURSE_PRICE / COMMISSION_VALUE);
   const breakEvenPct = projectedSales > 0 ? ((breakEvenSales / projectedSales) * 100).toFixed(0) : "—";
+
+  const referralCode = user ? user.id.substring(0, 8).toUpperCase() : null;
+  const referralUrl = referralCode ? `https://moneyverse.network/?ref=${referralCode}` : null;
+
+  function copyReferral() {
+    if (!referralUrl) return;
+    navigator.clipboard.writeText(referralUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
 
   return (
     <Layout>
@@ -49,6 +63,44 @@ export default function Partner() {
           ))}
         </div>
       </section>
+
+      {/* ── Referral link (enrolled students only) ── */}
+      {user && referralUrl && (
+        <section style={{ background: "var(--mv-accent)", padding: "40px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-sm">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, flexWrap: "wrap" as const }}>
+            <div>
+              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#000", marginBottom: 8 }}>
+                YOUR AFFILIATE LINK · REF: {referralCode}
+              </p>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "#000", opacity: 0.7 }}>
+                Share this link. Every sale earns you $59.10. Tracked in real time.
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: 0, flexShrink: 0 }}>
+              <div style={{
+                fontFamily: "'Space Mono', monospace", fontSize: 11,
+                padding: "12px 18px", background: "#fff", color: "#000",
+                border: "2px solid #000", borderRight: "none",
+                maxWidth: 280, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const,
+              }}>
+                {referralUrl}
+              </div>
+              <button
+                onClick={copyReferral}
+                style={{
+                  fontFamily: "'Space Mono', monospace", fontSize: 9, fontWeight: 700,
+                  letterSpacing: "0.12em", padding: "0 20px",
+                  background: copied ? "var(--mv-black)" : "#000",
+                  color: "#fff", border: "2px solid #000",
+                  cursor: "pointer", whiteSpace: "nowrap" as const, transition: "all 0.15s",
+                }}
+              >
+                {copied ? "COPIED ✓" : "COPY LINK"}
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Calculator ── */}
       <section style={{ background: "#fff", padding: "100px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
@@ -86,7 +138,6 @@ export default function Partner() {
           </div>
         </div>
 
-        {/* Results */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", border: "2px solid var(--mv-black)" }} className="three-col-grid">
           <div style={{ padding: "40px 32px", borderRight: "1px solid var(--mv-n200)" }}>
             <p className="overline" style={{ marginBottom: 16 }}>Projected enrolments</p>
@@ -121,7 +172,7 @@ export default function Partner() {
         <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", marginBottom: 48 }}>How the programme works.</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", border: "2px solid var(--mv-black)" }} className="four-col-grid">
           {[
-            { num: "01", title: "Enroll", body: "Buy The Blueprint at $197. You learn the protocol and get full course access." },
+            { num: "01", title: "Enroll", body: "Buy The Blueprint at $97. You learn the protocol and get full course access." },
             { num: "02", title: "Get your links", body: "Instant access to the partner dashboard. Create affiliate links per platform or campaign." },
             { num: "03", title: "Launch", body: "Use the 14-day Story Launch Sequence and Monetisation Gameplan to promote to your audience." },
             { num: "04", title: "Earn 30%", body: "Every sale tracked in real time. $59.10 per enrolment, paid to your account." },
@@ -169,14 +220,26 @@ export default function Partner() {
 
       {/* ── CTA ── */}
       <section style={{ background: "var(--mv-black)", padding: "100px 64px", textAlign: "center" as const }} className="section-pad-responsive">
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 5vw, 4rem)", color: "#fff", marginBottom: 16 }}>Enroll. Then monetise.</h2>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 5vw, 4rem)", color: "#fff", marginBottom: 16 }}>
+          {user ? "Your affiliate link is active." : "Enroll. Then monetise."}
+        </h2>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)", maxWidth: 560, margin: "0 auto 40px", lineHeight: 1.7 }}>
-          Buy The Blueprint once. You learn the protocol and immediately get access to the affiliate engine. Four sales and your course pays for itself.
+          {user
+            ? "Share your link, track your conversions, and earn 30% on every sale — forever."
+            : "Buy The Blueprint once. You learn the protocol and immediately get access to the affiliate engine. Four sales and your course pays for itself."}
         </p>
-        <div className="display" style={{ fontSize: "clamp(4rem, 10vw, 8rem)", color: "var(--mv-accent)", marginBottom: 24 }}>$197</div>
-        <Link href="/pricing">
-          <span className="btn orange" style={{ fontSize: 12, padding: "16px 32px" }}>Enroll & Activate Partner Access →</span>
-        </Link>
+        {user ? (
+          <Link href="/dashboard">
+            <span className="btn orange" style={{ fontSize: 12, padding: "16px 32px" }}>Go to Dashboard →</span>
+          </Link>
+        ) : (
+          <>
+            <div className="display" style={{ fontSize: "clamp(4rem, 10vw, 8rem)", color: "var(--mv-accent)", marginBottom: 24 }}>$97</div>
+            <Link href="/pricing">
+              <span className="btn orange" style={{ fontSize: 12, padding: "16px 32px" }}>Enroll & Activate Partner Access →</span>
+            </Link>
+          </>
+        )}
         <p className="mono" style={{ fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.1em", display: "block", marginTop: 20 }}>
           30-day conditional guarantee · $59.10 / sale · real-time dashboard
         </p>
@@ -192,7 +255,11 @@ export default function Partner() {
           .three-col-grid, .stats-three-col { grid-template-columns: 1fr !important; }
         }
         .section-pad-responsive { padding: 100px 64px; }
-        @media (max-width: 768px) { .section-pad-responsive { padding: 60px 20px !important; } }
+        .section-pad-sm { padding: 40px 64px; }
+        @media (max-width: 768px) {
+          .section-pad-responsive { padding: 60px 20px !important; }
+          .section-pad-sm { padding: 24px 20px !important; }
+        }
       `}</style>
     </Layout>
   );

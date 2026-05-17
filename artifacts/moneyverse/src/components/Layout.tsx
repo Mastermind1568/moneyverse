@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
+import { useAuth } from "@/contexts/AuthContext";
 
 const NAV_LINKS = [
   { href: "/about", label: "The Thesis" },
@@ -59,11 +60,9 @@ function FooterEmailForm() {
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
+  const { user, signOut, loading } = useAuth();
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [location]);
-
+  useEffect(() => { setMenuOpen(false); }, [location]);
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -75,12 +74,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </span>
   ));
 
+  const isLoggedIn = !loading && !!user;
+
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#fff", color: "var(--mv-black)" }}>
 
       {/* ── Header ── */}
       <header data-testid="header" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, background: "#fff", borderBottom: "2px solid var(--mv-black)" }}>
-        {/* Orange masthead stripe */}
         <div style={{ height: 3, background: "var(--mv-accent)" }} />
 
         <div style={{ height: 52, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px" }}>
@@ -114,11 +114,38 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             })}
           </nav>
 
-          {/* CTA + Hamburger */}
+          {/* CTA area */}
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <Link href="/pricing" data-testid="link-header-cta" className="desktop-nav">
-              <span className="btn orange sm">Access Blueprint</span>
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link href="/dashboard" className="desktop-nav">
+                  <span className="btn orange sm" data-testid="link-dashboard">Dashboard</span>
+                </Link>
+                <button
+                  onClick={signOut}
+                  className="desktop-nav"
+                  style={{
+                    fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.12em",
+                    background: "transparent", border: "1px solid var(--mv-n300)", color: "var(--mv-n600)",
+                    padding: "6px 14px", cursor: "pointer",
+                  }}
+                >
+                  SIGN OUT
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="desktop-nav" data-testid="link-login">
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.12em", color: "var(--mv-n600)", cursor: "pointer" }}>
+                    Student Login
+                  </span>
+                </Link>
+                <Link href="/pricing" data-testid="link-header-cta" className="desktop-nav">
+                  <span className="btn orange sm">Access Blueprint</span>
+                </Link>
+              </>
+            )}
+            {/* Hamburger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               data-testid="button-menu-toggle"
@@ -138,7 +165,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      {/* ── Mobile menu overlay ── */}
+      {/* ── Mobile menu ── */}
       {menuOpen && (
         <div data-testid="mobile-menu" style={{ position: "fixed", inset: 0, zIndex: 40, background: "#fff", display: "flex", flexDirection: "column" as const, paddingTop: 55 }}>
           <div style={{ height: 3, background: "var(--mv-accent)" }} />
@@ -154,10 +181,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </div>
               </Link>
             ))}
-            <div style={{ marginTop: 32 }}>
-              <Link href="/pricing">
-                <span className="btn orange" style={{ fontSize: 12, padding: "14px 28px" }}>Access Blueprint →</span>
+            {isLoggedIn && (
+              <Link href="/dashboard">
+                <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 32, color: "var(--mv-accent)", cursor: "pointer", padding: "18px 0", borderBottom: "1px solid var(--mv-n200)" }}>
+                  Dashboard
+                </div>
               </Link>
+            )}
+            <div style={{ marginTop: 32, display: "flex", flexDirection: "column" as const, gap: 12 }}>
+              {isLoggedIn ? (
+                <button onClick={signOut} style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: "0.12em", background: "transparent", border: "2px solid var(--mv-n300)", color: "var(--mv-n600)", padding: "14px 28px", cursor: "pointer", textAlign: "left" as const }}>
+                  SIGN OUT
+                </button>
+              ) : (
+                <>
+                  <Link href="/pricing">
+                    <span className="btn orange" style={{ fontSize: 12, padding: "14px 28px" }}>Access Blueprint →</span>
+                  </Link>
+                  <Link href="/login">
+                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-n600)", letterSpacing: "0.1em", cursor: "pointer" }}>Student Login →</span>
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>
@@ -170,15 +215,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* ── Footer ── */}
       <footer data-testid="footer" style={{ background: "var(--mv-black)", color: "#fff" }}>
-        {/* Ticker marquee */}
         <div style={{ overflow: "hidden", borderBottom: "1px solid #222", padding: "12px 0", color: "var(--mv-n600)" }}>
           <div className="marquee-track">{tickerContent}</div>
         </div>
-
-        {/* Grid */}
         <div style={{ padding: "80px 64px 60px" }}>
           <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1.4fr", gap: 48 }} className="footer-grid-responsive">
-            {/* Col 1 */}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
                 <div style={{ width: 14, height: 14, background: "var(--mv-accent)", flexShrink: 0 }} />
@@ -191,8 +232,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 Moneyverse is not investment advice. Bitcoin involves risk. Past cycles do not guarantee future results.
               </p>
             </div>
-
-            {/* Col 2: Product */}
             <div>
               <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 20 }}>Product</p>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: 14 }}>
@@ -203,8 +242,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 ))}
               </div>
             </div>
-
-            {/* Col 3: Resources */}
             <div>
               <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 20 }}>Resources</p>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: 14 }}>
@@ -215,8 +252,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 ))}
               </div>
             </div>
-
-            {/* Col 4: Email capture */}
             <div>
               <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 12 }}>Get the Free Guide</p>
               <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, lineHeight: 1.3, marginBottom: 20 }}>
@@ -225,8 +260,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <FooterEmailForm />
             </div>
           </div>
-
-          {/* Bottom bar */}
           <div style={{ marginTop: 60, paddingTop: 24, borderTop: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 12 }}>
             <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "var(--mv-n600)" }}>
               © 2026 Moneyverse Capital, Ltd. · Lagos · London · Dubai
@@ -242,16 +275,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <style>{`
         a { text-decoration: none; color: inherit; }
-        @media (min-width: 769px) {
-          .hamburger-btn { display: none !important; }
-        }
+        @media (min-width: 769px) { .hamburger-btn { display: none !important; } }
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .footer-grid-responsive { grid-template-columns: 1fr 1fr !important; }
         }
-        @media (max-width: 480px) {
-          .footer-grid-responsive { grid-template-columns: 1fr !important; }
-        }
+        @media (max-width: 480px) { .footer-grid-responsive { grid-template-columns: 1fr !important; } }
       `}</style>
     </div>
   );
