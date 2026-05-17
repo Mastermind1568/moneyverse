@@ -1,0 +1,80 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "VkTuHXt9PsJrN64y79InA"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/moneyverse-ad-exports.zip"
+type = "unspecified"
+title = "Moneyverse Ad Pack — 12 exports (all sizes)"
+
+[[outputs]]
+id = "tfsObK0bnGNJbspZLDyEz"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1080x1080.jpg"
+type = "image"
+title = "Angle 1: Pain — 1080×1080 (Meta/Instagram)"
+
+[[outputs]]
+id = "TZeMIGTQkeK6PRWciadot"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1080x1080.jpg"
+type = "image"
+title = "Angle 2: Outcome — 1080×1080 (Meta/Instagram)"
+
+[[outputs]]
+id = "q1oXH2KGZ0qmroRdE7MYx"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1080x1080.jpg"
+type = "image"
+title = "Angle 3: Identity — 1080×1080 (Meta/Instagram)"
+
+[[outputs]]
+id = "s3TuYAIddRJJaQA1wVkab"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1080x1080.jpg"
+type = "image"
+title = "Angle 4: Curiosity — 1080×1080 (Meta/Instagram)"
+
+[[outputs]]
+id = "3i7uMz4vAoYrOGowqblId"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1200x675.jpg"
+type = "image"
+title = "Angle 1: Pain — 1200×675 (X/Twitter)"
+
+[[outputs]]
+id = "V5Y9NvxUXZ8oPFb-B3bCv"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x675.jpg"
+type = "image"
+title = "Angle 2: Outcome — 1200×675 (X/Twitter)"
+
+[[outputs]]
+id = "WcZhjgfgY2Unbxl9Dpghn"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1200x675.jpg"
+type = "image"
+title = "Angle 3: Identity — 1200×675 (X/Twitter)"
+
+[[outputs]]
+id = "ipNiQZJdrHLOxiV_ynYxx"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1200x675.jpg"
+type = "image"
+title = "Angle 4: Curiosity — 1200×675 (X/Twitter)"
+
+[[outputs]]
+id = "gpekcsB1tuRzLklMPpfOd"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle1-pain-1200x627.jpg"
+type = "image"
+title = "Angle 1: Pain — 1200×627 (LinkedIn)"
+
+[[outputs]]
+id = "b7OBBQob6k6XyXeg2hTM5"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle2-outcome-1200x627.jpg"
+type = "image"
+title = "Angle 2: Outcome — 1200×627 (LinkedIn)"
+
+[[outputs]]
+id = "WGNJWcu0PiNRTqmROkwh-"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle3-identity-1200x627.jpg"
+type = "image"
+title = "Angle 3: Identity — 1200×627 (LinkedIn)"
+
+[[outputs]]
+id = "PekItx72AJnvFuQugMV5v"
+uri = "file://artifacts/mockup-sandbox/public/ads/exports/angle4-curiosity-1200x627.jpg"
+type = "image"
+title = "Angle 4: Curiosity — 1200×627 (LinkedIn)"
