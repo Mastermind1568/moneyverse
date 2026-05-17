@@ -174,7 +174,7 @@ export default function Home() {
           {/* Sub + CTA row */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "end" }} className="hero-sub-grid">
             <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: "clamp(16px, 1.8vw, 22px)", color: "var(--mv-n400)", lineHeight: 1.7, margin: 0 }}>
-              Your currency is being drained by design. Your bank is not protecting you. The next Bitcoin cycle is already running — and this is the only protocol built for where you actually live
+              You work harder every year. You save. And somehow it never feels like enough. That's not a personal failure — the money itself is broken. This is the operating manual for building your way out
             </p>
 
             <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "flex-start", gap: 20 }}>
