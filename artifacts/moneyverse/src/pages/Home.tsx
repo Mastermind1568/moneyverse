@@ -165,10 +165,10 @@ export default function Home() {
                 className="px-6 py-4 bg-accent text-black text-xs font-bold tracking-widest hover:bg-background hover:text-foreground transition-colors whitespace-nowrap"
                 data-testid="button-hero-cta"
               >
-                CLAIM GAMEPLAN →
+                GET FREE GUIDE →
               </button>
             </form>
-            <p className="text-xs text-background/40 mt-3">No spam. No altcoin content. Unsubscribe anytime.</p>
+            <p className="text-xs text-background/40 mt-3">Free 16-page PDF. No spam. No altcoin content. Unsubscribe anytime.</p>
           </div>
         </div>
 

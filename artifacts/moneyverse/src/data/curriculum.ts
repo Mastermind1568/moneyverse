@@ -221,6 +221,18 @@ export const CURRICULUM_PHASES: Phase[] = [
         ],
         description: "Where does Bitcoin go from here? This capstone module explores the long-term scenarios for Bitcoin adoption — from asset class to reserve currency to the foundation of a new global monetary system. We examine the Bitcoin circular economy, the conditions that could accelerate adoption, and how to position your personal finances for multiple possible futures. You leave with conviction grounded in understanding.",
       },
+      {
+        id: "4.4",
+        title: "Your 4-Year Operator Plan",
+        duration: "2 hrs",
+        difficulty: "Intermediate",
+        objectives: [
+          "Synthesize all four phases into a single, executable personal protocol",
+          "Build your cycle calendar from current block height to the 2028 halving and beyond",
+          "Define your personal victory conditions and what financial sovereignty looks like for you",
+        ],
+        description: "This is the integration module — where everything comes together into a single, actionable document you own. You will leave with a written 4-year operator plan: your accumulation targets, your DCA parameters, your custody setup, your exit ladder, your cycle calendar, and your inheritance framework. Not a vague aspiration. A specific system with numbers, dates, and decisions already made. This is the document you will return to every quarter.",
+      },
     ],
   },
 ];
