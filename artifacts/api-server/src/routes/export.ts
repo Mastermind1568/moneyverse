@@ -90,9 +90,20 @@ router.post("/export-ads", async (_req, res) => {
     }
 
     await browser.close();
-    await execFileAsync("python3", [BUNDLE_SCRIPT]);
 
-    res.json({ ok: true, generated, count: generated.length });
+    // Auto-rebuild the ZIP immediately after all PNGs are written so
+    // moneyverse-ads.zip always reflects the latest export.
+    let bundleOutput = "";
+    try {
+      const { stdout } = await execFileAsync("python3", [BUNDLE_SCRIPT]);
+      bundleOutput = stdout.trim();
+    } catch (bundleErr: unknown) {
+      const msg = bundleErr instanceof Error ? bundleErr.message : String(bundleErr);
+      res.status(500).json({ ok: false, error: `PNGs exported but ZIP bundling failed: ${msg}` });
+      return;
+    }
+
+    res.json({ ok: true, generated, count: generated.length, bundle: bundleOutput });
   } catch (err: unknown) {
     await browser.close().catch(() => {});
     const message = err instanceof Error ? err.message : String(err);
