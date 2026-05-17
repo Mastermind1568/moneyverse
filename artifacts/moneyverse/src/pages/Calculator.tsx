@@ -193,7 +193,7 @@ export default function Calculator() {
       {/* ── Protocol section ── */}
       <section style={{ background: "var(--mv-n50)", padding: "100px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
         <span className="accent-rule" style={{ marginBottom: 20 }} />
-        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", marginBottom: 48 }}>The protocol that closes the gap.</h2>
+        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", marginBottom: 48 }}>The protocol that closes the gap</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", border: "2px solid var(--mv-black)" }} className="three-col-grid">
           {[
             { num: "01", title: "Know exactly when to buy", body: "The 4-Year Clock framework maps Bitcoin's halving cycles. You stop guessing and start executing at defined intervals." },

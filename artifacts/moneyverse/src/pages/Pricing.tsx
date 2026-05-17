@@ -225,7 +225,7 @@ export default function Pricing() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap" as const, gap: 24, marginBottom: 48 }}>
           <div>
             <span className="accent-rule lg" style={{ marginBottom: 20 }} />
-            <h2 className="h-section" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}>The Curriculum.</h2>
+            <h2 className="h-section" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}>The Curriculum</h2>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n600)", lineHeight: 1.7, maxWidth: 600, marginTop: 16 }}>
               Fifteen modules, sequenced for operators. Each chapter compounds on the last — from understanding what fiat extracts from you, to the African monetary sovereignty context that makes the whole thesis unavoidable.
             </p>
@@ -259,7 +259,7 @@ export default function Pricing() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap" as const, gap: 24, marginBottom: 16 }}>
           <div>
             <span className="accent-rule" style={{ marginBottom: 20 }} />
-            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 4rem)" }}>Pick your level.</h2>
+            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 4rem)" }}>Pick your level</h2>
             <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 22, color: "var(--mv-accent)", marginTop: 8 }}>Pay once. Own it forever.</p>
           </div>
           <div style={{ textAlign: "right" as const }}>

@@ -22,7 +22,7 @@ export default function About() {
           <div>
             <span className="accent-rule" style={{ marginBottom: 20 }} />
             <p className="overline" style={{ marginBottom: 12 }}>The Problem</p>
-            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 3vw, 3rem)" }}>The system is working exactly as designed.</h2>
+            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 3vw, 3rem)" }}>The system is working exactly as designed</h2>
           </div>
           <div>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 17, color: "var(--mv-n600)", lineHeight: 1.9, marginBottom: 32 }}>
@@ -42,7 +42,7 @@ export default function About() {
       <section style={{ background: "var(--mv-n50)", padding: "120px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
         <span className="accent-rule lg" style={{ marginBottom: 20 }} />
         <p className="overline" style={{ marginBottom: 20 }}>Why Bitcoin</p>
-        <h2 className="h-section" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", marginBottom: 64 }}>The properties that matter.</h2>
+        <h2 className="h-section" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", marginBottom: 64 }}>The properties that matter</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0, border: "2px solid var(--mv-black)" }} className="two-col-grid">
           {[
             { title: "Fixed Supply", body: "21 million Bitcoin. Enforced by mathematics, not policy. No committee, no vote, no override. Every other asset class — gold, property, equities — can have its supply increased by human decision. Bitcoin cannot." },
@@ -65,7 +65,7 @@ export default function About() {
           <div>
             <span className="accent-rule" style={{ marginBottom: 20 }} />
             <p className="overline" style={{ marginBottom: 12 }}>The Blueprint</p>
-            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 3vw, 3rem)" }}>An operating manual, not a prediction.</h2>
+            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 3vw, 3rem)" }}>An operating manual, not a prediction</h2>
           </div>
           <div>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 17, color: "var(--mv-n600)", lineHeight: 1.9, marginBottom: 32 }}>
@@ -84,7 +84,7 @@ export default function About() {
       {/* ── CTA ── */}
       <section style={{ background: "var(--mv-black)", padding: "100px 64px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 40 }} className="section-pad-responsive">
         <div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", marginBottom: 12 }}>Read the thesis. Enroll in the system.</h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", marginBottom: 12 }}>Read the thesis — enroll in the system</h2>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)" }}>11 modules. 85 lessons. One payment. Starts at $97.</p>
         </div>
         <Link href="/pricing">

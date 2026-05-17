@@ -94,7 +94,7 @@ export default function GlossaryTerm() {
             {/* CTA box */}
             <div className="border border-border p-8 mb-8" data-testid="glossary-cta-box">
               <p className="text-xs font-bold tracking-widest text-muted-foreground mb-4">READY TO GO DEEPER?</p>
-              <h3 className="font-serif font-bold text-xl mb-4">Learn the full protocol.</h3>
+              <h3 className="font-serif font-bold text-xl mb-4">Learn the full protocol</h3>
               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
                 11 modules. 85 lessons. One framework built around the halving cycle.
               </p>

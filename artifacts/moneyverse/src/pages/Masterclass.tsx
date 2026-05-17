@@ -188,7 +188,7 @@ export default function Masterclass() {
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-xs font-bold tracking-widest text-muted-foreground mb-4">PARTNER PROGRAM</p>
-            <h2 className="font-serif font-black text-3xl sm:text-4xl mb-6">50/50 Revenue Split.</h2>
+            <h2 className="font-serif font-black text-3xl sm:text-4xl mb-6">50/50 Revenue Split</h2>
             <p className="text-muted-foreground leading-relaxed">
               Earn 50% on every Blueprint sale you refer — $98.50 per conversion. No caps, no tiers, no complex commission structures. You refer, we split. Simple.
             </p>

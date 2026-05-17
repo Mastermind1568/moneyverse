@@ -134,7 +134,7 @@ export default function Curriculum() {
       <section className="py-24 px-8" data-testid="curriculum-cta">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs font-bold tracking-widest text-muted-foreground mb-4">READY TO START?</p>
-          <h2 className="font-serif font-black text-4xl sm:text-5xl mb-8">Get The<br />Blueprint.</h2>
+          <h2 className="font-serif font-black text-4xl sm:text-5xl mb-8">Get The<br />Blueprint</h2>
           <Link href="/masterclass" data-testid="link-curriculum-cta">
             <span className="inline-block cursor-pointer bg-foreground text-background text-sm font-bold tracking-widest px-10 py-5 hover:bg-accent hover:text-black transition-colors">
               ACCESS THE BLUEPRINT — $197 →

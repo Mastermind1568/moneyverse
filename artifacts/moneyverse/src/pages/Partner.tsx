@@ -105,7 +105,7 @@ export default function Partner() {
       {/* ── Calculator ── */}
       <section style={{ background: "#fff", padding: "100px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
         <span className="accent-rule" style={{ marginBottom: 20 }} />
-        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", marginBottom: 48 }}>Your audience revenue potential.</h2>
+        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", marginBottom: 48 }}>Your audience revenue potential</h2>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, marginBottom: 40 }} className="two-col-grid">
           <div>
@@ -169,7 +169,7 @@ export default function Partner() {
       {/* ── How it works ── */}
       <section style={{ background: "var(--mv-n50)", padding: "100px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
         <span className="accent-rule lg" style={{ marginBottom: 20 }} />
-        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", marginBottom: 48 }}>How the programme works.</h2>
+        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", marginBottom: 48 }}>How the programme works</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", border: "2px solid var(--mv-black)" }} className="four-col-grid">
           {[
             { num: "01", title: "Enroll", body: "Buy The Blueprint at $97. You learn the protocol and get full course access." },
@@ -191,7 +191,7 @@ export default function Partner() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "start" }} className="two-col-grid">
           <div>
             <span className="accent-rule" style={{ marginBottom: 20 }} />
-            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", marginBottom: 20 }}>Everything you need to launch.</h2>
+            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", marginBottom: 20 }}>Everything you need to launch</h2>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n600)", lineHeight: 1.8 }}>
               The Blueprint includes the partner infrastructure. You're not starting from scratch — the scripts, the gameplan, and the dashboard are already built.
             </p>

@@ -238,7 +238,7 @@ export default function Home() {
             <div>
               <span className="accent-rule" style={{ marginBottom: 20 }} />
               <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", margin: 0 }}>
-                Three ways in. One direction.
+                Three ways in — one direction
               </h2>
             </div>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n500)", maxWidth: 420, lineHeight: 1.7, margin: 0 }}>
@@ -375,7 +375,7 @@ export default function Home() {
       <section style={{ background: "#fff", padding: "120px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
         <span className="accent-rule lg" style={{ marginBottom: 20 }} />
         <p className="overline" style={{ marginBottom: 16 }}>Why Bitcoin</p>
-        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 4rem)", marginBottom: 64 }}>Not an investment.<br />An exit.</h2>
+        <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 4rem)", marginBottom: 64 }}>Not an investment<br />An exit</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", border: "2px solid var(--mv-black)" }} className="three-col-grid">
           {[
             { title: "Fixed Supply", body: "21 million. No government can print more." },
@@ -394,7 +394,7 @@ export default function Home() {
       {/* ── Curriculum Preview ── */}
       <section style={{ background: "var(--mv-n50)", padding: "120px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
         <span className="accent-rule lg" style={{ marginBottom: 20 }} />
-        <h2 className="h-section" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", marginBottom: 64 }}>What's inside.</h2>
+        <h2 className="h-section" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", marginBottom: 64 }}>What's inside</h2>
         <div style={{ borderTop: "2px solid var(--mv-black)" }}>
           {MODULES_PREVIEW.map((m) => <AccordionItem key={m.num} {...m} />)}
         </div>

@@ -104,7 +104,7 @@ export default function Research() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
             <p className="text-xs font-bold tracking-widest text-muted-foreground mb-2">BITCOIN GLOSSARY</p>
-            <h3 className="font-serif font-bold text-2xl">20+ terms defined properly.</h3>
+            <h3 className="font-serif font-bold text-2xl">20+ terms defined properly</h3>
           </div>
           <Link href="/learn/bitcoin-halving" data-testid="link-research-glossary">
             <span className="text-xs font-bold tracking-widest underline underline-offset-4 hover:text-accent transition-colors cursor-pointer whitespace-nowrap">

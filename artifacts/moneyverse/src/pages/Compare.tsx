@@ -135,7 +135,7 @@ export default function Compare() {
         {/* CTA */}
         <section className="border border-border p-8 max-w-xl" data-testid="compare-cta">
           <p className="text-xs font-bold tracking-widest text-muted-foreground mb-4">GO DEEPER</p>
-          <h3 className="font-serif font-bold text-xl mb-4">The Blueprint covers everything you need to know about securing Bitcoin.</h3>
+          <h3 className="font-serif font-bold text-xl mb-4">The Blueprint covers everything you need to know about securing Bitcoin</h3>
           <Link href="/masterclass" data-testid="link-compare-masterclass">
             <span className="inline-block cursor-pointer bg-foreground text-background text-xs font-bold tracking-widest px-8 py-4 hover:bg-accent hover:text-black transition-colors">
               GET THE BLUEPRINT — $197 →
