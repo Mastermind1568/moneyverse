@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Moneyverse"
+version = "1.0.0"
+id = "artifacts/moneyverse"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24979
+
+[services.development]
+run = "pnpm --filter @workspace/moneyverse run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/moneyverse", "run", "build" ]
+publicDir = "artifacts/moneyverse/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24979"
+BASE_PATH = "/"
