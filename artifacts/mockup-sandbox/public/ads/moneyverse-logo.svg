@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 52" role="img" aria-label="Moneyverse">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&amp;display=swap');
+    </style>
+  </defs>
+  <!-- Accent bar — brand identity mark -->
+  <rect x="0" y="0" width="4" height="48" fill="#F7931A"/>
+  <!-- Wordmark -->
+  <text x="16" y="38"
+    font-family="'Playfair Display', Georgia, 'Times New Roman', serif"
+    font-weight="900"
+    font-size="34"
+    letter-spacing="5"
+    fill="currentColor">MONEYVERSE</text>
+</svg>

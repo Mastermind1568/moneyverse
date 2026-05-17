@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moneyverse Ad Creative Pack — Canvas Layout</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #1a1a1a;
+    font-family: system-ui, sans-serif;
+    overflow-x: auto;
+  }
+  .header {
+    padding: 24px 32px 16px;
+    color: #F7931A;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .grid {
+    display: flex;
+    gap: 50px;
+    padding: 0 32px 32px;
+    width: max-content;
+  }
+  .ad-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ad-label {
+    color: rgba(255,255,255,0.4);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  iframe {
+    width: 600px;
+    height: 600px;
+    border: none;
+    display: block;
+    outline: 1px solid rgba(255,255,255,0.08);
+  }
+</style>
+</head>
+<body>
+<div class="header">Moneyverse · Ad Creative Pack · 4 Angles · 600×600</div>
+<div class="grid">
+  <div class="ad-slot">
+    <div class="ad-label">Angle 1 — Pain Point</div>
+    <iframe src="/__mockup/ads/angle1-pain.html" title="Angle 1: Pain Point — Your savings are melting."></iframe>
+  </div>
+  <div class="ad-slot">
+    <div class="ad-label">Angle 2 — Outcome</div>
+    <iframe src="/__mockup/ads/angle2-outcome.html" title="Angle 2: Outcome — Build a position. Not a prayer."></iframe>
+  </div>
+  <div class="ad-slot">
+    <div class="ad-label">Angle 3 — Identity</div>
+    <iframe src="/__mockup/ads/angle3-identity.html" title="Angle 3: Identity — Built for Bitcoin Operators."></iframe>
+  </div>
+  <div class="ad-slot">
+    <div class="ad-label">Angle 4 — Curiosity</div>
+    <iframe src="/__mockup/ads/angle4-curiosity.html" title="Angle 4: Curiosity — The 4-year cycle doesn't care about your feelings."></iframe>
+  </div>
+</div>
+</body>
+</html>
