@@ -145,10 +145,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <h4 className="text-xs font-bold tracking-widest mb-4">LEARN</h4>
               <div className="flex flex-col gap-3">
                 {[
-                  { href: "/learn/bitcoin-halving", label: "Glossary" },
-                  { href: "/guides/how-to-set-up-a-hardware-wallet", label: "Guides" },
-                  { href: "/research", label: "Research" },
-                  { href: "/tools", label: "Tools" },
+                  { href: "/learn/bitcoin-halving", label: "Bitcoin Halving" },
+                  { href: "/learn/21-million-hard-cap", label: "21M Hard Cap" },
+                  { href: "/learn/digital-scarcity", label: "Digital Scarcity" },
+                  { href: "/learn/fiat-debasement", label: "Fiat Debasement" },
+                  { href: "/learn/self-custody", label: "Self-Custody" },
+                  { href: "/learn/dollar-cost-averaging", label: "DCA" },
+                  { href: "/learn/proof-of-work", label: "Proof of Work" },
                 ].map((l) => (
                   <Link key={l.href} href={l.href}>
                     <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{l.label}</span>
@@ -157,14 +160,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
 
-            {/* Legal */}
+            {/* Compare */}
             <div>
-              <h4 className="text-xs font-bold tracking-widest mb-4">PROTOCOL</h4>
-              <div className="flex flex-col gap-3 text-sm text-muted-foreground">
-                <p>$197 · One-Time</p>
-                <p>Lifetime Access</p>
-                <p>Bitcoin-Only</p>
-                <p>No Altcoins. Ever.</p>
+              <h4 className="text-xs font-bold tracking-widest mb-4">COMPARE</h4>
+              <div className="flex flex-col gap-3">
+                {[
+                  { href: "/compare/ledger-vs-trezor", label: "Ledger vs Trezor" },
+                  { href: "/compare/cold-storage-vs-hot-wallet", label: "Cold vs Hot Wallet" },
+                  { href: "/compare/bitcoin-vs-gold", label: "Bitcoin vs Gold" },
+                  { href: "/guides/how-to-set-up-a-hardware-wallet", label: "Hardware Wallet Guide" },
+                  { href: "/guides/bitcoin-exit-strategy", label: "Exit Strategy Guide" },
+                  { href: "/guides/bitcoin-self-custody-guide", label: "Self-Custody Guide" },
+                ].map((l) => (
+                  <Link key={l.href} href={l.href}>
+                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{l.label}</span>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
