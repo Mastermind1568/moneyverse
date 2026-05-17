@@ -64,38 +64,34 @@ export default function Blog() {
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0, border: "2px solid var(--mv-black)" }} className="articles-grid">
             {filtered.map((article, i) => (
-              <Link key={article.slug} href={`/blog/${article.slug}`}>
-                <div style={{
-                  padding: "48px 40px", cursor: "pointer",
-                  borderBottom: i < filtered.length - 2 ? "1px solid var(--mv-n200)" : "none",
-                  borderRight: i % 2 === 0 ? "1px solid var(--mv-n200)" : "none",
-                  transition: "background 0.15s",
-                }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--mv-n50)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "#fff")}
-                >
-                  <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 20 }}>
-                    <span style={{
-                      fontFamily: "'Space Mono', monospace", fontSize: 8, letterSpacing: "0.12em",
-                      padding: "3px 10px", border: "1px solid var(--mv-n300)", color: "var(--mv-n600)",
-                    }}>
-                      {article.tag.toUpperCase()}
-                    </span>
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n400)", letterSpacing: "0.08em" }}>
-                      {article.date}
-                    </span>
-                  </div>
-                  <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", marginBottom: 16, lineHeight: 1.3 }}>
-                    {article.title}
-                  </h2>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n600)", lineHeight: 1.7 }}>
-                    {article.preview}
-                  </p>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-accent)", marginTop: 20, letterSpacing: "0.1em" }}>
-                    READ →
-                  </p>
+              <div key={article.slug} style={{
+                padding: "48px 40px",
+                borderBottom: i < filtered.length - 2 ? "1px solid var(--mv-n200)" : "none",
+                borderRight: i % 2 === 0 ? "1px solid var(--mv-n200)" : "none",
+              }}>
+                <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 20 }}>
+                  <span style={{
+                    fontFamily: "'Space Mono', monospace", fontSize: 8, letterSpacing: "0.12em",
+                    padding: "3px 10px", border: "1px solid var(--mv-n300)", color: "var(--mv-n600)",
+                  }}>
+                    {article.tag.toUpperCase()}
+                  </span>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n400)", letterSpacing: "0.08em" }}>
+                    {article.date}
+                  </span>
                 </div>
-              </Link>
+                <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", marginBottom: 16, lineHeight: 1.3 }}>
+                  {article.title}
+                </h2>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n600)", lineHeight: 1.7 }}>
+                  {article.preview}
+                </p>
+                <Link href="/pricing">
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-accent)", marginTop: 20, letterSpacing: "0.1em", display: "inline-block", cursor: "pointer" }}>
+                    Full analysis inside the course →
+                  </span>
+                </Link>
+              </div>
             ))}
           </div>
         )}

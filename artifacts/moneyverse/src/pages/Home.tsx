@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "https://moneyverse.network";
+
 function LeadCaptureForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -13,7 +15,7 @@ function LeadCaptureForm() {
     setStatus("loading");
     setErrorMsg("");
     try {
-      const res = await fetch("/api/subscribe", {
+      const res = await fetch(`${API_BASE}/api/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim() }),
@@ -156,7 +158,7 @@ export default function Home() {
           {[0,1,2,3,4,5,6,7,8,9].map((i) => <circle key={i} cx="300" cy="300" r={60 + i * 45} stroke="#F59300" strokeWidth="1" fill="none" />)}
         </svg>
 
-        <div style={{ padding: "120px 80px 80px", position: "relative" as const, zIndex: 1 }} className="hero-pad">
+        <div style={{ position: "relative" as const, zIndex: 1 }} className="hero-pad">
           {/* Eyebrow */}
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 48 }}>
             <div style={{ width: 32, height: 2, background: "var(--mv-accent)" }} />
@@ -325,7 +327,7 @@ export default function Home() {
         </div>
 
         {/* Footer note */}
-        <div style={{ padding: "24px 80px", borderTop: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 16 }} className="hero-pad">
+        <div style={{ borderTop: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 16, padding: "24px 80px" }} className="hero-note-pad">
           <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em" }}>
             ALL TIERS · ONE-TIME PAYMENT · NO SUBSCRIPTION · LIFETIME ACCESS · 21-DAY CONDITIONAL GUARANTEE
           </p>
@@ -442,7 +444,7 @@ export default function Home() {
       </section>
 
       {/* ── Final CTA ── */}
-      <section style={{ background: "var(--mv-black)", padding: "120px 80px", borderTop: "2px solid #222", position: "relative" as const, overflow: "hidden" }} className="hero-pad">
+      <section style={{ background: "var(--mv-black)", borderTop: "2px solid #222", position: "relative" as const, overflow: "hidden" }} className="hero-pad">
         <div style={{ position: "absolute" as const, right: "-10%", top: "50%", transform: "translateY(-50%)", width: "45vw", height: "45vw", borderRadius: "50%", background: "var(--mv-accent)", opacity: 0.04, pointerEvents: "none" }} />
         <div style={{ position: "relative" as const, zIndex: 1, maxWidth: 860 }}>
           <span className="accent-rule" style={{ marginBottom: 24 }} />
@@ -471,11 +473,12 @@ export default function Home() {
 
       <style>{`
         .hero-grid { grid-template-columns: 60fr 40fr; }
+        .hero-sub-grid { grid-template-columns: 1fr 1fr; }
         .stats-grid { grid-template-columns: repeat(5, 1fr); }
         .three-col-grid { grid-template-columns: repeat(3, 1fr); }
         .two-col-grid { grid-template-columns: 1fr 1fr; }
         @media (max-width: 900px) {
-          .hero-grid, .two-col-grid { grid-template-columns: 1fr !important; }
+          .hero-grid, .two-col-grid, .hero-sub-grid { grid-template-columns: 1fr !important; }
           .three-col-grid { grid-template-columns: 1fr !important; }
           .stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
@@ -483,8 +486,12 @@ export default function Home() {
           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         .section-pad-responsive { padding: 120px 64px; }
+        .hero-pad { padding: 120px 80px 80px; }
+        .hero-note-pad { padding: 24px 80px; }
         @media (max-width: 768px) {
           .section-pad-responsive { padding: 60px 20px !important; }
+          .hero-pad { padding: 60px 20px 48px !important; }
+          .hero-note-pad { padding: 20px 20px !important; }
         }
       `}</style>
     </Layout>

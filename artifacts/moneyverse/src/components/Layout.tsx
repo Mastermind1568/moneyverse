@@ -19,16 +19,31 @@ const TICKER_ITEMS = [
   "NIGERIAN NAIRA −74% SINCE 2021",
 ];
 
+const API_BASE = import.meta.env.VITE_API_BASE || "https://moneyverse.network";
+
 function FooterEmailForm() {
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (email) setSent(true);
+    if (!email.trim()) return;
+    setStatus("loading");
+    try {
+      const res = await fetch(`${API_BASE}/api/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error ?? "Failed");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
   }
 
-  if (sent) {
+  if (status === "success") {
     return (
       <p className="mono" style={{ fontSize: 11, color: "var(--mv-accent)" }}>
         You're in. Check your inbox.
@@ -44,15 +59,21 @@ function FooterEmailForm() {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="your@email.com"
         required
+        disabled={status === "loading"}
         style={{
           fontFamily: "'Space Mono', monospace", fontSize: 11, padding: "10px 12px",
           background: "#111", border: "1px solid #333", color: "#fff",
           outline: "none", width: "100%",
         }}
       />
-      <button type="submit" className="btn orange sm" style={{ width: "100%", justifyContent: "center" }}>
-        Get the guide →
+      <button type="submit" disabled={status === "loading"} className="btn orange sm" style={{ width: "100%", justifyContent: "center", opacity: status === "loading" ? 0.6 : 1 }}>
+        {status === "loading" ? "Sending…" : "Get the guide →"}
       </button>
+      {status === "error" && (
+        <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "#f87171", letterSpacing: "0.05em" }}>
+          Something went wrong. Try again.
+        </p>
+      )}
     </form>
   );
 }
@@ -265,8 +286,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               © 2026 Moneyverse Capital, Ltd. · Lagos · London · Dubai
             </span>
             <div style={{ display: "flex", gap: 24 }}>
-              {["Terms", "Privacy", "Disclosures"].map((t) => (
-                <span key={t} style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "var(--mv-n600)", cursor: "pointer" }}>{t}</span>
+              {[
+                { label: "Terms", href: "/faq" },
+                { label: "Privacy", href: "/faq" },
+                { label: "Disclosures", href: "/about" },
+              ].map((l) => (
+                <Link key={l.label} href={l.href}>
+                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "var(--mv-n600)", cursor: "pointer" }}>{l.label}</span>
+                </Link>
               ))}
             </div>
           </div>
