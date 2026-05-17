@@ -237,10 +237,21 @@ const PAGES = [
 
 function DownloadButton() {
   const base = import.meta.env.BASE_URL?.replace(/\/$/, "") ?? "";
+  const btnBase: React.CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    fontFamily: "'Space Mono', monospace",
+    fontWeight: 700,
+    fontSize: 10,
+    letterSpacing: "0.12em",
+    padding: "14px 20px",
+    cursor: "pointer",
+    border: "none",
+    textDecoration: "none",
+  };
   return (
-    <a
-      href={`${base}/fiat-trap-guide.pdf`}
-      download="moneyverse-fiat-trap-guide.pdf"
+    <div
       className="no-print"
       style={{
         position: "fixed" as const,
@@ -248,25 +259,31 @@ function DownloadButton() {
         right: 32,
         zIndex: 1000,
         display: "flex",
-        alignItems: "center",
-        gap: 12,
-        fontFamily: "'Space Mono', monospace",
-        fontWeight: 700,
-        fontSize: 10,
-        letterSpacing: "0.12em",
-        background: "var(--mv-accent)",
-        color: "#000",
-        textDecoration: "none",
-        padding: "16px 24px",
-        cursor: "pointer",
+        flexDirection: "column" as const,
+        gap: 8,
         boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
       }}
     >
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M7 1v8M4 6l3 3 3-3M1 11h12" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/>
-      </svg>
-      DOWNLOAD PDF
-    </a>
+      <a
+        href={`${base}/fiat-trap-guide.pdf`}
+        download="moneyverse-fiat-trap-guide.pdf"
+        style={{ ...btnBase, background: "var(--mv-accent)", color: "#000" }}
+      >
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <path d="M7 1v8M4 6l3 3 3-3M1 11h12" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/>
+        </svg>
+        DOWNLOAD PDF
+      </a>
+      <button
+        onClick={() => window.print()}
+        style={{ ...btnBase, background: "#111", color: "var(--mv-accent)" }}
+      >
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <path d="M2 5h10v6H2zM4 5V2h6v3M4 11v1h6v-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+        </svg>
+        PRINT / SAVE
+      </button>
+    </div>
   );
 }
 
