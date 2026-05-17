@@ -2,6 +2,101 @@ import { useState } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 
+function LeadCaptureForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus("loading");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error ?? "Something went wrong. Please try again.");
+      }
+      setStatus("success");
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setStatus("error");
+    }
+  }
+
+  if (status === "success") {
+    return (
+      <div style={{ maxWidth: 520 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+          <span style={{ color: "var(--mv-accent)", fontSize: 24 }}>✓</span>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 22, color: "#fff", margin: 0 }}>
+            You're in. Check your inbox.
+          </p>
+        </div>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n400)", lineHeight: 1.7 }}>
+          Your free guide is on its way. You'll receive 5 emails over the next 10 days covering the fiat trap, the 4-year cycle, and the Blueprint.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} style={{ maxWidth: 520 }}>
+      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n400)", marginBottom: 20, lineHeight: 1.7 }}>
+        Enter your email and get the free 16-page guide — plus a 5-part sequence on the fiat trap, the halving cycle, and how to build a real exit plan.
+      </p>
+      <div style={{ display: "flex", gap: 0, border: "1px solid var(--mv-n600)" }}>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="your@email.com"
+          disabled={status === "loading"}
+          style={{
+            flex: 1,
+            background: "transparent",
+            border: "none",
+            outline: "none",
+            padding: "14px 18px",
+            fontFamily: "'Inter', sans-serif",
+            fontSize: 14,
+            color: "#fff",
+            minWidth: 0,
+          }}
+        />
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="btn orange"
+          style={{
+            fontSize: 11,
+            padding: "14px 24px",
+            flexShrink: 0,
+            opacity: status === "loading" ? 0.6 : 1,
+            cursor: status === "loading" ? "default" : "pointer",
+          }}
+        >
+          {status === "loading" ? "Sending…" : "Get the Guide →"}
+        </button>
+      </div>
+      {status === "error" && (
+        <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "#f87171", marginTop: 10, letterSpacing: "0.05em" }}>
+          {errorMsg}
+        </p>
+      )}
+      <p className="mono" style={{ fontSize: 9, color: "var(--mv-n600)", marginTop: 12, letterSpacing: "0.1em" }}>
+        NO SPAM. UNSUBSCRIBE ANYTIME.
+      </p>
+    </form>
+  );
+}
+
 const MODULES_PREVIEW = [
   { num: "01", title: "The Fiat Trap", lessons: 6, duration: "38 min", desc: "Every fiat currency in history has failed. Understand the mechanism extracting value from your savings right now." },
   { num: "02", title: "Bitcoin Fundamentals", lessons: 8, duration: "54 min", desc: "21 million coins. No central bank. No inflation. Learn the protocol that makes Bitcoin categorically different." },
@@ -196,6 +291,25 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── Lead Capture ── */}
+      <section style={{ background: "var(--mv-black)", padding: "100px 64px", borderBottom: "2px solid #222" }} className="section-pad-responsive">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }} className="two-col-grid">
+          <div>
+            <span className="accent-rule" style={{ marginBottom: 24 }} />
+            <p className="overline" style={{ color: "var(--mv-accent)", marginBottom: 16 }}>Free Guide</p>
+            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", marginBottom: 20 }}>
+              Start here.<br />It's free.
+            </h2>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n400)", lineHeight: 1.8 }}>
+              16 pages on why fiat currencies fail and how the 4-year Bitcoin cycle works. No purchase required.
+            </p>
+          </div>
+          <div>
+            <LeadCaptureForm />
+          </div>
         </div>
       </section>
 
