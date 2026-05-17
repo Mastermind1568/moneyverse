@@ -60,6 +60,15 @@ const SIZES = [
   { w: 1200, h: 675, label: "1200x675" },
 ] as const;
 
+const TOTAL = AD_SPECS.length * SIZES.length;
+
+type FlushableResponse = import("express").Response & { flush?: () => void };
+
+function sseWrite(res: FlushableResponse, data: object) {
+  res.write(`data: ${JSON.stringify(data)}\n\n`);
+  res.flush?.();
+}
+
 router.post("/export-ads", async (_req, res) => {
   if (exportInProgress) {
     res.status(429).json({ ok: false, error: "An export is already running, please wait." });
@@ -87,6 +96,15 @@ router.post("/export-ads", async (_req, res) => {
   exportInProgress = true;
   lastExportAt = now;
 
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
+  res.setHeader("X-Accel-Buffering", "no");
+  res.flushHeaders();
+
+  const flushable = res as FlushableResponse;
+  sseWrite(flushable, { type: "start", total: TOTAL });
+
   const browser = await puppeteer.launch({
     executablePath: CHROMIUM_PATH,
     args: [
@@ -99,6 +117,7 @@ router.post("/export-ads", async (_req, res) => {
 
   try {
     const generated: string[] = [];
+    let done = 0;
 
     for (const ad of AD_SPECS) {
       const fileUrl = `file://${path.join(ADS_DIR, ad.file)}`;
@@ -112,29 +131,33 @@ router.post("/export-ads", async (_req, res) => {
         await page.screenshot({ path: outFile, type: "png", fullPage: false });
         await page.close();
 
+        done++;
         generated.push(`${ad.name}-${size.label}.png`);
+
+        sseWrite(flushable, { type: "progress", done, total: TOTAL, file: `${ad.name}-${size.label}.png` });
       }
     }
 
     await browser.close();
 
-    // Auto-rebuild the ZIP immediately after all PNGs are written so
-    // moneyverse-ads.zip always reflects the latest export.
     let bundleOutput = "";
     try {
       const { stdout } = await execFileAsync("python3", [BUNDLE_SCRIPT]);
       bundleOutput = stdout.trim();
     } catch (bundleErr: unknown) {
       const msg = bundleErr instanceof Error ? bundleErr.message : String(bundleErr);
-      res.status(500).json({ ok: false, error: `PNGs exported but ZIP bundling failed: ${msg}` });
+      sseWrite(flushable, { type: "error", error: `PNGs exported but ZIP bundling failed: ${msg}` });
+      res.end();
       return;
     }
 
-    res.json({ ok: true, generated, count: generated.length, bundle: bundleOutput });
+    sseWrite(flushable, { type: "done", ok: true, generated, count: generated.length, bundle: bundleOutput });
+    res.end();
   } catch (err: unknown) {
     await browser.close().catch(() => {});
     const message = err instanceof Error ? err.message : String(err);
-    res.status(500).json({ ok: false, error: message });
+    sseWrite(flushable, { type: "error", error: message });
+    res.end();
   } finally {
     exportInProgress = false;
   }

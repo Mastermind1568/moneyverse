@@ -175,6 +175,37 @@
     to { transform: rotate(360deg); }
   }
 
+  /* Progress bar */
+  #export-progress-wrap {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 200px;
+  }
+  #export-progress-wrap.visible {
+    display: flex;
+  }
+  #export-progress-label {
+    color: rgba(255,255,255,0.55);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+  #export-progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  #export-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #F7931A;
+    border-radius: 2px;
+    transition: width 0.25s ease;
+  }
+
   /* Toast notification */
   #export-toast {
     position: fixed;
@@ -279,6 +310,12 @@
       <span class="btn-icon">↺</span>
       Export all ads
     </button>
+    <div id="export-progress-wrap">
+      <div id="export-progress-label">Exporting 0 / 12 PNGs…</div>
+      <div id="export-progress-track">
+        <div id="export-progress-fill"></div>
+      </div>
+    </div>
   </div>
   <div class="downloads-grid">
     <a class="dl-link zip" href="exports/moneyverse-ads.zip" download>
@@ -313,26 +350,80 @@
     }, 5000);
   }
 
+  function setProgress(done, total) {
+    const wrap = document.getElementById('export-progress-wrap');
+    const label = document.getElementById('export-progress-label');
+    const fill = document.getElementById('export-progress-fill');
+    wrap.classList.add('visible');
+    label.textContent = 'Exporting ' + done + ' / ' + total + ' PNGs\u2026';
+    fill.style.width = Math.round((done / total) * 100) + '%';
+  }
+
+  function hideProgress() {
+    const wrap = document.getElementById('export-progress-wrap');
+    wrap.classList.remove('visible');
+    document.getElementById('export-progress-fill').style.width = '0%';
+  }
+
   async function exportAds() {
     const btn = document.getElementById('export-btn');
     btn.disabled = true;
     btn.classList.add('loading');
     btn.querySelector('.btn-icon').textContent = '↺';
 
+    let serverTotal = 12;
+    setProgress(0, serverTotal);
+
     try {
       const res = await fetch('/api/export-ads', { method: 'POST' });
-      const data = await res.json();
 
-      if (data.ok) {
-        showToast('✓ ' + data.count + ' PNGs re-exported — ZIP updated. Refresh downloads to get latest.', 'success');
-      } else {
-        showToast('Export failed: ' + (data.error ?? 'Unknown error'), 'error');
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        showToast('Export failed: ' + (data.error ?? 'HTTP ' + res.status), 'error');
+        return;
+      }
+
+      if (!res.body) {
+        showToast('Export failed: streaming not supported by this browser.', 'error');
+        return;
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          let event;
+          try { event = JSON.parse(line.slice(6)); } catch { continue; }
+
+          if (event.type === 'start') {
+            serverTotal = event.total;
+            setProgress(0, serverTotal);
+          } else if (event.type === 'progress') {
+            setProgress(event.done, event.total);
+          } else if (event.type === 'done') {
+            setProgress(event.count, event.count);
+            showToast('✓ ' + event.count + ' PNGs re-exported — ZIP updated. Refresh downloads to get latest.', 'success');
+          } else if (event.type === 'error') {
+            showToast('Export failed: ' + (event.error ?? 'Unknown error'), 'error');
+          }
+        }
       }
     } catch (err) {
       showToast('Export failed: ' + err.message, 'error');
     } finally {
       btn.disabled = false;
       btn.classList.remove('loading');
+      setTimeout(hideProgress, 2000);
     }
   }
 </script>
