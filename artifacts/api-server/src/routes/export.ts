@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import puppeteer from "puppeteer";
 import path from "node:path";
+import fs from "node:fs";
 import { execFile, execFileSync } from "node:child_process";
 import { promisify } from "node:util";
 
@@ -15,11 +16,27 @@ function resolveChromiumPath(): string {
   try {
     return execFileSync("which", ["chromium"], { encoding: "utf8" }).trim();
   } catch {
-    return "/usr/bin/chromium-browser";
+    try {
+      return execFileSync("which", ["chromium-browser"], { encoding: "utf8" }).trim();
+    } catch {
+      return "/usr/bin/chromium-browser";
+    }
   }
 }
 
 const CHROMIUM_PATH = resolveChromiumPath();
+
+(function validateChromiumPath() {
+  try {
+    fs.accessSync(CHROMIUM_PATH, fs.constants.X_OK);
+    console.log(`[export] Chromium resolved: ${CHROMIUM_PATH}`);
+  } catch {
+    console.warn(
+      `[export] WARNING: Chromium binary not found or not executable at "${CHROMIUM_PATH}". ` +
+        "Ad exports will fail. Set the CHROMIUM_PATH environment variable to override."
+    );
+  }
+})();
 
 const WORKSPACE_ROOT = path.resolve(process.cwd(), "../..");
 const ADS_DIR = path.join(WORKSPACE_ROOT, "artifacts/mockup-sandbox/public/ads");
@@ -54,6 +71,16 @@ router.post("/export-ads", async (_req, res) => {
   if (lastExportAt > 0 && elapsed < EXPORT_COOLDOWN_MS) {
     const wait = Math.ceil((EXPORT_COOLDOWN_MS - elapsed) / 1000);
     res.status(429).json({ ok: false, error: `Export cooldown active — try again in ${wait}s.` });
+    return;
+  }
+
+  try {
+    fs.accessSync(CHROMIUM_PATH, fs.constants.X_OK);
+  } catch {
+    res.status(503).json({
+      ok: false,
+      error: `Chromium binary not found or not executable at "${CHROMIUM_PATH}". Set the CHROMIUM_PATH environment variable to override.`,
+    });
     return;
   }
 
