@@ -14,7 +14,7 @@ const FAQS = [
   },
   {
     question: "What format is the content?",
-    answer: "The Blueprint is structured as 85 lessons across 16 modules delivered through written content, annotated charts, and interactive tools. Each lesson is self-contained and designed to be completed in 15-30 minutes. You work at your own pace, in any order after completing Phase 1. Lifetime access means no deadline, ever.",
+    answer: "The Blueprint is structured as 85 lessons across 11 modules delivered through written content, annotated charts, and interactive tools. Each lesson is self-contained and designed to be completed in 15-30 minutes. You work at your own pace, in any order after completing Phase 1. Lifetime access means no deadline, ever.",
   },
   {
     question: "Is there a refund policy?",
@@ -39,7 +39,7 @@ export default function Masterclass() {
       {
         "@type": "Course",
         "name": "The Blueprint — Moneyverse Bitcoin Masterclass",
-        "description": "$197 one-time. Lifetime access. 85 lessons across 16 modules. The complete Bitcoin protocol for serious operators.",
+        "description": "$197 one-time. Lifetime access. 85 lessons across 11 modules. The complete Bitcoin protocol for serious operators.",
         "provider": { "@type": "Organization", "name": "Moneyverse", "url": "https://moneyverse.network" },
         "numberOfCredits": 85,
         "offers": {
@@ -69,7 +69,7 @@ export default function Masterclass() {
 
   usePageMeta(
     "The Blueprint — Bitcoin Masterclass — Moneyverse",
-    "$197 one-time. Lifetime access. 85 lessons across 16 modules. The complete Bitcoin protocol for serious operators.",
+    "$197 one-time. Lifetime access. 85 lessons across 11 modules. The complete Bitcoin protocol for serious operators.",
     jsonLd,
   );
 
@@ -247,7 +247,7 @@ export default function Masterclass() {
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs font-bold tracking-widest text-accent mb-6">ONE-TIME. LIFETIME.</p>
           <h2 className="font-serif font-black text-4xl sm:text-6xl mb-4">$197</h2>
-          <p className="text-background/60 mb-10 text-lg">85 lessons · 16 modules · 4-year framework</p>
+          <p className="text-background/60 mb-10 text-lg">85 lessons · 11 modules · 4-year framework</p>
           <button
             className="bg-accent text-black text-sm font-bold tracking-widest px-12 py-6 hover:bg-background hover:text-foreground transition-colors"
             data-testid="button-masterclass-cta-final"

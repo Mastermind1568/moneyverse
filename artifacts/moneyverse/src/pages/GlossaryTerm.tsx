@@ -96,7 +96,7 @@ export default function GlossaryTerm() {
               <p className="text-xs font-bold tracking-widest text-muted-foreground mb-4">READY TO GO DEEPER?</p>
               <h3 className="font-serif font-bold text-xl mb-4">Learn the full protocol.</h3>
               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                16 modules. 85 lessons. One framework built around the halving cycle.
+                11 modules. 85 lessons. One framework built around the halving cycle.
               </p>
               <Link href="/masterclass" data-testid="link-glossary-masterclass">
                 <span className="block text-center cursor-pointer bg-foreground text-background text-xs font-bold tracking-widest px-6 py-4 hover:bg-accent hover:text-black transition-colors">

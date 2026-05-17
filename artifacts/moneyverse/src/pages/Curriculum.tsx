@@ -140,7 +140,7 @@ export default function Curriculum() {
               ACCESS THE BLUEPRINT — $197 →
             </span>
           </Link>
-          <p className="text-xs text-muted-foreground mt-4">One-time. Lifetime access. All 16 modules.</p>
+          <p className="text-xs text-muted-foreground mt-4">One-time. Lifetime access. All 11 modules.</p>
         </div>
       </section>
     </Layout>

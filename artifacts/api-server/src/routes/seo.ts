@@ -66,7 +66,7 @@ function htmlShell({
   <div class="related">
     <strong>Learn Bitcoin the right way — structured curriculum for serious operators.</strong><br/>
     <a href="/masterclass" class="cta">GET THE BLUEPRINT — $197 →</a>
-    <p style="margin-top:1rem;font-size:.85rem;color:#666">One-time payment. Lifetime access. 85 lessons. 16 modules. Bitcoin-only.</p>
+    <p style="margin-top:1rem;font-size:.85rem;color:#666">One-time payment. Lifetime access. 85 lessons. 11 modules. Bitcoin-only.</p>
     <p style="font-size:.85rem"><a href="/learn/bitcoin-halving">Glossary</a> · <a href="/guides/how-to-set-up-a-hardware-wallet">Guides</a> · <a href="/compare/ledger-vs-trezor">Comparisons</a> · <a href="/tools">Tools</a></p>
   </div>
 </body>
