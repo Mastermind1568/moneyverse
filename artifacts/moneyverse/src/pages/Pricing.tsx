@@ -194,11 +194,6 @@ export default function Pricing() {
               <span style={{ color: "var(--mv-accent)" }}>This is the system that fixes all of it.</span>
             </p>
           </div>
-          <div style={{ textAlign: "right" as const }}>
-            <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 8 }}>Starting from</p>
-            <div className="display" style={{ fontSize: "clamp(3rem, 6vw, 5rem)", color: "var(--mv-accent)" }}>$97</div>
-            <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)", marginTop: 8, letterSpacing: "0.12em" }}>ONCE. YOURS FOREVER.</p>
-          </div>
         </div>
       </section>
 
