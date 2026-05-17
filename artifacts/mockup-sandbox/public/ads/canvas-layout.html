@@ -69,6 +69,62 @@
     width: 608px;
     height: 1080px;
   }
+  .downloads-bar {
+    padding: 24px 32px 40px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 24px;
+  }
+  .downloads-title {
+    color: #F7931A;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .downloads-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .dl-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    color: rgba(255,255,255,0.65);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .dl-link:hover {
+    background: rgba(247,147,26,0.12);
+    border-color: rgba(247,147,26,0.4);
+    color: #F7931A;
+  }
+  .dl-link.zip {
+    background: rgba(247,147,26,0.1);
+    border-color: rgba(247,147,26,0.35);
+    color: #F7931A;
+    font-size: 11px;
+    padding: 8px 16px;
+  }
+  .dl-link.zip:hover {
+    background: rgba(247,147,26,0.2);
+    border-color: #F7931A;
+  }
+  .dl-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 4px;
+  }
 </style>
 </head>
 <body>
@@ -131,6 +187,28 @@
     </div>
   </div>
 
+</div>
+
+<div class="downloads-bar">
+  <div class="downloads-title">Downloads</div>
+  <div class="downloads-grid">
+    <a class="dl-link zip" href="exports/moneyverse-ads.zip" download>
+      ⬇ moneyverse-ads.zip — All 12 PNGs
+    </a>
+    <div class="dl-divider"></div>
+    <a class="dl-link" href="exports/angle1-pain-1080x1080.png" download>angle1-pain 1080×1080</a>
+    <a class="dl-link" href="exports/angle1-pain-1200x627.png" download>angle1-pain 1200×627</a>
+    <a class="dl-link" href="exports/angle1-pain-1200x675.png" download>angle1-pain 1200×675</a>
+    <a class="dl-link" href="exports/angle2-outcome-1080x1080.png" download>angle2-outcome 1080×1080</a>
+    <a class="dl-link" href="exports/angle2-outcome-1200x627.png" download>angle2-outcome 1200×627</a>
+    <a class="dl-link" href="exports/angle2-outcome-1200x675.png" download>angle2-outcome 1200×675</a>
+    <a class="dl-link" href="exports/angle3-identity-1080x1080.png" download>angle3-identity 1080×1080</a>
+    <a class="dl-link" href="exports/angle3-identity-1200x627.png" download>angle3-identity 1200×627</a>
+    <a class="dl-link" href="exports/angle3-identity-1200x675.png" download>angle3-identity 1200×675</a>
+    <a class="dl-link" href="exports/angle4-curiosity-1080x1080.png" download>angle4-curiosity 1080×1080</a>
+    <a class="dl-link" href="exports/angle4-curiosity-1200x627.png" download>angle4-curiosity 1200×627</a>
+    <a class="dl-link" href="exports/angle4-curiosity-1200x675.png" download>angle4-curiosity 1200×675</a>
+  </div>
 </div>
 </body>
 </html>
