@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moneyverse — Email Welcome Sequence</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #111;
+    font-family: system-ui, sans-serif;
+    overflow-x: auto;
+  }
+  .header {
+    padding: 24px 32px 16px;
+    color: #F7931A;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1f1f1f;
+    margin-bottom: 32px;
+  }
+  .header span {
+    color: rgba(255,255,255,0.25);
+    margin-left: 12px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  .canvas {
+    display: flex;
+    gap: 40px;
+    padding: 0 32px 48px;
+    width: max-content;
+    align-items: flex-start;
+  }
+  .email-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .email-label {
+    color: rgba(255,255,255,0.3);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .email-day {
+    color: #F7931A;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  iframe {
+    border: none;
+    display: block;
+    outline: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  Moneyverse · Email Welcome Sequence · 5 Emails
+  <span>Day 0 → Day 2 → Day 4 → Day 7 → Day 10</span>
+</div>
+<div class="canvas">
+
+  <div class="email-slot">
+    <div class="email-day">Day 0</div>
+    <div class="email-label">Email 1 — Welcome &amp; Free Guide</div>
+    <iframe src="/__mockup/emails/email1-welcome.html" width="560" height="720" title="Email 1: Welcome &amp; Free Guide Delivery"></iframe>
+  </div>
+
+  <div class="email-slot">
+    <div class="email-day">Day 2</div>
+    <div class="email-label">Email 2 — The Fiat Leak</div>
+    <iframe src="/__mockup/emails/email2-fiat-leak.html" width="560" height="720" title="Email 2: The Fiat Leak"></iframe>
+  </div>
+
+  <div class="email-slot">
+    <div class="email-day">Day 4</div>
+    <div class="email-label">Email 3 — The Missed Window</div>
+    <iframe src="/__mockup/emails/email3-missed-window.html" width="560" height="720" title="Email 3: Why Most People Miss Their Bitcoin Window"></iframe>
+  </div>
+
+  <div class="email-slot">
+    <div class="email-day">Day 7</div>
+    <div class="email-label">Email 4 — The Blueprint Offer</div>
+    <iframe src="/__mockup/emails/email4-blueprint-offer.html" width="560" height="860" title="Email 4: The Blueprint Offer with Social Proof"></iframe>
+  </div>
+
+  <div class="email-slot">
+    <div class="email-day">Day 10</div>
+    <div class="email-label">Email 5 — Final Push</div>
+    <iframe src="/__mockup/emails/email5-final-push.html" width="560" height="860" title="Email 5: Final Push — 4-Year Cycle Closes Soon"></iframe>
+  </div>
+
+</div>
+</body>
+</html>
