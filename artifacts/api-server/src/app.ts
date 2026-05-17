@@ -3,6 +3,7 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import healthRouter from "./routes/health";
 import seoRouter from "./routes/seo";
+import exportRouter from "./routes/export";
 import { logger } from "./lib/logger";
 
 const app: Express = express();
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", healthRouter);
+app.use("/api", exportRouter);
 app.use(seoRouter);
 
 export default app;

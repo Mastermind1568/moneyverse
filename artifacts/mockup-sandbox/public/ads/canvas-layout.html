@@ -74,13 +74,18 @@
     border-top: 1px solid rgba(255,255,255,0.08);
     margin-top: 24px;
   }
+  .downloads-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+  }
   .downloads-title {
     color: #F7931A;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-bottom: 16px;
   }
   .downloads-grid {
     display: flex;
@@ -124,6 +129,83 @@
     height: 28px;
     background: rgba(255,255,255,0.1);
     margin: 0 4px;
+  }
+
+  /* Export button */
+  #export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: #F7931A;
+    border: none;
+    border-radius: 6px;
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.15s;
+    white-space: nowrap;
+  }
+  #export-btn:hover:not(:disabled) {
+    background: #e8820f;
+  }
+  #export-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  #export-btn .spinner {
+    display: none;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  #export-btn.loading .spinner {
+    display: block;
+  }
+  #export-btn.loading .btn-icon {
+    display: none;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Toast notification */
+  #export-toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    max-width: 340px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  #export-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #export-toast.success {
+    background: #1a2e1a;
+    border: 1px solid #2d6a2d;
+    color: #6fcf6f;
+  }
+  #export-toast.error {
+    background: #2e1a1a;
+    border: 1px solid #6a2d2d;
+    color: #cf6f6f;
   }
 </style>
 </head>
@@ -190,7 +272,14 @@
 </div>
 
 <div class="downloads-bar">
-  <div class="downloads-title">Downloads</div>
+  <div class="downloads-header">
+    <div class="downloads-title">Downloads</div>
+    <button id="export-btn" onclick="exportAds()">
+      <span class="spinner"></span>
+      <span class="btn-icon">↺</span>
+      Export all ads
+    </button>
+  </div>
   <div class="downloads-grid">
     <a class="dl-link zip" href="exports/moneyverse-ads.zip" download>
       ⬇ moneyverse-ads.zip — All 12 PNGs
@@ -210,5 +299,42 @@
     <a class="dl-link" href="exports/angle4-curiosity-1200x675.png" download>angle4-curiosity 1200×675</a>
   </div>
 </div>
+
+<div id="export-toast"></div>
+
+<script>
+  function showToast(message, type) {
+    const toast = document.getElementById('export-toast');
+    toast.textContent = message;
+    toast.className = 'show ' + type;
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+      toast.className = '';
+    }, 5000);
+  }
+
+  async function exportAds() {
+    const btn = document.getElementById('export-btn');
+    btn.disabled = true;
+    btn.classList.add('loading');
+    btn.querySelector('.btn-icon').textContent = '↺';
+
+    try {
+      const res = await fetch('/api/export-ads', { method: 'POST' });
+      const data = await res.json();
+
+      if (data.ok) {
+        showToast('✓ ' + data.count + ' PNGs re-exported — ZIP updated. Refresh downloads to get latest.', 'success');
+      } else {
+        showToast('Export failed: ' + (data.error ?? 'Unknown error'), 'error');
+      }
+    } catch (err) {
+      showToast('Export failed: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.classList.remove('loading');
+    }
+  }
+</script>
 </body>
 </html>

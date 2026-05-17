@@ -1,5 +1,6 @@
 {pkgs}: {
   deps = [
+    pkgs.unzip
     pkgs.chromium
     pkgs.dbus
     pkgs.cups
