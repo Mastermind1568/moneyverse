@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
-import { GLOSSARY_TERMS } from "../../moneyverse/src/data/glossary";
-import { GUIDES } from "../../moneyverse/src/data/guides";
-import { COMPARISONS } from "../../moneyverse/src/data/comparisons";
+import { GLOSSARY_TERMS } from "../../../moneyverse/src/data/glossary";
+import { GUIDES } from "../../../moneyverse/src/data/guides";
+import { COMPARISONS } from "../../../moneyverse/src/data/comparisons";
 
 const router: IRouter = Router();
 

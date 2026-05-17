@@ -8,7 +8,7 @@ export default function Research() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   usePageMeta(
-    "Bitcoin Research & Analysis — Moneyverse",
+    "Bitcoin Intel — Moneyverse",
     "Deep-dive articles on Bitcoin, fiat debasement, self-custody, and strategic exit planning. The signal without the noise."
   );
 
@@ -30,7 +30,7 @@ export default function Research() {
     <Layout>
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12" data-testid="research-hero">
-        <p className="text-xs font-bold tracking-widest text-muted-foreground mb-6">RESEARCH</p>
+        <p className="text-xs font-bold tracking-widest text-muted-foreground mb-6">INTEL</p>
         <h1 className="font-serif font-black text-5xl sm:text-6xl leading-[0.9] mb-6">
           High Signal.<br />
           <span className="text-accent">Zero Noise.</span>

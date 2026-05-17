@@ -4,7 +4,7 @@ import { Link, useLocation } from "wouter";
 const NAV_LINKS = [
   { href: "/thesis", label: "THE THESIS" },
   { href: "/curriculum", label: "CURRICULUM" },
-  { href: "/research", label: "RESEARCH" },
+  { href: "/research", label: "INTEL" },
   { href: "/tools", label: "TOOLS" },
   { href: "/masterclass", label: "MASTERCLASS" },
 ];

@@ -49,7 +49,7 @@ export default function Guide() {
           </p>
           <Link href="/research" data-testid="link-guide-back">
             <span className="text-xs font-bold tracking-widest underline underline-offset-4 hover:text-accent transition-colors cursor-pointer">
-              ← BROWSE RESEARCH
+              ← BROWSE INTEL
             </span>
           </Link>
         </section>
