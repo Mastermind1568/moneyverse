@@ -187,7 +187,7 @@ export default function Pricing() {
           <div>
             <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 20 }}>The Moneyverse Masterclass · 2026 Edition</p>
             <h1 className="display" style={{ fontSize: "clamp(4rem, 12vw, 14rem)", color: "#fff", marginBottom: 32 }}>
-              The <em style={{ color: "var(--mv-accent)" }}>Blue</em>print<span style={{ color: "var(--mv-accent)" }}>.</span>
+              The <em style={{ color: "var(--mv-accent)" }}>Blue</em>print
             </h1>
             <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: "clamp(16px, 2vw, 22px)", color: "var(--mv-n400)", maxWidth: 680, lineHeight: 1.6 }}>
               The naira fell 74%. The cedi needed an IMF bailout. Your bank charged you 6% to send money home. Most Bitcoin investors have no exit plan, no risk framework, and no idea what the chart is telling them.{" "}

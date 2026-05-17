@@ -41,7 +41,7 @@ export default function Preview() {
     return (
       <Layout>
         <section style={{ background: "#fff", minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" as const, textAlign: "center" as const, padding: 64 }}>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 48, marginBottom: 20 }}>Module not found.</h1>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 48, marginBottom: 20 }}>Module not found</h1>
           <Link href="/pricing"><span className="btn orange">View all modules →</span></Link>
         </section>
       </Layout>

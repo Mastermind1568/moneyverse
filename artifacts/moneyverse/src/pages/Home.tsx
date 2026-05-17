@@ -174,7 +174,7 @@ export default function Home() {
           {/* Sub + CTA row */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "end" }} className="hero-sub-grid">
             <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: "clamp(16px, 1.8vw, 22px)", color: "var(--mv-n400)", lineHeight: 1.7, margin: 0 }}>
-              The naira fell 74%. The cedi needed an IMF bailout. 93% of Bitcoin investors enter every cycle with no exit plan. This is the operating manual they never got.
+              The naira fell 74%. The cedi needed an IMF bailout. 93% of Bitcoin investors enter every cycle with no exit plan. This is the operating manual they never got
             </p>
 
             <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "flex-start", gap: 20 }}>

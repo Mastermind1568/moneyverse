@@ -9,7 +9,7 @@ export default function About() {
         <span className="accent-rule lg" style={{ marginBottom: 20 }} />
         <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 20 }}>The Thesis</p>
         <h1 className="display" style={{ fontSize: "clamp(4rem, 10vw, 12rem)", color: "#fff", marginBottom: 40, maxWidth: 900 }}>
-          Not an<br /><em style={{ color: "var(--mv-accent)" }}>invest</em>ment.<br />An exit<span style={{ color: "var(--mv-accent)" }}>.</span>
+          Not an<br /><em style={{ color: "var(--mv-accent)" }}>invest</em>ment<br />An exit
         </h1>
         <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: "clamp(16px, 2vw, 22px)", color: "var(--mv-n400)", maxWidth: 640, lineHeight: 1.7 }}>
           In 1960, ₦1 bought $2.80. In 2025, ₦1 buys $0.00063. That's not volatility. That's design. And the same design applies to every African currency — not by accident, by architecture.
