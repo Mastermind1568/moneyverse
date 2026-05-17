@@ -20,52 +20,117 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
   }
-  .grid {
+  .canvas {
     display: flex;
-    gap: 50px;
-    padding: 0 32px 32px;
+    gap: 60px;
+    padding: 0 32px 48px;
     width: max-content;
+    align-items: flex-start;
   }
-  .ad-slot {
+  .angle-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
-  .ad-label {
-    color: rgba(255,255,255,0.4);
+  .angle-title {
+    color: rgba(255,255,255,0.55);
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
   }
+  .format-pair {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .ad-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .format-label {
+    color: rgba(255,255,255,0.25);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
   iframe {
-    width: 600px;
-    height: 600px;
     border: none;
     display: block;
     outline: 1px solid rgba(255,255,255,0.08);
   }
+  iframe.square {
+    width: 600px;
+    height: 600px;
+  }
+  iframe.story {
+    width: 608px;
+    height: 1080px;
+  }
 </style>
 </head>
 <body>
-<div class="header">Moneyverse · Ad Creative Pack · 4 Angles · 600×600</div>
-<div class="grid">
-  <div class="ad-slot">
-    <div class="ad-label">Angle 1 — Pain Point</div>
-    <iframe src="/__mockup/ads/angle1-pain.html" title="Angle 1: Pain Point — Your savings are melting."></iframe>
+<div class="header">Moneyverse · Ad Creative Pack · 4 Angles · Feed + Story</div>
+<div class="canvas">
+
+  <div class="angle-group" id="ad-angle1">
+    <div class="angle-title">Angle 1 — Pain Point</div>
+    <div class="format-pair">
+      <div class="ad-slot">
+        <div class="format-label">Feed · 600×600</div>
+        <iframe class="square" src="/__mockup/ads/angle1-pain.html" title="Angle 1: Pain Point — Feed"></iframe>
+      </div>
+      <div class="ad-slot" id="ad-angle1-story">
+        <div class="format-label">Story · 608×1080</div>
+        <iframe class="story" src="/__mockup/ads/angle1-pain-story.html" title="Angle 1: Pain Point — Story"></iframe>
+      </div>
+    </div>
   </div>
-  <div class="ad-slot">
-    <div class="ad-label">Angle 2 — Outcome</div>
-    <iframe src="/__mockup/ads/angle2-outcome.html" title="Angle 2: Outcome — Build a position. Not a prayer."></iframe>
+
+  <div class="angle-group" id="ad-angle2">
+    <div class="angle-title">Angle 2 — Outcome</div>
+    <div class="format-pair">
+      <div class="ad-slot">
+        <div class="format-label">Feed · 600×600</div>
+        <iframe class="square" src="/__mockup/ads/angle2-outcome.html" title="Angle 2: Outcome — Feed"></iframe>
+      </div>
+      <div class="ad-slot" id="ad-angle2-story">
+        <div class="format-label">Story · 608×1080</div>
+        <iframe class="story" src="/__mockup/ads/angle2-outcome-story.html" title="Angle 2: Outcome — Story"></iframe>
+      </div>
+    </div>
   </div>
-  <div class="ad-slot">
-    <div class="ad-label">Angle 3 — Identity</div>
-    <iframe src="/__mockup/ads/angle3-identity.html" title="Angle 3: Identity — Built for Bitcoin Operators."></iframe>
+
+  <div class="angle-group" id="ad-angle3">
+    <div class="angle-title">Angle 3 — Identity</div>
+    <div class="format-pair">
+      <div class="ad-slot">
+        <div class="format-label">Feed · 600×600</div>
+        <iframe class="square" src="/__mockup/ads/angle3-identity.html" title="Angle 3: Identity — Feed"></iframe>
+      </div>
+      <div class="ad-slot" id="ad-angle3-story">
+        <div class="format-label">Story · 608×1080</div>
+        <iframe class="story" src="/__mockup/ads/angle3-identity-story.html" title="Angle 3: Identity — Story"></iframe>
+      </div>
+    </div>
   </div>
-  <div class="ad-slot">
-    <div class="ad-label">Angle 4 — Curiosity</div>
-    <iframe src="/__mockup/ads/angle4-curiosity.html" title="Angle 4: Curiosity — The 4-year cycle doesn't care about your feelings."></iframe>
+
+  <div class="angle-group" id="ad-angle4">
+    <div class="angle-title">Angle 4 — Curiosity</div>
+    <div class="format-pair">
+      <div class="ad-slot">
+        <div class="format-label">Feed · 600×600</div>
+        <iframe class="square" src="/__mockup/ads/angle4-curiosity.html" title="Angle 4: Curiosity — Feed"></iframe>
+      </div>
+      <div class="ad-slot" id="ad-angle4-story">
+        <div class="format-label">Story · 608×1080</div>
+        <iframe class="story" src="/__mockup/ads/angle4-curiosity-story.html" title="Angle 4: Curiosity — Story"></iframe>
+      </div>
+    </div>
   </div>
+
 </div>
 </body>
 </html>
