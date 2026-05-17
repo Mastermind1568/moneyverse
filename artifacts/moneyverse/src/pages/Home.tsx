@@ -230,6 +230,111 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Three Products ── */}
+      <section style={{ background: "var(--mv-black)", borderBottom: "2px solid #222" }}>
+        {/* Header */}
+        <div style={{ padding: "80px 80px 48px", borderBottom: "1px solid #222" }} className="hero-pad">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap" as const, gap: 24 }}>
+            <div>
+              <span className="accent-rule" style={{ marginBottom: 20 }} />
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", margin: 0 }}>
+                Three ways in. One direction.
+              </h2>
+            </div>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n500)", maxWidth: 420, lineHeight: 1.7, margin: 0 }}>
+              Every tier includes the complete 11-module Blueprint. What separates them is how far you want to go — from stopping the currency leak, to running money across borders like a professional operator.
+            </p>
+          </div>
+        </div>
+
+        {/* Cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }} className="three-col-grid">
+
+          {/* Tier 1 — Blueprint */}
+          <div style={{ padding: "56px 48px 48px", borderRight: "1px solid #222", display: "flex", flexDirection: "column" as const, gap: 0 }}>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", color: "var(--mv-n600)", marginBottom: 20, textTransform: "uppercase" as const }}>Tier 01</p>
+            <h3 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 28, color: "#fff", margin: "0 0 8px" }}>Blueprint</h3>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 52, color: "#fff", lineHeight: 1, margin: "16px 0 4px" }}>$97</div>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", marginBottom: 32 }}>ONE-TIME · LIFETIME ACCESS</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, color: "var(--mv-n400)", lineHeight: 1.6, marginBottom: 36, flexGrow: 1 }}>
+              The complete operating manual. 11 modules covering the fiat trap, the halving cycle, cold storage, DCA, and your full exit plan.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column" as const, gap: 12, marginBottom: 40 }}>
+              {["11 Core Modules · 85 Lessons", "Cold Storage Protocol", "DCA Accumulation Engine", "Bitcoin Exit Plan Framework", "30-Day Conditional Guarantee"].map((f) => (
+                <div key={f} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                  <span style={{ color: "var(--mv-n600)", marginTop: 1, flexShrink: 0 }}>—</span>
+                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n400)", lineHeight: 1.5 }}>{f}</span>
+                </div>
+              ))}
+            </div>
+            <Link href="/pricing">
+              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", border: "1px solid #444", color: "#fff", cursor: "pointer", transition: "border-color 0.15s" }}>
+                GET THE BLUEPRINT →
+              </span>
+            </Link>
+          </div>
+
+          {/* Tier 2 — Blueprint + Live (most popular) */}
+          <div style={{ padding: "56px 48px 48px", borderRight: "1px solid #222", background: "var(--mv-accent)", display: "flex", flexDirection: "column" as const, position: "relative" as const }}>
+            <div style={{ position: "absolute" as const, top: 0, left: 0, right: 0, height: 4, background: "#000" }} />
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", color: "rgba(0,0,0,0.5)", marginBottom: 20, textTransform: "uppercase" as const }}>Tier 02 · Most Popular</p>
+            <h3 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 28, color: "#000", margin: "0 0 8px" }}>Blueprint + Live</h3>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 52, color: "#000", lineHeight: 1, margin: "16px 0 4px" }}>$197</div>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(0,0,0,0.45)", letterSpacing: "0.12em", marginBottom: 32 }}>ONE-TIME · LIFETIME ACCESS</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, color: "rgba(0,0,0,0.7)", lineHeight: 1.6, marginBottom: 36, flexGrow: 1 }}>
+              Everything in Blueprint, plus monthly live sessions, a 5-day WhatsApp activation class, and a done-for-you affiliate launch sequence.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column" as const, gap: 12, marginBottom: 40 }}>
+              {["Everything in Blueprint", "Monthly Live Tutorial Sessions", "5-Day WhatsApp Activation Class", "14-Day Story Launch Sequence", "AI Monetisation Gameplan"].map((f) => (
+                <div key={f} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                  <span style={{ color: "rgba(0,0,0,0.4)", marginTop: 1, flexShrink: 0 }}>—</span>
+                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "rgba(0,0,0,0.75)", lineHeight: 1.5 }}>{f}</span>
+                </div>
+              ))}
+            </div>
+            <Link href="/pricing">
+              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", background: "#000", color: "#fff", cursor: "pointer" }}>
+                ENROLL NOW →
+              </span>
+            </Link>
+          </div>
+
+          {/* Tier 3 — Sovereign Stack */}
+          <div style={{ padding: "56px 48px 48px", display: "flex", flexDirection: "column" as const }}>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", color: "var(--mv-n600)", marginBottom: 20, textTransform: "uppercase" as const }}>Tier 03 · Operator Level</p>
+            <h3 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 28, color: "#fff", margin: "0 0 8px" }}>Sovereign Stack</h3>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 52, color: "var(--mv-accent)", lineHeight: 1, margin: "16px 0 4px" }}>$997</div>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", marginBottom: 32 }}>ONE-TIME · LIFETIME ACCESS</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, color: "var(--mv-n400)", lineHeight: 1.6, marginBottom: 36, flexGrow: 1 }}>
+              The full operator stack. Macro analysis, technical analysis, arbitrage playbook, cross-border payments, and 3 private 1:1 calls.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column" as const, gap: 12, marginBottom: 40 }}>
+              {["Everything in Blueprint + Live", "Macro Masterplan (DXY, Fed, M2)", "Technical Analysis Masterclass", "Arbitrage & Cross-Border Playbook", "3 × Private 1:1 Calls"].map((f) => (
+                <div key={f} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                  <span style={{ color: "var(--mv-accent)", marginTop: 1, flexShrink: 0 }}>—</span>
+                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n400)", lineHeight: 1.5 }}>{f}</span>
+                </div>
+              ))}
+            </div>
+            <Link href="/pricing">
+              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", border: "1px solid var(--mv-accent)", color: "var(--mv-accent)", cursor: "pointer" }}>
+                CLAIM THE SOVEREIGN STACK →
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Footer note */}
+        <div style={{ padding: "24px 80px", borderTop: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 16 }} className="hero-pad">
+          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em" }}>
+            ALL TIERS · ONE-TIME PAYMENT · NO SUBSCRIPTION · LIFETIME ACCESS · 30-DAY CONDITIONAL GUARANTEE
+          </p>
+          <Link href="/pricing">
+            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-accent)", letterSpacing: "0.12em", cursor: "pointer" }}>COMPARE ALL TIERS IN FULL →</span>
+          </Link>
+        </div>
+      </section>
+
       {/* ── Problem Block ── */}
       <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid var(--mv-black)" }} className="two-col-grid">
         {/* Left — black */}
