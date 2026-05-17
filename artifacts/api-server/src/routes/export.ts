@@ -69,6 +69,39 @@ function sseWrite(res: FlushableResponse, data: object) {
   res.flush?.();
 }
 
+router.post("/bundle-ads", async (_req, res) => {
+  const ZIP_PATH = path.join(EXPORTS_DIR, "moneyverse-ads.zip");
+
+  try {
+    await execFileAsync("python3", [BUNDLE_SCRIPT]);
+  } catch (bundleErr: unknown) {
+    const msg = bundleErr instanceof Error ? bundleErr.message : String(bundleErr);
+    res.status(500).json({ ok: false, error: `ZIP bundling failed: ${msg}` });
+    return;
+  }
+
+  try {
+    fs.accessSync(ZIP_PATH, fs.constants.R_OK);
+  } catch {
+    res.status(404).json({ ok: false, error: "ZIP file not found after bundling." });
+    return;
+  }
+
+  res.setHeader("Content-Type", "application/zip");
+  res.setHeader("Content-Disposition", 'attachment; filename="moneyverse-ads.zip"');
+  res.setHeader("Cache-Control", "no-store");
+
+  const stream = fs.createReadStream(ZIP_PATH);
+  stream.on("error", (err) => {
+    if (!res.headersSent) {
+      res.status(500).json({ ok: false, error: err.message });
+    } else {
+      res.destroy();
+    }
+  });
+  stream.pipe(res);
+});
+
 router.post("/export-ads", async (_req, res) => {
   if (exportInProgress) {
     res.status(429).json({ ok: false, error: "An export is already running, please wait." });

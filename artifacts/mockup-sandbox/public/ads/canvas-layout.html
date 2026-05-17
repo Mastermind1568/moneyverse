@@ -104,8 +104,10 @@
     color: rgba(255,255,255,0.65);
     font-size: 10px;
     font-weight: 600;
+    font-family: inherit;
     letter-spacing: 0.05em;
     text-decoration: none;
+    cursor: pointer;
     transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
   .dl-link:hover {
@@ -123,6 +125,12 @@
   .dl-link.zip:hover {
     background: rgba(247,147,26,0.2);
     border-color: #F7931A;
+  }
+  .dl-link.zip:disabled,
+  .dl-link.zip[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
   }
   .dl-divider {
     width: 1px;
@@ -318,9 +326,9 @@
     </div>
   </div>
   <div class="downloads-grid">
-    <a class="dl-link zip" href="exports/moneyverse-ads.zip" download>
-      ⬇ moneyverse-ads.zip — All 12 PNGs
-    </a>
+    <button id="bundle-btn" class="dl-link zip" onclick="downloadZip()">
+      ⬇ Download ZIP — All 12 PNGs
+    </button>
     <div class="dl-divider"></div>
     <a class="dl-link" href="exports/angle1-pain-1080x1080.png" download>angle1-pain 1080×1080</a>
     <a class="dl-link" href="exports/angle1-pain-1200x627.png" download>angle1-pain 1200×627</a>
@@ -363,6 +371,42 @@
     const wrap = document.getElementById('export-progress-wrap');
     wrap.classList.remove('visible');
     document.getElementById('export-progress-fill').style.width = '0%';
+  }
+
+  async function downloadZip() {
+    const btn = document.getElementById('bundle-btn');
+    btn.disabled = true;
+    btn.setAttribute('aria-disabled', 'true');
+    btn.textContent = '⏳ Bundling…';
+
+    try {
+      const res = await fetch('/api/bundle-ads', { method: 'POST' });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        showToast('ZIP bundle failed: ' + (data.error ?? 'HTTP ' + res.status), 'error');
+        return;
+      }
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'moneyverse-ads.zip';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      showToast('✓ Fresh ZIP downloaded!', 'success');
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      showToast('ZIP download failed: ' + msg, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.removeAttribute('aria-disabled');
+      btn.textContent = '⬇ Download ZIP — All 12 PNGs';
+    }
   }
 
   async function exportAds() {
