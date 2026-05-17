@@ -20,7 +20,23 @@ export default function Guide() {
     ? guide.intro
     : "This guide could not be found.";
 
-  usePageMeta(metaTitle, metaDesc);
+  const jsonLd = guide
+    ? {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": guide.title,
+        "description": guide.intro,
+        "totalTime": `PT${guide.estimatedTime.replace(" minutes", "M").replace(" hour", "H")}`,
+        "step": guide.steps.map((step, i) => ({
+          "@type": "HowToStep",
+          "position": i + 1,
+          "name": step.title,
+          "text": step.content,
+        })),
+      }
+    : undefined;
+
+  usePageMeta(metaTitle, metaDesc, jsonLd);
 
   if (!guide) {
     return (

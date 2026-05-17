@@ -10,9 +10,27 @@ const PHASE_BORDER_COLORS = ["border-foreground", "border-foreground", "border-a
 export default function Curriculum() {
   const [openModule, setOpenModule] = useState<string | null>(null);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "The Moneyverse Bitcoin Curriculum",
+    "description": "The complete Bitcoin education path: from 'what is money?' to exit architecture and inheritance planning. 85 lessons, 4 phases, one protocol.",
+    "provider": { "@type": "Organization", "name": "Moneyverse", "url": "https://moneyverse.network" },
+    "numberOfCredits": 85,
+    "hasCourseInstance": CURRICULUM_PHASES.flatMap((phase) =>
+      phase.modules.map((mod) => ({
+        "@type": "CourseInstance",
+        "name": mod.title,
+        "description": mod.description,
+        "courseMode": "online",
+      }))
+    ),
+  };
+
   usePageMeta(
     "Bitcoin Curriculum — 4 Phases, 16 Modules — Moneyverse",
-    "The complete Bitcoin education path: from 'what is money?' to exit architecture and inheritance planning. 85 lessons, 4 phases, one protocol."
+    "The complete Bitcoin education path: from 'what is money?' to exit architecture and inheritance planning. 85 lessons, 4 phases, one protocol.",
+    jsonLd,
   );
 
   return (

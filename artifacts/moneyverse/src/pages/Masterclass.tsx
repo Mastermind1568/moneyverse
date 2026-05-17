@@ -33,9 +33,44 @@ const FAQS = [
 export default function Masterclass() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Course",
+        "name": "The Blueprint — Moneyverse Bitcoin Masterclass",
+        "description": "$197 one-time. Lifetime access. 85 lessons across 16 modules. The complete Bitcoin protocol for serious operators.",
+        "provider": { "@type": "Organization", "name": "Moneyverse", "url": "https://moneyverse.network" },
+        "numberOfCredits": 85,
+        "offers": {
+          "@type": "Offer",
+          "price": "197",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+        },
+        "hasCourseInstance": CURRICULUM_PHASES.flatMap((phase) =>
+          phase.modules.map((mod) => ({
+            "@type": "CourseInstance",
+            "name": mod.title,
+            "description": mod.description,
+          }))
+        ),
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": FAQS.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": { "@type": "Answer", "text": faq.answer },
+        })),
+      },
+    ],
+  };
+
   usePageMeta(
     "The Blueprint — Bitcoin Masterclass — Moneyverse",
-    "$197 one-time. Lifetime access. 85 lessons across 16 modules. The complete Bitcoin protocol for serious operators."
+    "$197 one-time. Lifetime access. 85 lessons across 16 modules. The complete Bitcoin protocol for serious operators.",
+    jsonLd,
   );
 
   return (

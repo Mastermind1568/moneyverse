@@ -14,7 +14,21 @@ export default function GlossaryTerm() {
     ? data.shortDefinition
     : "This glossary term could not be found.";
 
-  usePageMeta(metaTitle, metaDesc);
+  const jsonLd = data
+    ? {
+        "@context": "https://schema.org",
+        "@type": "DefinedTerm",
+        "name": data.title,
+        "description": data.shortDefinition,
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "Moneyverse Bitcoin Glossary",
+          "url": "https://moneyverse.network/learn/bitcoin-halving",
+        },
+      }
+    : undefined;
+
+  usePageMeta(metaTitle, metaDesc, jsonLd);
 
   if (!data) {
     return (

@@ -11,6 +11,7 @@ import Masterclass from "@/pages/Masterclass";
 import Tools from "@/pages/Tools";
 import GlossaryTerm from "@/pages/GlossaryTerm";
 import Guide from "@/pages/Guide";
+import Compare from "@/pages/Compare";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/tools" component={Tools} />
       <Route path="/learn/:term" component={GlossaryTerm} />
       <Route path="/guides/:slug" component={Guide} />
+      <Route path="/compare/:slug" component={Compare} />
       <Route component={NotFound} />
     </Switch>
   );
