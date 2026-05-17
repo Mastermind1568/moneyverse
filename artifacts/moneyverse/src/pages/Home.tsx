@@ -150,41 +150,70 @@ export default function Home() {
   return (
     <Layout>
       {/* ── Hero ── */}
-      <section style={{ background: "var(--mv-black)", minHeight: "100vh", display: "flex", alignItems: "stretch" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "60fr 40fr", width: "100%", borderBottom: "2px solid #222" }} className="hero-grid">
-          {/* Left */}
-          <div style={{ padding: "100px 64px", display: "flex", flexDirection: "column" as const, justifyContent: "center", borderRight: "2px solid #222" }}>
-            <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 32 }}>Bitcoin · Financial Sovereignty</p>
-            <h1 className="display" style={{ fontSize: "clamp(5rem, 13vw, 16rem)", color: "#fff", marginBottom: 40 }}>
-              Money<br /><em style={{ color: "var(--mv-accent)" }}>verse</em><span style={{ color: "var(--mv-accent)" }}>.</span>
-            </h1>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: "clamp(16px, 2vw, 22px)", color: "var(--mv-n400)", maxWidth: 560, lineHeight: 1.6, marginBottom: 40 }}>
-              The naira fell 74%. The cedi needed an IMF bailout. Your bank charged you 6% to send money home. Most Bitcoin investors have no exit plan, no risk framework, and no idea what the chart is telling them. This is the operating manual.
+      <section style={{ background: "var(--mv-black)", minHeight: "100vh", display: "flex", flexDirection: "column" as const, justifyContent: "center", borderBottom: "2px solid #222", position: "relative" as const, overflow: "hidden" }}>
+        {/* Background concentric rings */}
+        <svg style={{ position: "absolute" as const, right: "-8%", top: "50%", transform: "translateY(-50%)", width: "55vw", height: "80vh", opacity: 0.055, pointerEvents: "none" }} viewBox="0 0 600 600" fill="none">
+          {[0,1,2,3,4,5,6,7,8,9].map((i) => <circle key={i} cx="300" cy="300" r={60 + i * 45} stroke="#F59300" strokeWidth="1" fill="none" />)}
+        </svg>
+
+        <div style={{ padding: "120px 80px 80px", position: "relative" as const, zIndex: 1 }} className="hero-pad">
+          {/* Eyebrow */}
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 48 }}>
+            <div style={{ width: 32, height: 2, background: "var(--mv-accent)" }} />
+            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.2em", color: "var(--mv-n600)", textTransform: "uppercase" as const }}>
+              Bitcoin · Financial Sovereignty · Africa
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(4.5rem, 12vw, 14rem)", color: "#fff", lineHeight: 0.9, margin: "0 0 56px", letterSpacing: "-0.02em" }}>
+            Money<br />
+            <em style={{ color: "var(--mv-accent)", fontStyle: "italic" }}>verse</em>
+          </h1>
+
+          {/* Sub + CTA row */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "end" }} className="hero-sub-grid">
+            <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: "clamp(16px, 1.8vw, 22px)", color: "var(--mv-n400)", lineHeight: 1.7, margin: 0 }}>
+              The naira fell 74%. The cedi needed an IMF bailout. 93% of Bitcoin investors enter every cycle with no exit plan. This is the operating manual they never got.
             </p>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" as const }}>
-              <Link href="/pricing"><span className="btn orange" style={{ fontSize: 12 }}>Get The Blueprint →</span></Link>
-              <Link href="/pricing"><span className="btn" style={{ color: "#fff", borderColor: "#fff", fontSize: 12 }}>See the Curriculum →</span></Link>
+
+            <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "flex-start", gap: 20 }}>
+              <Link href="/pricing">
+                <span style={{
+                  display: "inline-flex", alignItems: "center", gap: 12,
+                  fontFamily: "'Space Mono', monospace", fontWeight: 700,
+                  fontSize: 12, letterSpacing: "0.08em",
+                  background: "var(--mv-accent)", color: "#000",
+                  padding: "20px 40px", cursor: "pointer",
+                  transition: "opacity 0.15s",
+                }}>
+                  Enroll in The Blueprint
+                  <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
+                </span>
+              </Link>
+              <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+                <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 28, color: "#fff" }}>$97</span>
+                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.15em", lineHeight: 1.8 }}>
+                  ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Right */}
-          <div style={{ padding: "100px 48px", display: "flex", flexDirection: "column" as const, alignItems: "center", justifyContent: "center", position: "relative" as const, overflow: "hidden" }}>
-            <svg style={{ position: "absolute" as const, inset: 0, width: "100%", height: "100%", opacity: 0.08 }} viewBox="0 0 400 500" fill="none">
-              {[0,1,2,3,4,5,6,7,8].map((i) => <ellipse key={i} cx="200" cy="250" rx={60 + i * 30} ry={40 + i * 25} stroke="#F59300" strokeWidth="1" fill="none" />)}
-            </svg>
-            <div style={{ textAlign: "center" as const, zIndex: 1 }}>
-              <p className="overline" style={{ color: "var(--mv-n600)", marginBottom: 12 }}>Starting price</p>
-              <div className="display" style={{ fontSize: "clamp(4rem, 10vw, 7rem)", color: "var(--mv-accent)" }}>$97</div>
-              <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)", marginTop: 8, letterSpacing: "0.15em" }}>ONCE. YOURS FOREVER.</p>
-              <div style={{ marginTop: 48, display: "flex", flexDirection: "column" as const, gap: 16 }}>
-                {["85 Lessons", "11h 43m Runtime", "30-Day Guarantee"].map((item) => (
-                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <span style={{ color: "var(--mv-accent)", fontSize: 16 }}>✓</span>
-                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n400)" }}>{item}</span>
-                  </div>
-                ))}
+          {/* Bottom stats bar */}
+          <div style={{ marginTop: 96, paddingTop: 40, borderTop: "1px solid #222", display: "flex", gap: 0, flexWrap: "wrap" as const }}>
+            {[
+              { num: "11", label: "Modules" },
+              { num: "85", label: "Lessons" },
+              { num: "11h 43m", label: "Runtime" },
+              { num: "4", label: "Countries served" },
+              { num: "30%", label: "Affiliate commission" },
+            ].map((s, i) => (
+              <div key={i} style={{ padding: "0 48px 0 0", marginRight: 48, borderRight: i < 4 ? "1px solid #222" : "none" }}>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 26, color: i === 4 ? "var(--mv-accent)" : "#fff" }}>{s.num}</div>
+                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.14em", marginTop: 6, textTransform: "uppercase" as const }}>{s.label}</div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
