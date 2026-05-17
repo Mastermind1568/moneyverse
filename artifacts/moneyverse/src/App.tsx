@@ -18,6 +18,7 @@ import Dashboard from "@/pages/Dashboard";
 import GlossaryTerm from "@/pages/GlossaryTerm";
 import Guide from "@/pages/Guide";
 import Compare from "@/pages/Compare";
+import FreeGuide from "@/pages/FreeGuide";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,8 @@ function Router() {
       <Route path="/tools"><Redirect to="/calculator" /></Route>
       <Route path="/research"><Redirect to="/blog" /></Route>
       <Route path="/curriculum"><Redirect to="/pricing" /></Route>
+
+      <Route path="/free-guide" component={FreeGuide} />
 
       {/* SEO pages */}
       <Route path="/learn/:term" component={GlossaryTerm} />

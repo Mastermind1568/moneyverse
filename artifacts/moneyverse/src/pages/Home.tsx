@@ -48,7 +48,7 @@ function LeadCaptureForm() {
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 520 }}>
       <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n400)", marginBottom: 20, lineHeight: 1.7 }}>
-        Enter your email and get the free 16-page guide — plus a 5-part sequence on the fiat trap, the halving cycle, and how to build a real exit plan.
+        Enter your email and get the free 17-page guide — plus a 5-part sequence on the fiat trap, the halving cycle, and how to build a real exit plan.
       </p>
       <div style={{ display: "flex", gap: 0, border: "1px solid var(--mv-n600)" }}>
         <input
@@ -429,10 +429,10 @@ export default function Home() {
             <span className="accent-rule" style={{ marginBottom: 24 }} />
             <p className="overline" style={{ color: "var(--mv-accent)", marginBottom: 16 }}>Free Guide</p>
             <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", marginBottom: 20 }}>
-              Start here.<br />It's free.
+              17 pages.<br />Free.
             </h2>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n400)", lineHeight: 1.8 }}>
-              16 pages on why fiat currencies fail and how the 4-year Bitcoin cycle works. No purchase required.
+              17 pages on why fiat currencies fail and how the 4-year Bitcoin cycle works. No purchase required.
             </p>
           </div>
           <div>
