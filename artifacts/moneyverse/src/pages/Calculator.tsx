@@ -210,16 +210,30 @@ export default function Calculator() {
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ background: "#fff", padding: "80px 64px", textAlign: "center" as const, borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(1.5rem, 3vw, 2.5rem)", marginBottom: 24 }}>
-          Stop saving in a leaking currency.
-        </h2>
-        <Link href="/pricing">
-          <span className="btn orange" style={{ fontSize: 13, padding: "16px 32px", marginBottom: 16, display: "inline-flex" }}>Enroll in The Blueprint · $97 →</span>
-        </Link>
-        <p className="mono" style={{ fontSize: 9, color: "var(--mv-n400)", letterSpacing: "0.1em", display: "block", marginTop: 12 }}>
-          30-day conditional guarantee · One email refund
-        </p>
+      <section style={{ background: "var(--mv-black)", padding: "100px 64px", borderTop: "2px solid #222" }} className="section-pad-responsive">
+        <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: 64, alignItems: "center" }} className="two-col-grid">
+          <div>
+            <span className="accent-rule" style={{ marginBottom: 24 }} />
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", lineHeight: 1.1, marginBottom: 20 }}>
+              You just saw the number.<br />
+              <em style={{ color: "var(--mv-accent)" }}>Now do something about it</em>
+            </h2>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n500)", lineHeight: 1.8, maxWidth: 500 }}>
+              That gap you calculated — the difference between saving in your currency and running a Bitcoin DCA protocol — is what The Blueprint closes. $97. One time. Yours to keep.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" as const, gap: 20 }}>
+            <Link href="/pricing">
+              <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: 11, letterSpacing: "0.08em", background: "var(--mv-accent)", color: "#000", padding: "22px 32px", cursor: "pointer" }}>
+                Close the gap · $97
+                <svg width="14" height="9" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
+              </span>
+            </Link>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", lineHeight: 2, textAlign: "center" as const }}>
+              ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
+            </p>
+          </div>
+        </div>
       </section>
 
       <style>{`

@@ -442,20 +442,29 @@ export default function Home() {
       </section>
 
       {/* ── Final CTA ── */}
-      <section style={{ background: "var(--mv-black)", padding: "100px 64px" }} className="section-pad-responsive">
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }} className="two-col-grid">
-          <div>
-            <h2 className="h-section" style={{ fontSize: "clamp(2rem, 4vw, 4rem)", color: "#fff", marginBottom: 24 }}>
-              Enroll before the next cycle peak.
-            </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)", lineHeight: 1.7 }}>
-              11 modules. 85 lessons. One payment. Starts at $97.
+      <section style={{ background: "var(--mv-black)", padding: "120px 80px", borderTop: "2px solid #222", position: "relative" as const, overflow: "hidden" }} className="hero-pad">
+        <div style={{ position: "absolute" as const, right: "-10%", top: "50%", transform: "translateY(-50%)", width: "45vw", height: "45vw", borderRadius: "50%", background: "var(--mv-accent)", opacity: 0.04, pointerEvents: "none" }} />
+        <div style={{ position: "relative" as const, zIndex: 1, maxWidth: 860 }}>
+          <span className="accent-rule" style={{ marginBottom: 24 }} />
+          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.2em", color: "var(--mv-n600)", marginBottom: 32, textTransform: "uppercase" as const }}>The clock is already running</p>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2.5rem, 5.5vw, 5.5rem)", color: "#fff", lineHeight: 0.95, marginBottom: 40 }}>
+            Every week you wait,<br />
+            someone else is accumulating<br />
+            <em style={{ color: "var(--mv-accent)" }}>your exit</em>
+          </h2>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: "clamp(16px, 1.6vw, 21px)", color: "var(--mv-n400)", maxWidth: 700, lineHeight: 1.8, marginBottom: 52 }}>
+            The last halving cycle turned $1,000 into $30,000 for people who had a protocol. Most found out when the price was already at $69K. The Blueprint exists so that doesn't happen to you again.
+          </p>
+          <div style={{ display: "flex", alignItems: "center", gap: 28, flexWrap: "wrap" as const }}>
+            <Link href="/pricing">
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 14, fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: 12, letterSpacing: "0.08em", background: "var(--mv-accent)", color: "#000", padding: "22px 48px", cursor: "pointer" }}>
+                Start The Blueprint · $97
+                <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
+              </span>
+            </Link>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", lineHeight: 2 }}>
+              ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
             </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "flex-start", gap: 20 }}>
-            <div className="display" style={{ fontSize: "clamp(4rem, 8vw, 8rem)", color: "var(--mv-accent)" }}>$97</div>
-            <Link href="/pricing"><span className="btn orange" style={{ fontSize: 13 }}>Access Blueprint →</span></Link>
-            <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)", letterSpacing: "0.12em" }}>30-day conditional guarantee</p>
           </div>
         </div>
       </section>

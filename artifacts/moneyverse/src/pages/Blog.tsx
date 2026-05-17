@@ -102,16 +102,30 @@ export default function Blog() {
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ background: "var(--mv-black)", padding: "80px 64px", textAlign: "center" as const }} className="section-pad-responsive">
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(1.5rem, 4vw, 3rem)", color: "#fff", marginBottom: 24 }}>
-          The research is just the beginning.
-        </h2>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)", maxWidth: 500, margin: "0 auto 40px", lineHeight: 1.7 }}>
-          The Blueprint takes everything here and turns it into a 21-day protocol.
-        </p>
-        <Link href="/pricing">
-          <span className="btn orange" style={{ fontSize: 12, padding: "16px 32px" }}>Access The Blueprint →</span>
-        </Link>
+      <section style={{ background: "var(--mv-black)", padding: "100px 64px", borderTop: "2px solid #222" }} className="section-pad-responsive">
+        <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: 64, alignItems: "center" }} className="two-col-grid-blog">
+          <div>
+            <span className="accent-rule" style={{ marginBottom: 24 }} />
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", lineHeight: 1.1, marginBottom: 20 }}>
+              Reading about it is free.<br />
+              <em style={{ color: "var(--mv-accent)" }}>Acting on it changes everything</em>
+            </h2>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n500)", lineHeight: 1.8, maxWidth: 520 }}>
+              Everything on this page is a fraction of what's inside The Blueprint — including the DCA protocol, the cold storage system, and the cycle exit framework that turns knowledge into a position.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" as const, gap: 20 }}>
+            <Link href="/pricing">
+              <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: 11, letterSpacing: "0.08em", background: "var(--mv-accent)", color: "#000", padding: "22px 32px", cursor: "pointer" }}>
+                Build the position · $97
+                <svg width="14" height="9" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
+              </span>
+            </Link>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", lineHeight: 2, textAlign: "center" as const }}>
+              ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
+            </p>
+          </div>
+        </div>
       </section>
 
       <style>{`

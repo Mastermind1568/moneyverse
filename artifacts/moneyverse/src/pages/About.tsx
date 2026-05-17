@@ -82,14 +82,30 @@ export default function About() {
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ background: "var(--mv-black)", padding: "100px 64px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 40 }} className="section-pad-responsive">
-        <div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", marginBottom: 12 }}>Read the thesis — enroll in the system</h2>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)" }}>11 modules. 85 lessons. One payment. Starts at $97.</p>
+      <section style={{ background: "var(--mv-black)", padding: "100px 64px", borderTop: "2px solid #222" }} className="section-pad-responsive">
+        <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: 64, alignItems: "center" }} className="two-col-grid">
+          <div>
+            <span className="accent-rule" style={{ marginBottom: 24 }} />
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", lineHeight: 1.1, marginBottom: 20 }}>
+              You now understand why.<br />
+              <em style={{ color: "var(--mv-accent)" }}>The Blueprint is the how</em>
+            </h2>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n500)", lineHeight: 1.8, maxWidth: 520 }}>
+              The thesis is clear. The cycle is live. Most people read this page and go back to saving in naira. You don't have to be one of them — 11 modules and $97 is the entire distance between understanding and acting.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" as const, gap: 20 }}>
+            <Link href="/pricing">
+              <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: 11, letterSpacing: "0.08em", background: "var(--mv-accent)", color: "#000", padding: "22px 32px", cursor: "pointer" }}>
+                Get The Blueprint · $97
+                <svg width="14" height="9" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
+              </span>
+            </Link>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", lineHeight: 2, textAlign: "center" as const }}>
+              ONE-TIME · LIFETIME ACCESS<br />30-DAY CONDITIONAL GUARANTEE
+            </p>
+          </div>
         </div>
-        <Link href="/pricing">
-          <span className="btn orange" style={{ fontSize: 12, padding: "16px 32px" }}>Get The Blueprint →</span>
-        </Link>
       </section>
 
       <style>{`
