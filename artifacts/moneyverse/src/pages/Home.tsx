@@ -344,10 +344,10 @@ export default function Home() {
           <span className="accent-rule" style={{ marginBottom: 24 }} />
           <p className="overline" style={{ color: "var(--mv-accent)", marginBottom: 20 }}>The Problem</p>
           <h2 className="h-section" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)", color: "#fff", marginBottom: 28 }}>
-            Your savings are being taxed without your consent.
+            You're not bad with money. The money is bad.
           </h2>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n400)", lineHeight: 1.8, marginBottom: 36 }}>
-            Every year the naira, cedi, and shilling lose purchasing power. Your bank is not a savings vehicle. It is a slow drain. The Blueprint is the system that stops it.
+            You earned it. You saved it. You watched it. And somehow, it always stretched a little less than last year — rent up, groceries up, plans pushed back. That's not a personal failure. That's currency depreciation: a slow, silent tax on everyone who does the right thing. The Blueprint is the operating manual for building a way out.
           </p>
           <p className="mono" style={{ fontSize: 11, color: "var(--mv-n600)", borderLeft: "3px solid var(--mv-accent)", paddingLeft: 16 }}>
             Average African currency depreciation vs USD since 2021: 47%
