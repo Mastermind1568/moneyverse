@@ -22,6 +22,7 @@ export default function AuthCallback() {
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) { navigate("/login"); return; }
+      if (!supabase) return;
 
       const { data: profile } = await supabase
         .from("profiles")
