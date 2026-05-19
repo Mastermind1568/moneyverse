@@ -1,4 +1,10 @@
+import { createClient } from "@supabase/supabase-js";
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function supabase() {
+  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+}
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -8,35 +14,20 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-  const { email, phone, telegram } = req.body || {};
-
-  const properties = {};
-  if (email) {
-    if (!EMAIL_RE.test(String(email))) return res.status(400).json({ error: "Invalid email" });
-    properties.email = String(email).toLowerCase();
-  } else if (phone) {
-    properties.phone = String(phone);
-  } else if (telegram) {
-    properties.telegram_handle = String(telegram);
-  } else {
-    return res.status(400).json({ error: "No contact info provided" });
+  const { email } = req.body || {};
+  if (!email || !EMAIL_RE.test(String(email))) {
+    return res.status(400).json({ error: "Invalid email" });
   }
 
-  const token = process.env.HUBSPOT_ACCESS_TOKEN;
-  if (!token) {
-    console.warn("[subscribe] HUBSPOT_ACCESS_TOKEN not set");
-    return res.json({ ok: true, scheduled: 0 });
+  const sb = supabase();
+  const { error } = await sb
+    .from("subscribers")
+    .upsert({ email: String(email).toLowerCase() }, { onConflict: "email" });
+
+  if (error) {
+    console.error("[subscribe] Supabase error:", error.message);
+    return res.status(500).json({ error: "Subscription failed" });
   }
 
-  const hsRes = await fetch("https://api.hubapi.com/crm/v3/objects/contacts", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ properties }),
-  });
-
-  if (hsRes.ok || hsRes.status === 409) return res.json({ ok: true });
-
-  const data = await hsRes.json().catch(() => ({}));
-  console.error("[subscribe] HubSpot error:", data);
-  return res.status(500).json({ error: "Subscription failed" });
+  return res.json({ ok: true });
 }
