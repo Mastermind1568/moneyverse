@@ -1,12 +1,11 @@
 import Stripe from "stripe";
-
-const TIER_PRICES = {
-  1: { amount: 9700,  name: "Moneyverse — Blueprint" },
-  2: { amount: 19700, name: "Moneyverse — Blueprint + Live" },
-  3: { amount: 99700, name: "Moneyverse — Sovereign Stack" },
-};
+import { createClient } from "@supabase/supabase-js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function supabaseAdmin() {
+  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+}
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -16,16 +15,28 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") { res.status(200).end(); return; }
   if (req.method !== "POST") { res.status(405).json({ error: "Method not allowed" }); return; }
 
-  const { productId, customerEmail, paymentMethod, tier, successUrl, cancelUrl } = req.body || {};
+  const { productId, customerEmail, paymentMethod, successUrl, cancelUrl } = req.body || {};
 
   if (typeof customerEmail !== "string" || !EMAIL_RE.test(customerEmail.trim())) {
     res.status(400).json({ ok: false, error: "A valid email address is required." });
     return;
   }
+  if (!productId) {
+    res.status(400).json({ ok: false, error: "Product ID is required." });
+    return;
+  }
 
-  const tierId = Number(tier);
-  const tierInfo = TIER_PRICES[tierId];
-  if (!tierInfo) { res.status(400).json({ ok: false, error: "Invalid tier." }); return; }
+  const supabase = supabaseAdmin();
+  const { data: product, error: productError } = await supabase
+    .from("products")
+    .select("id, tier, stripe_price_id, price_usd")
+    .eq("id", productId)
+    .single();
+
+  if (productError || !product) {
+    res.status(404).json({ ok: false, error: "Product not found." });
+    return;
+  }
 
   if (paymentMethod === "bitcoin") {
     const btcpayUrl = process.env.BTCPAY_URL;
@@ -42,19 +53,17 @@ export default async function handler(req, res) {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `token ${btcpayApiKey}` },
         body: JSON.stringify({
-          amount: tierInfo.amount / 100,
+          amount: product.price_usd,
           currency: "USD",
           buyerEmail: customerEmail.trim(),
-          metadata: { productId, tier: tierId },
-          checkout: { redirectURL: successUrl, redirectAutomatically: true },
+          metadata: { product_id: product.id, gateway: "btcpay" },
+          checkout: { redirectURL: successUrl || "https://moneyverse.network/success", redirectAutomatically: true },
         }),
       });
 
       if (!btcRes.ok) { res.status(502).json({ ok: false, error: "Payment gateway error." }); return; }
-
       const invoice = await btcRes.json();
       if (!invoice.checkoutLink) { res.status(502).json({ ok: false, error: "Could not create Bitcoin invoice." }); return; }
-
       res.json({ ok: true, url: invoice.checkoutLink });
     } catch {
       res.status(502).json({ ok: false, error: "Bitcoin payment gateway unreachable." });
@@ -70,22 +79,13 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       customer_email: customerEmail.trim(),
-      line_items: [{
-        price_data: {
-          currency: "usd",
-          unit_amount: tierInfo.amount,
-          product_data: { name: tierInfo.name },
-        },
-        quantity: 1,
-      }],
-      success_url: typeof successUrl === "string" ? successUrl : "https://moneyverse.network/success",
-      cancel_url: typeof cancelUrl === "string" ? cancelUrl : "https://moneyverse.network/cancel",
-      metadata: { productId: String(productId || ""), tier: String(tierId) },
+      line_items: [{ price: product.stripe_price_id, quantity: 1 }],
+      success_url: successUrl || "https://moneyverse.network/success",
+      cancel_url: cancelUrl || "https://moneyverse.network/cancel",
+      metadata: { product_id: product.id, gateway: "stripe" },
     });
-
     res.json({ ok: true, url: session.url });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    res.status(502).json({ ok: false, error: message });
+    res.status(502).json({ ok: false, error: err instanceof Error ? err.message : "Unknown error" });
   }
 }
