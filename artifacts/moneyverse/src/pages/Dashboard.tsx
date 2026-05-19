@@ -5,17 +5,17 @@ import { supabase } from "@/lib/supabase";
 import Layout from "@/components/Layout";
 
 const MODULES = [
-  { num: "01", slug: "fiat-trap", title: "The Fiat Trap", lessons: 6, duration: "38 min" },
-  { num: "02", slug: "bitcoin-fundamentals", title: "Bitcoin Fundamentals", lessons: 8, duration: "54 min" },
-  { num: "03", slug: "four-year-clock", title: "The 4-Year Clock", lessons: 7, duration: "48 min" },
-  { num: "04", slug: "dca-protocol", title: "DCA Protocol", lessons: 6, duration: "42 min" },
-  { num: "05", slug: "self-custody", title: "Self-Custody Masterclass", lessons: 9, duration: "1h 12m" },
-  { num: "06", slug: "exit-architecture", title: "Exit Architecture", lessons: 7, duration: "52 min" },
-  { num: "07", slug: "p2p-remittance", title: "P2P Trading & Remittance", lessons: 6, duration: "44 min" },
-  { num: "08", slug: "african-sovereignty", title: "African Monetary Sovereignty", lessons: 5, duration: "36 min" },
-  { num: "09", slug: "affiliate-engine", title: "The Affiliate Engine", lessons: 4, duration: "28 min" },
-  { num: "10", slug: "activation-sequence", title: "The 21-Day Activation Sequence", lessons: 3, duration: "22 min" },
-  { num: "11", slug: "community-protocol", title: "The Community Protocol", lessons: 2, duration: "17 min" },
+  { num: "01", slug: "fiat-trap", title: "The Fiat Illusion", lessons: 6, duration: "47 min" },
+  { num: "02", slug: "bitcoin-fundamentals", title: "The 21 Million Standard", lessons: 7, duration: "52 min" },
+  { num: "03", slug: "four-year-clock", title: "The 4-Year Clock", lessons: 9, duration: "1h 12m" },
+  { num: "04", slug: "self-custody", title: "Cold Storage Protocol", lessons: 11, duration: "1h 24m" },
+  { num: "05", slug: "dca-protocol", title: "The Accumulation Engine", lessons: 8, duration: "58 min" },
+  { num: "06", slug: "exit-architecture", title: "The Exit Architecture", lessons: 8, duration: "1h 4m" },
+  { num: "07", slug: "african-sovereignty", title: "The Third Liberation", lessons: 8, duration: "1h 2m" },
+  { num: "08", slug: "p2p-remittance", title: "P2P Trading & Spot Execution", lessons: 7, duration: "1h 12m" },
+  { num: "09", slug: "affiliate-engine", title: "Your Country, Your Stack", lessons: 8, duration: "1h 20m" },
+  { num: "10", slug: "activation-sequence", title: "The Mindset Protocol", lessons: 7, duration: "1h 6m" },
+  { num: "11", slug: "community-protocol", title: "Bitcoin After You", lessons: 6, duration: "57 min" },
 ];
 
 const TOTAL_LESSONS = MODULES.reduce((s, m) => s + m.lessons, 0);
@@ -171,7 +171,7 @@ export default function Dashboard() {
         <div style={{ border: "2px solid var(--mv-black)", padding: "32px", background: "var(--mv-n50)" }}>
           <p className="overline" style={{ marginBottom: 16 }}>Your Affiliate Link</p>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n600)", marginBottom: 20, lineHeight: 1.6 }}>
-            Earn 30% ($59.10) for every enrolment you refer. Share this link — every click is tracked.
+            Earn 30% commission on every enrolment you refer. Paid per tier ($29 · $59 · $299). Share this link — every click is tracked.
           </p>
           <div style={{ display: "flex", gap: 0, marginBottom: 12 }}>
             <div style={{
@@ -315,3 +315,4 @@ function ModuleRow({
     </div>
   );
 }
+
