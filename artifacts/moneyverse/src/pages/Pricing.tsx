@@ -97,7 +97,7 @@ const slugMap: Record<string, string> = {
 
 function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
   const [email, setEmail] = useState("");
-  const [method, setMethod] = useState<"card" | "bitcoin" | "ngn">("card");
+  const [method, setMethod] = useState<"card" | "bitcoin">("card");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -118,7 +118,7 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
         body: JSON.stringify({
           productId: PRODUCT_IDS[tier.id],
           customerEmail: email,
-          paymentMethod: method === "card" ? undefined : method === "ngn" ? "paystack" : "bitcoin",
+          paymentMethod: method === "card" ? undefined : "bitcoin",
           tier: tier.id,
           successUrl: `${window.location.origin}/success`,
           cancelUrl: `${window.location.origin}/cancel`,
@@ -139,7 +139,7 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
         <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 40, color: "var(--mv-accent)" }}>${tier.price}</span>
       </div>
       <div style={{ padding: "20px 24px", borderBottom: "1px solid var(--mv-n200)", display: "flex", gap: 8 }}>
-        {(["card", "bitcoin", "ngn"] as const).map((m) => (
+        {(["card", "bitcoin"] as const).map((m) => (
           <button key={m} onClick={() => setMethod(m)} style={{
             flex: 1, padding: "10px 8px", fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.1em",
             textTransform: "uppercase" as const, cursor: "pointer",
@@ -147,7 +147,7 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
             color: method === m ? "#fff" : "var(--mv-n600)",
             border: `2px solid ${method === m ? "var(--mv-black)" : "var(--mv-n200)"}`,
           }}>
-            {m === "card" ? "Card · Stripe" : m === "bitcoin" ? "Bitcoin · BTCPay" : "NGN · Paystack"}
+            {m === "card" ? "Card · Stripe" : "Bitcoin · BTCPay"}
           </button>
         ))}
       </div>
@@ -266,8 +266,8 @@ export default function Pricing() {
           </div>
           <div style={{ textAlign: "right" as const }}>
             <p className="overline" style={{ marginBottom: 8 }}>Pay in</p>
-            <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)" }}>USD · NGN · BTC · USDT</p>
-            <p className="mono" style={{ fontSize: 9, color: "var(--mv-n400)", marginTop: 4 }}>NGN · GHS · KES via Paystack / USD · GBP · CAD via Stripe</p>
+            <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)" }}>USD · GBP · CAD · BTC</p>
+            <p className="mono" style={{ fontSize: 9, color: "var(--mv-n400)", marginTop: 4 }}>USD · GBP · CAD via Stripe · BTC via BTCPay</p>
           </div>
         </div>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n600)", lineHeight: 1.7, maxWidth: 760, marginBottom: 48 }}>
