@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
     "stripe": "^16.0.0"
   },
   "devDependencies": {
