@@ -10,6 +10,9 @@
     "bundle-ads": "python3 scripts/bundle-ads.py"
   },
   "private": true,
+  "dependencies": {
+    "stripe": "^16.0.0"
+  },
   "devDependencies": {
     "prettier": "^3.8.3",
     "typescript": "~5.9.3"
