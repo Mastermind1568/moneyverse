@@ -14,15 +14,15 @@ export default function Success() {
           You're in.
         </h1>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 18, color: "var(--mv-n400)", maxWidth: 480, lineHeight: 1.8, marginBottom: 16 }}>
-          Payment confirmed. Sign in with Google to access your Blueprint dashboard and affiliate link.
+          Payment confirmed. Check your email — we've sent your account activation link. Click it to set your password and access your dashboard.
         </p>
         <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)", letterSpacing: "0.15em", marginBottom: 48 }}>
-          RECEIPT SENT TO YOUR EMAIL · support@moneyverse.network
+          ACTIVATION EMAIL SENT · support@moneyverse.network
         </p>
         <div style={{ display: "flex", flexDirection: "column" as const, gap: 16, alignItems: "center" }}>
           <Link href="/login">
             <span className="btn orange" style={{ fontSize: 12, padding: "16px 36px" }}>
-              Access Your Dashboard →
+              Already activated? Sign In →
             </span>
           </Link>
         </div>
