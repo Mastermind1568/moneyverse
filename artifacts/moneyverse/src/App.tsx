@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Switch, Route, Router as WouterRouter, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -22,6 +23,17 @@ import FreeGuide from "@/pages/FreeGuide";
 import AuthCallback from "@/pages/AuthCallback";
 
 const queryClient = new QueryClient();
+
+function useRefCapture() {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
+    if (ref && /^[A-Z0-9]{8}$/i.test(ref)) {
+      const expiry = Date.now() + 30 * 24 * 60 * 60 * 1000;
+      localStorage.setItem("mv_ref", JSON.stringify({ code: ref.toUpperCase(), expiry }));
+    }
+  }, []);
+}
 
 function Router() {
   return (
@@ -61,6 +73,7 @@ function Router() {
 }
 
 function App() {
+  useRefCapture();
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>

@@ -112,6 +112,15 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
     if (!email) { setError("Please enter your email."); return; }
     setError(""); setLoading(true);
     try {
+      const refCode = (() => {
+        try {
+          const raw = localStorage.getItem("mv_ref");
+          if (!raw) return null;
+          const { code, expiry } = JSON.parse(raw);
+          if (Date.now() > expiry) { localStorage.removeItem("mv_ref"); return null; }
+          return code as string;
+        } catch { return null; }
+      })();
       const res = await fetch(`${API_BASE}/api/checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -122,6 +131,7 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
           tier: tier.id,
           successUrl: `${window.location.origin}/success`,
           cancelUrl: `${window.location.origin}/cancel`,
+          ...(refCode ? { refCode } : {}),
         }),
       });
       const data = await res.json();
