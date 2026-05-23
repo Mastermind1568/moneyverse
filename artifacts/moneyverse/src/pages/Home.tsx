@@ -2,6 +2,59 @@ import { useState } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 
+const FAQ_ITEMS = [
+  {
+    q: "Do I need to know anything about Bitcoin to start?",
+    a: "No. The Blueprint starts from the beginning — why fiat currencies fail, what Bitcoin actually is, and why it's different from every other asset. Module 1 assumes zero prior knowledge. You need a smartphone and the willingness to follow a protocol.",
+  },
+  {
+    q: "What if Bitcoin crashes after I enrol?",
+    a: "Bitcoin has had six drawdowns of 70–80% in its history. Each time it recovered to a new all-time high. The Blueprint teaches you how to think about and navigate volatility — including pre-setting exit orders before the euphoria hits so you're not making decisions under emotional pressure. We don't teach speculation. We teach a protocol.",
+  },
+  {
+    q: "Is this a get-rich-quick scheme?",
+    a: "No. The Blueprint is a 21-day programme covering monetary theory, cold storage setup, systematic accumulation, and exit architecture. It takes real work to implement. If you're looking for a shortcut to overnight returns, this is the wrong product.",
+  },
+  {
+    q: "What exactly is the 21-day guarantee?",
+    a: "If you complete the first 21 days, implement the cold storage protocol, set up your DCA, and don't believe the Blueprint delivered the value promised — email us within 21 days for a full refund. It's conditional on engagement, not on the Bitcoin price.",
+  },
+  {
+    q: "Can I pay with Paystack or BTCPay?",
+    a: "Yes. We accept Stripe (international cards), Paystack (Nigeria, Ghana, Kenya), and BTCPay (Bitcoin). Choose your preferred method at checkout.",
+  },
+  {
+    q: "How are the lessons delivered?",
+    a: "Video lessons, accessible through your Moneyverse dashboard immediately after enrolment. No app download required. Works on any device, on your schedule. Lifetime access means no expiry date.",
+  },
+  {
+    q: "I'm in the diaspora — is this relevant to me?",
+    a: "Directly. The Blueprint covers remittance cost reduction, cross-border value transfer using Bitcoin, and building a financial protocol that isn't tied to your country of residence. The diaspora context is built into the curriculum.",
+  },
+  {
+    q: "What's the difference between the three tiers?",
+    a: "The Blueprint ($97) is the complete 11-module self-study programme. Blueprint + Live ($197) adds monthly live sessions and a 5-day WhatsApp activation class. The Sovereign Stack ($997) adds macro and technical analysis masterclasses, an arbitrage playbook, and three private 1:1 strategy calls.",
+  },
+];
+
+function FaqAccordion({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ borderBottom: "1px solid var(--mv-n200)" }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, padding: "22px 0", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" as const }}
+      >
+        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 18, color: "var(--mv-black)", lineHeight: 1.3 }}>{q}</span>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 22, color: "var(--mv-accent)", flexShrink: 0, transition: "transform 0.2s", transform: open ? "rotate(45deg)" : "none" }}>+</span>
+      </button>
+      {open && (
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n600)", lineHeight: 1.8, padding: "0 48px 24px 0", maxWidth: 780 }}>{a}</p>
+      )}
+    </div>
+  );
+}
+
 const API_BASE = import.meta.env.VITE_API_BASE || "https://moneyverse.network";
 
 function CtaStrip({ dark = true }: { dark?: boolean }) {
@@ -377,6 +430,79 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── WHO IT'S FOR ── */}
+      <section style={{ background: "var(--mv-n50)", padding: "100px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
+        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
+          <span className="accent-rule lg" style={{ marginBottom: 20 }} />
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "var(--mv-black)", lineHeight: 1.05, marginBottom: 64 }}>
+            Is this for you?
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2, border: "2px solid var(--mv-black)" }} className="two-col-grid">
+
+            {/* For */}
+            <div style={{ background: "var(--mv-black)", padding: "52px 48px" }}>
+              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", color: "var(--mv-accent)", marginBottom: 32, textTransform: "uppercase" as const }}>This is for you if</p>
+              <div style={{ display: "flex", flexDirection: "column" as const, gap: 20 }}>
+                {[
+                  "You hold savings in naira, cedis, shillings, or any currency that has lost value against the dollar in the last 3 years",
+                  "You've heard about Bitcoin but never built a protocol — no cold storage, no DCA, no exit plan",
+                  "You send money home and you're tired of losing 10–14% in remittance fees on every transfer",
+                  "You watched the last Bitcoin cycle from the sidelines and you don't want to do that again",
+                  "You want to understand the monetary system well enough to make your own decisions — not follow someone else's calls",
+                  "You're building something and you want generational wealth, not just income",
+                ].map((item, i) => (
+                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                    <span style={{ width: 18, height: 18, background: "var(--mv-accent)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
+                    </span>
+                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n300)", lineHeight: 1.7 }}>{item}</p>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 40 }}>
+                <Link href="/pricing">
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 12, fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: 11, letterSpacing: "0.08em", background: "var(--mv-accent)", color: "#000", padding: "16px 32px", cursor: "pointer" }}>
+                    Start The Blueprint · $97
+                    <svg width="14" height="9" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Not for */}
+            <div style={{ background: "#fff", padding: "52px 48px" }}>
+              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", color: "var(--mv-n500)", marginBottom: 32, textTransform: "uppercase" as const }}>This is not for you if</p>
+              <div style={{ display: "flex", flexDirection: "column" as const, gap: 20 }}>
+                {[
+                  "You're looking for trading signals or get-rich-quick strategies — we teach a long-term protocol, not short-term speculation",
+                  "You want someone to manage your money for you — this is an education programme, not a fund or advisory service",
+                  "You already have cold storage set up, a running DCA, and a pre-set exit strategy — you're already running the protocol",
+                  "You're not willing to spend 21 days building a new financial system for yourself",
+                ].map((item, i) => (
+                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                    <span style={{ width: 18, height: 18, border: "1.5px solid var(--mv-n300)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1 1l6 6M7 1L1 7" stroke="var(--mv-n400)" strokeWidth="1.5" strokeLinecap="square"/></svg>
+                    </span>
+                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n600)", lineHeight: 1.7 }}>{item}</p>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 40, paddingTop: 32, borderTop: "1px solid var(--mv-n200)" }}>
+                <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 15, color: "var(--mv-n600)", lineHeight: 1.7, marginBottom: 16 }}>
+                  Not sure? Read the free 17-page guide first. No email, no purchase required.
+                </p>
+                <Link href="/free-guide">
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.1em", color: "var(--mv-n700)", cursor: "pointer" }}>
+                    Read the free guide →
+                  </span>
+                </Link>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── PLAN ── */}
       <section style={{ background: "var(--mv-black)", padding: "100px 64px", borderBottom: "2px solid #222" }} className="section-pad-responsive">
         <div style={{ maxWidth: 1040, margin: "0 auto" }}>
@@ -618,6 +744,35 @@ export default function Home() {
               Download free 17-page guide →
             </span>
           </Link>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section style={{ background: "#fff", padding: "100px 64px", borderBottom: "2px solid var(--mv-black)" }} className="section-pad-responsive">
+        <div style={{ maxWidth: 860, margin: "0 auto" }}>
+          <span className="accent-rule lg" style={{ marginBottom: 20 }} />
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "var(--mv-black)", lineHeight: 1.05, marginBottom: 16 }}>
+            Common questions
+          </h2>
+          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n600)", lineHeight: 1.8, marginBottom: 56 }}>
+            If your question isn't here, email us at hello@moneyverse.network
+          </p>
+          <div style={{ borderTop: "2px solid var(--mv-black)" }}>
+            {FAQ_ITEMS.map((item) => <FaqAccordion key={item.q} {...item} />)}
+          </div>
+          <div style={{ marginTop: 48, display: "flex", alignItems: "center", gap: 28, flexWrap: "wrap" as const }}>
+            <Link href="/pricing">
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 12, fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: 11, letterSpacing: "0.08em", background: "var(--mv-accent)", color: "#000", padding: "18px 36px", cursor: "pointer" }}>
+                Start The Blueprint · $97
+                <svg width="14" height="9" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
+              </span>
+            </Link>
+            <Link href="/free-guide">
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.1em", color: "var(--mv-n500)", cursor: "pointer" }}>
+                Download free 17-page guide →
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 

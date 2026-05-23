@@ -80,6 +80,7 @@ function FooterEmailForm() {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
   const { user, signOut, loading } = useAuth();
 
@@ -88,6 +89,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 600);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const tickerContent = [...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
     <span key={i} style={{ padding: "0 48px", whiteSpace: "nowrap", fontSize: 10, fontFamily: "'Space Mono', monospace", fontWeight: 700, letterSpacing: "0.18em" }}>
@@ -185,6 +191,33 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </header>
+
+      {/* ── Sticky enrol bar — appears after scrolling past hero ── */}
+      {scrolled && !isLoggedIn && (
+        <div style={{
+          position: "fixed", top: 58, left: 0, right: 0, zIndex: 49,
+          background: "var(--mv-accent)",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "10px 32px", gap: 16,
+          borderBottom: "1px solid rgba(0,0,0,0.15)",
+          animation: "slideDown 0.2s ease",
+        }} className="sticky-cta-bar">
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: "0.12em", color: "#000", whiteSpace: "nowrap" as const }}>
+            11 modules · 85 lessons · one protocol
+          </span>
+          <Link href="/pricing">
+            <span style={{
+              fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: 10,
+              letterSpacing: "0.1em", background: "#000", color: "#fff",
+              padding: "8px 20px", cursor: "pointer", whiteSpace: "nowrap" as const,
+              display: "inline-flex", alignItems: "center", gap: 8,
+            }}>
+              ENROLL NOW · $97
+              <svg width="12" height="8" viewBox="0 0 16 10" fill="none"><path d="M11 1l4 4-4 4M15 5H1" stroke="#fff" strokeWidth="1.5" strokeLinecap="square"/></svg>
+            </span>
+          </Link>
+        </div>
+      )}
 
       {/* ── Mobile menu ── */}
       {menuOpen && (
@@ -302,6 +335,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <style>{`
         a { text-decoration: none; color: inherit; }
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @media (max-width: 600px) { .sticky-cta-bar span:first-child { display: none !important; } }
         @media (min-width: 769px) { .hamburger-btn { display: none !important; } }
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
