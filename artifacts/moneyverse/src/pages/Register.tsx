@@ -30,7 +30,7 @@ export default function Register() {
           </p>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n600)", marginBottom: 40, lineHeight: 1.7 }}>
             Can't find it? Check your spam folder or email{" "}
-            <a href="mailto:support@moneyverse.network" style={{ color: "var(--mv-accent)", fontWeight: 600 }}>support@moneyverse.network</a>.
+            <a href="mailto:hello@moneyverse.network" style={{ color: "var(--mv-accent)", fontWeight: 600 }}>hello@moneyverse.network</a>.
           </p>
 
           <Link href="/login">

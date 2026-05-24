@@ -25,7 +25,7 @@ const SECTIONS = [
     qas: [
       { q: "How do I pay from Nigeria, Ghana, or Kenya?", a: "Select NGN at checkout — pay via Paystack in local currency. GHS and KES also supported. USD, GBP, CAD via Stripe. Bitcoin (BTC) and USDT via BTCPay — no bank required for any tier." },
       { q: "Is this a one-time payment or a subscription?", a: "One-time. Once. Yours forever. No monthly fees. No annual renewal. Every future lesson update and curriculum revision included at no extra cost." },
-      { q: "When do I get access after paying?", a: "Immediately. Within two minutes, you receive an email with login credentials. Not in inbox within five minutes — check spam or email support@moneyverse.network." },
+      { q: "When do I get access after paying?", a: "Immediately. Within two minutes, you receive an account setup link by email — click it to set your password and access your dashboard. Not in inbox within five minutes — check spam or email hello@moneyverse.network." },
       { q: "Can I upgrade tiers later?", a: "Yes. Contact support and we apply your original payment as a credit. Pay only the difference." },
     ],
   },
@@ -56,7 +56,7 @@ export default function FAQ() {
         </h1>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "var(--mv-n400)", maxWidth: 560, lineHeight: 1.7 }}>
           No hedging. No corporate deflection. Email{" "}
-          <a href="mailto:support@moneyverse.network" style={{ color: "var(--mv-accent)" }}>support@moneyverse.network</a>{" "}
+          <a href="mailto:hello@moneyverse.network" style={{ color: "var(--mv-accent)" }}>hello@moneyverse.network</a>{" "}
           for anything not covered here — real reply within 24 hours.
         </p>
       </section>

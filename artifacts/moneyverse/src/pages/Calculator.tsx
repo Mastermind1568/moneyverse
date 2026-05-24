@@ -7,7 +7,8 @@ const COUNTRIES = [
   { code: "GH", flag: "🇬🇭", name: "Ghana", currency: "GHS", symbol: "₵", startRate: 5.7, currentRate: 15.5, defaultSavings: 2000, context: "Ghana's cedi fell over 60% and required an IMF bailout in 2023." },
   { code: "KE", flag: "🇰🇪", name: "Kenya", currency: "KES", symbol: "KSh", startRate: 108, currentRate: 130, defaultSavings: 15000, context: "The shilling depreciated ~20% — every KES 1,000 saved is worth KES 830." },
   { code: "ZA", flag: "🇿🇦", name: "South Africa", currency: "ZAR", symbol: "R", startRate: 14.8, currentRate: 18.5, defaultSavings: 3000, context: "Load-shedding and fiscal pressure pushed the rand down ~25% since 2021." },
-  { code: "CM", flag: "🇨🇲", name: "Cameroon", currency: "XAF", symbol: "XAF", startRate: 540, currentRate: 617, defaultSavings: 100000, context: "The CFA franc is pegged to the euro — but the euro weakened against the dollar." },
+  { code: "CM", flag: "🇨🇲", name: "Cameroon / Central Africa (FCFA)", currency: "XAF", symbol: "FCFA", startRate: 540, currentRate: 617, defaultSavings: 100000, context: "The CFA franc is pegged to the euro — but the euro lost ~12% against the dollar since 2021, eroding FCFA purchasing power." },
+  { code: "SN", flag: "🇸🇳", name: "Senegal / West Africa (FCFA)", currency: "XOF", symbol: "FCFA", startRate: 540, currentRate: 617, defaultSavings: 100000, context: "The West African CFA franc shares the same euro peg — holders across Senegal, Ivory Coast, Mali, and Burkina Faso face the same dollar erosion." },
 ];
 
 const BTC_AVG_ENTRY = 35000;

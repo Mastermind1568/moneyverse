@@ -20,9 +20,20 @@ export default function AuthCallback() {
       return;
     }
 
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    async function init() {
+      if (!supabase) { navigate("/login"); return; }
+
+      if (hash.includes("access_token")) {
+        const params = new URLSearchParams(hash.slice(1));
+        const accessToken = params.get("access_token");
+        const refreshToken = params.get("refresh_token");
+        if (accessToken && refreshToken) {
+          await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        }
+      }
+
+      const { data: { session } } = await supabase.auth.getSession();
       if (!session) { navigate("/login"); return; }
-      if (!supabase) return;
 
       const { data: profile } = await supabase
         .from("profiles")
@@ -35,7 +46,9 @@ export default function AuthCallback() {
       } else {
         navigate("/pricing?signed_in=true");
       }
-    });
+    }
+
+    init();
   }, [navigate]);
 
   async function handleSetPassword(e: FormEvent) {

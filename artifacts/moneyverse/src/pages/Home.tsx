@@ -55,7 +55,19 @@ function FaqAccordion({ q, a }: { q: string; a: string }) {
   );
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE || "https://moneyverse.network";
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://ceiyqcecfsuvmoqcayqx.supabase.co";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+
+async function subscribeEmail(email: string, source: string) {
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/subscribe`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` },
+    body: JSON.stringify({ email, source }),
+  });
+  const data = await res.json();
+  if (!res.ok || !data.ok) throw new Error(data.error ?? "Failed");
+  return data;
+}
 
 function CtaStrip({ dark = true }: { dark?: boolean }) {
   return (
@@ -98,13 +110,7 @@ function LeadCaptureForm() {
     setStatus("loading");
     setErrorMsg("");
     try {
-      const res = await fetch(`${API_BASE}/api/subscribe`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error ?? "Something went wrong. Please try again.");
+      await subscribeEmail(email.trim(), "home-lead-capture");
       setStatus("success");
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -305,7 +311,7 @@ export default function Home() {
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n400)", lineHeight: 1.85, marginBottom: 36 }}>
               You earned it. You saved it. You watched it. And somehow, it always stretched a little less than last year — rent up, groceries up, plans pushed back. That's not a discipline problem. That's currency depreciation: a slow, invisible tax on everyone who does the right thing.
             </p>
-            <p className="mono" style={{ fontSize: 11, color: "var(--mv-n600)", borderLeft: "3px solid var(--mv-accent)", paddingLeft: 16, lineHeight: 1.8 }}>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, fontWeight: 700, color: "var(--mv-accent)", borderLeft: "3px solid var(--mv-accent)", paddingLeft: 16, lineHeight: 1.8 }}>
               Average African currency depreciation vs USD since 2021: 47%
             </p>
           </div>
@@ -444,7 +450,7 @@ export default function Home() {
               <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: "0.2em", color: "var(--mv-accent)", marginBottom: 32, textTransform: "uppercase" as const }}>This is for you if</p>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: 20 }}>
                 {[
-                  "You hold savings in naira, cedis, shillings, or any currency that has lost value against the dollar in the last 3 years",
+                  "You hold savings in naira, cedis, shillings, CFA francs, or any currency that has lost ground against the dollar in the last 3 years",
                   "You've heard about Bitcoin but never built a protocol — no cold storage, no DCA, no exit plan",
                   "You send money home and you're tired of losing 10–14% in remittance fees on every transfer",
                   "You watched the last Bitcoin cycle from the sidelines and you don't want to do that again",
@@ -455,7 +461,7 @@ export default function Home() {
                     <span style={{ width: 18, height: 18, background: "var(--mv-accent)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
                       <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#000" strokeWidth="1.5" strokeLinecap="square"/></svg>
                     </span>
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n300)", lineHeight: 1.7 }}>{item}</p>
+                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "#fff", lineHeight: 1.7 }}>{item}</p>
                   </div>
                 ))}
               </div>
@@ -604,11 +610,11 @@ export default function Home() {
             <div>
               <span className="accent-rule" style={{ marginBottom: 20 }} />
               <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#fff", margin: 0 }}>
-                Three ways in<br />One direction out
+                Pick your level<br />Build your exit
               </h2>
             </div>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "var(--mv-n500)", maxWidth: 400, lineHeight: 1.75, margin: 0 }}>
-              Every tier includes the complete 11-module Blueprint. What separates them is how far you want to go and how much support you want getting there.
+              Every tier gives you the complete 11-module protocol. The difference is how fast you move and how much direct support you want along the way.
             </p>
           </div>
         </div>
@@ -621,18 +627,18 @@ export default function Home() {
             <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 52, color: "#fff", lineHeight: 1, margin: "16px 0 4px" }}>$97</div>
             <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", marginBottom: 32 }}>ONE-TIME · LIFETIME ACCESS</p>
             <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, color: "var(--mv-n400)", lineHeight: 1.65, marginBottom: 36, flexGrow: 1 }}>
-              The complete operating manual. Everything you need to understand fiat, position in Bitcoin, protect your coins, and execute your exit at your own pace.
+              Most people know Bitcoin is going somewhere. They just don't know how to get positioned without getting wrecked. The Blueprint gives you the complete protocol — cold storage, DCA, and a pre-set exit — before the cycle peak makes it psychologically impossible to act.
             </p>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: 12, marginBottom: 40 }}>
-              {["11 Core Modules · 85 Lessons", "Cold Storage Setup Protocol", "DCA Accumulation Engine", "Exit Architecture Framework", "21-Day Conditional Guarantee"].map((f) => (
+              {["11 Modules · 85 Lessons · 21-Day Activation", "Cold Storage Setup — Self-Custody from Day One", "DCA Engine — Accumulate Without Guessing", "Exit Architecture — Know Exactly When to Sell", "21-Day Conditional Money-Back Guarantee"].map((f) => (
                 <div key={f} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span style={{ color: "var(--mv-n600)", marginTop: 1, flexShrink: 0 }}>—</span>
+                  <span style={{ color: "var(--mv-accent)", marginTop: 1, flexShrink: 0 }}>—</span>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n400)", lineHeight: 1.5 }}>{f}</span>
                 </div>
               ))}
             </div>
             <Link href="/pricing">
-              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", border: "1px solid #444", color: "#fff", cursor: "pointer" }}>GET THE BLUEPRINT →</span>
+              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", border: "1px solid var(--mv-accent)", color: "var(--mv-accent)", cursor: "pointer" }}>STOP WATCHING — GET THE BLUEPRINT →</span>
             </Link>
           </div>
 
@@ -643,19 +649,19 @@ export default function Home() {
             <h3 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 28, color: "#000", margin: "0 0 8px" }}>Blueprint + Live</h3>
             <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 52, color: "#000", lineHeight: 1, margin: "16px 0 4px" }}>$197</div>
             <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "rgba(0,0,0,0.45)", letterSpacing: "0.12em", marginBottom: 32 }}>ONE-TIME · LIFETIME ACCESS</p>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, color: "rgba(0,0,0,0.7)", lineHeight: 1.65, marginBottom: 36, flexGrow: 1 }}>
-              Everything in Blueprint, plus monthly live sessions to answer your questions in real time, a 5-day WhatsApp activation class, and a done-for-you affiliate launch sequence.
+            <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, color: "rgba(0,0,0,0.75)", lineHeight: 1.65, marginBottom: 36, flexGrow: 1 }}>
+              The Blueprint gives you the knowledge. Blueprint + Live makes sure you actually execute it. Monthly live sessions mean your questions get answered in real time — not left to fester as doubt. The 5-day WhatsApp activation takes you from &ldquo;I understand the protocol&rdquo; to &ldquo;I am running the protocol&rdquo; in your first week.
             </p>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: 12, marginBottom: 40 }}>
-              {["Everything in The Blueprint", "Monthly Live Tutorial Sessions", "5-Day WhatsApp Activation Class", "14-Day Story Launch Sequence", "AI Monetisation Gameplan"].map((f) => (
+              {["Everything in The Blueprint", "Monthly Live Q&A — No Question Left Unanswered", "5-Day WhatsApp Activation Class", "14-Day Story Launch Sequence", "AI Monetisation Gameplan"].map((f) => (
                 <div key={f} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span style={{ color: "rgba(0,0,0,0.4)", marginTop: 1, flexShrink: 0 }}>—</span>
-                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "rgba(0,0,0,0.75)", lineHeight: 1.5 }}>{f}</span>
+                  <span style={{ color: "rgba(0,0,0,0.5)", marginTop: 1, flexShrink: 0 }}>—</span>
+                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "rgba(0,0,0,0.8)", lineHeight: 1.5 }}>{f}</span>
                 </div>
               ))}
             </div>
             <Link href="/pricing">
-              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", background: "#000", color: "#fff", cursor: "pointer" }}>ENROLL NOW →</span>
+              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", background: "#000", color: "#fff", cursor: "pointer" }}>JOIN BLUEPRINT + LIVE — DON'T GO IT ALONE →</span>
             </Link>
           </div>
 
@@ -666,10 +672,10 @@ export default function Home() {
             <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: 52, color: "var(--mv-accent)", lineHeight: 1, margin: "16px 0 4px" }}>$997</div>
             <p style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "var(--mv-n600)", letterSpacing: "0.12em", marginBottom: 32 }}>ONE-TIME · LIFETIME ACCESS</p>
             <p style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontSize: 16, color: "var(--mv-n400)", lineHeight: 1.65, marginBottom: 36, flexGrow: 1 }}>
-              The full operator stack. Macro analysis, technical analysis, arbitrage playbook, cross-border payment infrastructure, and three private 1:1 strategy calls.
+              For the operator who refuses to leave anything to chance. The Sovereign Stack layers macro and technical analysis over the Bitcoin protocol, adds a cross-border arbitrage playbook built specifically for the African diaspora opportunity, and gives you three private 1:1 strategy sessions to build a financial architecture that is entirely yours. This isn't a course. It's your edge.
             </p>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: 12, marginBottom: 40 }}>
-              {["Everything in Blueprint + Live", "Macro Masterplan (DXY, Fed, M2)", "Technical Analysis Masterclass", "Arbitrage & Cross-Border Playbook", "3 × Private 1:1 Strategy Calls"].map((f) => (
+              {["Everything in Blueprint + Live", "Macro Masterplan — DXY, Fed Cycles, M2 Supply", "Technical Analysis Masterclass", "Arbitrage & Cross-Border Diaspora Playbook", "3 × Private 1:1 Strategy Calls"].map((f) => (
                 <div key={f} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                   <span style={{ color: "var(--mv-accent)", marginTop: 1, flexShrink: 0 }}>—</span>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "var(--mv-n400)", lineHeight: 1.5 }}>{f}</span>
@@ -677,7 +683,7 @@ export default function Home() {
               ))}
             </div>
             <Link href="/pricing">
-              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", border: "1px solid var(--mv-accent)", color: "var(--mv-accent)", cursor: "pointer" }}>CLAIM THE SOVEREIGN STACK →</span>
+              <span style={{ display: "block", textAlign: "center" as const, fontFamily: "'Space Mono', monospace", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", padding: "16px 24px", background: "var(--mv-accent)", color: "#000", cursor: "pointer" }}>BUILD YOUR SOVEREIGN STACK — THIS IS YOUR EDGE →</span>
             </Link>
           </div>
         </div>

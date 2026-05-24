@@ -50,24 +50,84 @@ function PartnerTab({ jwt, refCode }: { jwt: string; refCode: string }) {
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch(`${API_BASE}/api/dashboard/partners`, {
-      headers: { Authorization: `Bearer ${jwt}` },
-    });
-    if (res.ok) setData(await res.json());
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const sb = createClient(
+        import.meta.env.VITE_SUPABASE_URL || "https://ceiyqcecfsuvmoqcayqx.supabase.co",
+        import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+        { global: { headers: { Authorization: `Bearer ${jwt}` } } }
+      );
+
+      const { data: { user } } = await sb.auth.getUser(jwt);
+      if (!user) { setLoading(false); return; }
+
+      // Get or create creator record
+      const { data: profile } = await sb.from("profiles").select("creator_id").eq("id", user.id).single();
+      let creatorId = profile?.creator_id ?? null;
+
+      if (!creatorId) {
+        // Create creator record
+        const { data: newCreator } = await sb.from("creators").insert({ handle: user.id.slice(0, 8) }).select("id").single();
+        if (newCreator) {
+          creatorId = newCreator.id;
+          await sb.from("profiles").update({ creator_id: creatorId }).eq("id", user.id);
+        }
+      }
+
+      if (!creatorId) { setLoading(false); return; }
+
+      // Fetch links
+      const { data: links } = await sb.from("creator_links")
+        .select("id, label, slug, clicks, conversions, earnings_usd")
+        .eq("creator_id", creatorId)
+        .order("created_at", { ascending: false });
+
+      // Fetch 30-day purchase stats
+      const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      const { data: purchases } = await sb.from("purchases")
+        .select("amount_paid, created_at")
+        .eq("creator_id", creatorId)
+        .gte("created_at", since)
+        .eq("status", "completed");
+
+      const revenue30d = (purchases ?? []).reduce((s, p) => s + (Number(p.amount_paid) * 0.3), 0);
+      const enrolments30d = (purchases ?? []).length;
+      const totalClicks = (links ?? []).reduce((s, l) => s + l.clicks, 0);
+      const totalConversions = (links ?? []).reduce((s, l) => s + l.conversions, 0);
+      const convRate = totalClicks > 0 ? (totalConversions / totalClicks) * 100 : 0;
+
+      setData({
+        creatorId,
+        links: (links ?? []).map((l) => ({
+          id: l.id, label: l.label, slug: l.slug,
+          url: `https://moneyverse.network/?ref=${refCode}&lnk=${l.slug}`,
+          clicks: l.clicks, conversions: l.conversions, revenue: Number(l.earnings_usd),
+        })),
+        totalClicks, totalConversions, convRate, revenue30d, enrolments30d,
+      });
+    } catch (e) {
+      console.error(e);
+    }
     setLoading(false);
-  }, [jwt]);
+  }, [jwt, refCode]);
 
   useEffect(() => { load(); }, [load]);
 
   async function createLink() {
-    if (!linkLabel.trim()) return;
+    if (!linkLabel.trim() || !data?.creatorId) return;
     setCreating(true);
-    const res = await fetch(`${API_BASE}/api/dashboard/partners`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${jwt}` },
-      body: JSON.stringify({ label: linkLabel.trim() }),
-    });
-    if (res.ok) { setLinkLabel(""); await load(); }
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const sb = createClient(
+        import.meta.env.VITE_SUPABASE_URL || "https://ceiyqcecfsuvmoqcayqx.supabase.co",
+        import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+        { global: { headers: { Authorization: `Bearer ${jwt}` } } }
+      );
+      const slug = `${linkLabel.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Math.random().toString(36).slice(2, 6)}`;
+      await sb.from("creator_links").insert({ creator_id: data.creatorId, label: linkLabel.trim(), slug });
+      setLinkLabel("");
+      await load();
+    } catch (e) { console.error(e); }
     setCreating(false);
   }
 
@@ -184,10 +244,42 @@ function AdminTab({ jwt }: { jwt: string }) {
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch(`${API_BASE}/api/admin/payouts`, {
-      headers: { Authorization: `Bearer ${jwt}` },
-    });
-    if (res.ok) { const d = await res.json(); setAffiliates(d.affiliates ?? []); }
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const sb = createClient(
+        import.meta.env.VITE_SUPABASE_URL || "https://ceiyqcecfsuvmoqcayqx.supabase.co",
+        import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+        { global: { headers: { Authorization: `Bearer ${jwt}` } } }
+      );
+
+      const { data: purchases } = await sb
+        .from("purchases")
+        .select("id, creator_id, amount_paid, gateway, commission_paid, commission_paid_at, created_at, profiles(email), creators(handle)")
+        .eq("status", "completed")
+        .not("creator_id", "is", null)
+        .order("created_at", { ascending: false });
+
+      // Group by creator
+      const map: Record<string, Affiliate> = {};
+      for (const p of (purchases ?? [])) {
+        const cid = p.creator_id as string;
+        if (!map[cid]) {
+          map[cid] = {
+            creator_id: cid,
+            handle: (p.creators as any)?.handle ?? cid.slice(0, 8),
+            email: (p.profiles as any)?.email ?? null,
+            total_sales: 0, total_gmv: 0, commission_owed: 0, commission_paid: 0, purchases: [],
+          };
+        }
+        const commission = Number(p.amount_paid) * 0.3;
+        map[cid].total_sales++;
+        map[cid].total_gmv += Number(p.amount_paid);
+        if (p.commission_paid) { map[cid].commission_paid += commission; }
+        else { map[cid].commission_owed += commission; }
+        map[cid].purchases.push({ id: p.id, amount_paid: Number(p.amount_paid), commission, commission_paid: p.commission_paid, commission_paid_at: p.commission_paid_at, created_at: p.created_at, gateway: p.gateway });
+      }
+      setAffiliates(Object.values(map));
+    } catch (e) { console.error(e); }
     setLoading(false);
   }, [jwt]);
 
@@ -197,12 +289,18 @@ function AdminTab({ jwt }: { jwt: string }) {
     const unpaidIds = affiliate.purchases.filter((p) => !p.commission_paid).map((p) => p.id);
     if (!unpaidIds.length) return;
     setPaying(affiliate.creator_id);
-    const res = await fetch(`${API_BASE}/api/admin/payouts`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${jwt}` },
-      body: JSON.stringify({ purchaseIds: unpaidIds }),
-    });
-    if (res.ok) await load();
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const sb = createClient(
+        import.meta.env.VITE_SUPABASE_URL || "https://ceiyqcecfsuvmoqcayqx.supabase.co",
+        import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+        { global: { headers: { Authorization: `Bearer ${jwt}` } } }
+      );
+      await sb.from("purchases")
+        .update({ commission_paid: true, commission_paid_at: new Date().toISOString() })
+        .in("id", unpaidIds);
+      await load();
+    } catch (e) { console.error(e); }
     setPaying(null);
   }
 

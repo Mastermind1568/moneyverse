@@ -19,7 +19,19 @@ const TICKER_ITEMS = [
   "NIGERIAN NAIRA −74% SINCE 2021",
 ];
 
-const API_BASE = import.meta.env.VITE_API_BASE || "https://moneyverse.network";
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://ceiyqcecfsuvmoqcayqx.supabase.co";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+
+async function subscribeEmail(email: string, source: string) {
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/subscribe`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` },
+    body: JSON.stringify({ email, source }),
+  });
+  const data = await res.json();
+  if (!res.ok || !data.ok) throw new Error(data.error ?? "Failed");
+  return data;
+}
 
 function FooterEmailForm() {
   const [email, setEmail] = useState("");
@@ -30,13 +42,7 @@ function FooterEmailForm() {
     if (!email.trim()) return;
     setStatus("loading");
     try {
-      const res = await fetch(`${API_BASE}/api/subscribe`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error ?? "Failed");
+      await subscribeEmail(email.trim(), "footer");
       setStatus("success");
     } catch {
       setStatus("error");
@@ -315,9 +321,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div style={{ marginTop: 60, paddingTop: 24, borderTop: "1px solid #222", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: 12 }}>
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "var(--mv-n600)" }}>
-              © 2026 Moneyverse Capital, Ltd. · Lagos · London · Dubai
-            </span>
+            <div style={{ display: "flex", flexDirection: "column" as const, gap: 6 }}>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "var(--mv-n600)" }}>
+                © 2026 Moneyverse Capital, Ltd. · Lagos · London · Dubai
+              </span>
+              <a href="mailto:hello@moneyverse.network" style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "var(--mv-accent)", letterSpacing: "0.08em" }}>
+                hello@moneyverse.network
+              </a>
+            </div>
             <div style={{ display: "flex", gap: 24 }}>
               {[
                 { label: "Terms", href: "/faq" },

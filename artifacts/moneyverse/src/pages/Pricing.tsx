@@ -66,7 +66,7 @@ function CurriculumAccordion() {
             <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 20, color: "var(--mv-accent)", transition: "transform 0.2s", transform: open === idx ? "rotate(45deg)" : "none", marginRight: 8 }}>+</span>
           </button>
           {open === idx && (
-            <div style={{ padding: "0 0 28px 88px" }}>
+            <div style={{ padding: "0 0 28px" }} className="accordion-body-pad">
               <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: m.sovereign ? "var(--mv-n400)" : "var(--mv-n600)", lineHeight: 1.7, maxWidth: 640, marginBottom: 20 }}>{m.desc}</p>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: 8 }}>
                 {m.lessons_list.map((lesson, i) => (
@@ -106,7 +106,8 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
     2: import.meta.env.VITE_PRODUCT_ID_T2 || "358f7435-921b-4367-abce-ccb7f951b437",
     3: import.meta.env.VITE_PRODUCT_ID_T3 || "fdc7821a-7575-4c0f-93bf-f98eb921d841",
   };
-  const API_BASE = import.meta.env.VITE_API_BASE || "https://moneyverse.network";
+  const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://ceiyqcecfsuvmoqcayqx.supabase.co";
+  const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
 
   async function handleCheckout() {
     if (!email) { setError("Please enter your email."); return; }
@@ -121,13 +122,12 @@ function CheckoutPanel({ tier }: { tier: typeof TIERS[0] }) {
           return code as string;
         } catch { return null; }
       })();
-      const res = await fetch(`${API_BASE}/api/checkout`, {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/checkout`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` },
         body: JSON.stringify({
           productId: PRODUCT_IDS[tier.id],
           customerEmail: email,
-          paymentMethod: method === "card" ? undefined : "bitcoin",
           tier: tier.id,
           successUrl: `${window.location.origin}/success`,
           cancelUrl: `${window.location.origin}/cancel`,
@@ -368,8 +368,10 @@ export default function Pricing() {
           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         .section-pad-responsive { padding: 100px 64px; }
+        .accordion-body-pad { padding-left: 88px; }
         @media (max-width: 768px) {
           .section-pad-responsive { padding: 60px 20px !important; }
+          .accordion-body-pad { padding-left: 16px !important; }
         }
       `}</style>
     </Layout>

@@ -1,7 +1,26 @@
-import { Link } from "wouter";
+import { useEffect } from "react";
+import { Link, useSearch } from "wouter";
 import Layout from "@/components/Layout";
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://ceiyqcecfsuvmoqcayqx.supabase.co";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+
 export default function Success() {
+  const search = useSearch();
+
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const email = params.get("email");
+    const tier = params.get("tier") ?? "t1";
+    if (!email) return;
+
+    fetch(`${SUPABASE_URL}/functions/v1/send-welcome`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` },
+      body: JSON.stringify({ email, tier }),
+    }).catch(console.error);
+  }, []);
+
   return (
     <Layout>
       <section style={{
@@ -17,7 +36,7 @@ export default function Success() {
           Payment confirmed. Check your email — we've sent your account activation link. Click it to set your password and access your dashboard.
         </p>
         <p className="mono" style={{ fontSize: 10, color: "var(--mv-n600)", letterSpacing: "0.15em", marginBottom: 48 }}>
-          ACTIVATION EMAIL SENT · support@moneyverse.network
+          ACTIVATION EMAIL SENT · hello@moneyverse.network
         </p>
         <div style={{ display: "flex", flexDirection: "column" as const, gap: 16, alignItems: "center" }}>
           <Link href="/login">
