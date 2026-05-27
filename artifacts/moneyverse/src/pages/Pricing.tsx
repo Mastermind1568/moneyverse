@@ -39,7 +39,7 @@ const TIERS = [
     id: 3, name: "Sovereign Stack", price: 997, commission: 299.10,
     tagline: "Not a course. A complete operating system for building and protecting wealth through Bitcoin — from reading the macro environment, to executing precise trades, to moving money across borders without a bank. Everything.",
     cta: "Claim The Sovereign Stack →",
-    includes: ["Everything in Blueprint + Live", "Macro Masterplan — DXY, Fed cycles, M2 supply.", "Investor Protocol — exact cycle entry zones, profit-taking schedule, and exit targets.", "Technical Analysis Masterclass — support zones, resistance levels, RSI, moving averages.", "Risk Management Framework — position sizing, portfolio allocation, and drawdown protocols.", "Money Management Strategy — the compounding playbook across multiple 4-year cycles.", "Arbitrage Playbook — 2–4% spreads between markets exist right now.", "Cross-Border Payments — pay tuition, family support, supplier invoices. No bank. No fees.", "3 × Private 1:1 Calls — we stay on screen until your full stack is live."],
+    includes: ["Everything in Blueprint + Live", "Macro Masterplan — DXY, Fed cycles, M2 supply", "Investor Protocol — exact cycle entry zones, profit-taking schedule, and exit targets", "Technical Analysis Masterclass — support zones, resistance levels, RSI, moving averages", "Risk Management Framework — position sizing, portfolio allocation, and drawdown protocols", "Money Management Strategy — the compounding playbook across multiple 4-year cycles", "Arbitrage Playbook — 2–4% spreads between markets exist right now", "Cross-Border Payments — pay tuition, family support, supplier invoices without a bank", "3 × Private 1:1 Calls — we stay on screen until your full stack is live"],
     excludes: [],
   },
 ];
@@ -239,7 +239,7 @@ export default function Pricing() {
             <span className="accent-rule lg" style={{ marginBottom: 20 }} />
             <h2 className="h-section" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}>The Curriculum</h2>
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n600)", lineHeight: 1.7, maxWidth: 600, marginTop: 16 }}>
-              Fifteen modules, sequenced for operators. Each chapter compounds on the last — from understanding what fiat extracts from you, to the African monetary sovereignty context that makes the whole thesis unavoidable.
+              Fifteen modules, sequenced for operators. Each chapter compounds on the last, from understanding what fiat extracts from you to the African monetary sovereignty context that makes the whole thesis unavoidable.
             </p>
           </div>
           <p className="mono" style={{ fontSize: 10, color: "var(--mv-n400)", letterSpacing: "0.1em" }}>Approx 11h 43min · 85 lessons · + 12 worksheets</p>
@@ -281,7 +281,7 @@ export default function Pricing() {
           </div>
         </div>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "var(--mv-n600)", lineHeight: 1.7, maxWidth: 760, marginBottom: 48 }}>
-          Every tier includes the complete 11-module Blueprint. What separates them is how far you want to go — from stopping the currency leak, to running money across borders like a professional operator. One payment. No subscription. No upsell.
+          Every tier includes the complete 11-module Blueprint. What separates them is how far you want to go: from stopping the currency leak to running money across borders like a professional operator. One payment. No subscription. No upsell.
         </p>
 
         {/* Tier grid */}

@@ -16,8 +16,8 @@ export default function Cancel() {
         </h1>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 18, color: "var(--mv-n600)", maxWidth: 480, lineHeight: 1.8, marginBottom: 40 }}>
           Your spot is still available. If you have questions before you decide, email us at{" "}
-          <a href="mailto:hello@moneyverse.network" style={{ color: "var(--mv-accent)" }}>hello@moneyverse.network</a>{" "}
-          — we respond within 24 hours.
+          <a href="mailto:hello@moneyverse.network" style={{ color: "var(--mv-accent)" }}>hello@moneyverse.network</a>.{" "}
+          We respond within 24 hours.
         </p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" as const, justifyContent: "center" }}>
           <Link href="/pricing">

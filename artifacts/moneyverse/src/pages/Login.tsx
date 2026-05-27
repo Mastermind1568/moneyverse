@@ -49,7 +49,7 @@ export default function Login() {
     if (resetError) {
       setError(resetError.message);
     } else {
-      setInfo("Check your inbox — we've sent a reset link.");
+      setInfo("Check your inbox. We've sent a reset link.");
     }
   }
 

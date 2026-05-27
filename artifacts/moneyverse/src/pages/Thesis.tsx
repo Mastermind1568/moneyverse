@@ -57,7 +57,7 @@ const CHAPTERS = [
       },
       {
         heading: "Bitcoin as Protocol, Not Product",
-        body: "People compare Bitcoin to MySpace — dismissed as the first attempt at something that will eventually be superseded by a better version. This analogy fundamentally misunderstands what Bitcoin is. MySpace was a product; Facebook was a better product. Bitcoin is a protocol. TCP/IP was not replaced by a better internet protocol — it became the foundation of the internet. Bitcoin's monetary properties are not features that can be copied — they are emergent properties of its specific history, network effects, and security. You can copy the code. You cannot copy the network, the trust, or the immutability.",
+        body: "People compare Bitcoin to MySpace — dismissed as the first attempt at something that will eventually be superseded by a better version. This analogy fundamentally misunderstands what Bitcoin is. MySpace was a product. Facebook was a better product. Bitcoin is a protocol. TCP/IP was not replaced by a better internet protocol — it became the foundation of the internet. Bitcoin's monetary properties are not features that can be copied — they are emergent properties of its specific history, network effects, and security. You can copy the code. You cannot copy the network, the trust, or the immutability.",
       },
       {
         heading: "Monetary Sovereignty in Practice",
